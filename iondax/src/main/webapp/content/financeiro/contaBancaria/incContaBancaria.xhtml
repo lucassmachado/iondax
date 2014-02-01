@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="../../../template/template_gerenciador.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:param name="titulo" value="IONDAX - Design e Tecnologia"/>
+	
+	<ui:param name="tabAtiva" value="2"/>
+	
+	<ui:define name="importacaoAdicional">
+		<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/content/financeiro/financeiro.css" />
+	</ui:define>
+	
+	<ui:define name="body_content">
+		<h:form id="formInclusaoConta">
+			
+			<h:panelGrid>
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Nome Personalizado da Conta"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{financeiroBean.conta.nomeContaBancaria}"/>
+				</h:panelGroup>
+			</h:panelGrid>
+			
+			
+			<h:panelGrid columns="3" id="gridInclusaoConta">
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Banco"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Agência"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Conta"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu id="comboBancos" value="#{financeiroBean.numBancoSelecionado}">
+						<f:selectItem itemValue="0" itemLabel="::SELECIONE::"></f:selectItem>
+						<f:selectItems value="#{financeiroBean.listaBancos}"/>
+						<p:ajax event="change" listener="#{financeiroBean.trocaCarteira}" update=":formInclusaoConta:gridInclusaoContaCarteiras"/>
+					</p:selectOneMenu>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{financeiroBean.conta.agencia}"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{financeiroBean.conta.nroConta}"/>
+				</h:panelGroup>
+			</h:panelGrid>
+			
+			
+			<h:panelGrid id="gridInclusaoContaCarteiras">
+			
+				<h:panelGrid columns="3" id="gridInclusaoContaCarteiraBancoBrasil" rendered="#{financeiroBean.numBancoSelecionado == 1}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Convênio"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Variação de Carteira"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraBancoBrasil" value="#{financeiroBean.conta.carteira}">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:inputText id="convenioCarteiraBancoBrasil" value="#{financeiroBean.conta.convenio}"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:inputText id="variacaoCarteiraBancoBrasil" value="#{financeiroBean.conta.variacaoCarteira}"/>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				<h:panelGrid id="nroUltimoNossoNumeroGeradoPelaEmpresa">
+					<h:panelGroup>
+						<p:outputLabel value="Último Nosso número gerado pela empresa" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputMask mask="#{financeiroBean.mascaraNossoNumero}" value="#{financeiroBean.conta.nossoNumeroInicial}"/>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraBancoNordeste" rendered="#{financeiroBean.numBancoSelecionado == 4}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraBancoNordeste">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraBanestes" rendered="#{financeiroBean.numBancoSelecionado == 21}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraBanestes">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraSantander" rendered="#{financeiroBean.numBancoSelecionado == 33}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraSantander">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraBanrisul" rendered="#{financeiroBean.numBancoSelecionado == 41}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraBanrisul">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraCaixaEconomica" rendered="#{financeiroBean.numBancoSelecionado == 104}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraBancoCaixaEconomica">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraNossaCaixa" rendered="#{financeiroBean.numBancoSelecionado == 151}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraNossaCaixa">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraBradesco" rendered="#{financeiroBean.numBancoSelecionado == 237}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraBradesco">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+					
+				</h:panelGrid>
+				
+				
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraItau" rendered="#{financeiroBean.numBancoSelecionado == 341}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraBancoItau">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraBancoReal" rendered="#{financeiroBean.numBancoSelecionado == 356}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraBancoReal">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraMercantilDoBrasil" rendered="#{financeiroBean.numBancoSelecionado == 389}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraMercantilDoBrasil">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraHSBC" rendered="#{financeiroBean.numBancoSelecionado == 399}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraHSBC">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraUnibanco" rendered="#{financeiroBean.numBancoSelecionado == 409}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraUnibanco">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraSafra" rendered="#{financeiroBean.numBancoSelecionado == 422}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraSafra">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraBancoRural" rendered="#{financeiroBean.numBancoSelecionado == 453}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraBancoRural">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraSicredi" rendered="#{financeiroBean.numBancoSelecionado == 748}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraSicredi">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				
+				
+				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraBancoob" rendered="#{financeiroBean.numBancoSelecionado == 756}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCarteiraBancoob">
+							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+			</h:panelGrid>
+			
+			
+			<h:panelGrid id="dadosDaConta" columns="2">
+				<h:panelGroup>
+					<p:outputLabel value="Saldo atual da conta" styleClass="textIondax"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:outputLabel value="Última data de visualização do saldo" styleClass="textIondax"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputMask mask="999999999999999.99" size="20" value="#{financeiroBean.conta.saldoAtual}"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:calendar value="#{financeiroBean.conta.ultimaVisualizacaoSaldo}"/>
+				</h:panelGroup>
+			</h:panelGrid>
+			
+			<p:commandButton value="Incluir Conta" action="#{financeiroBean.incluirConta}"/>
+			
+			<h:form id="Exemplo-Bopepo-com-JSF" rendered="false">
+				<h:commandButton value="Download" action="#{financeiroBean.download}" />
+			</h:form>
+		
+		</h:form>
+	</ui:define>
+</ui:composition>

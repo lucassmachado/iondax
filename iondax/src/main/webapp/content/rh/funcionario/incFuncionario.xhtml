@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="../../../template/template_gerenciador.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:param name="titulo" value="IONDAX - Design e Tecnologia"/>
+	
+	<ui:param name="tabAtiva" value="7"/>
+	
+	<ui:define name="importacaoAdicional">
+		<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/content/rh/rh.css" />
+	</ui:define>
+	
+	<ui:define name="body_content">
+		<h:form id="formIncFuncionario">
+
+		<p:growl id="messages" showDetail="true"/>
+
+			<p:fieldset legend="Dados de Acesso" styleClass="fieldSet" toggleable="true" collapsed="true" toggleSpeed="500" style="margin-top:10px;"> 
+				<h:panelGrid columns="6">
+				
+					<h:panelGroup style="float:right;">
+		        		<h:outputLabel for="username" value="Username:" styleClass="textIondax"/>
+		        	</h:panelGroup>
+		        	<h:panelGroup>
+		        		<h:inputText id="username" value="#{usuarioBean.usuario.username}" size="15"/>
+		        	</h:panelGroup>
+		        	
+		        	<h:panelGroup style="margin-left:5px;">
+		        		<h:outputLabel for="senha" value="Senha:" styleClass="textIondax"/>
+		        	</h:panelGroup>
+		        	<h:panelGroup>
+		        		<h:inputSecret id="senha" value="#{usuarioBean.usuario.senha}" size="15"/>
+		        	</h:panelGroup>
+		        	
+		        	<h:panelGroup style="margin-left:5px;">
+		        		<h:outputLabel for="confSenha" value="Confirma Senha:" styleClass="textIondax"/>
+		        	</h:panelGroup>
+		        	<h:panelGroup>
+		        		<h:inputSecret id="confSenha" value="#{usuarioBean.usuario.senha}" size="15"/>
+		        	</h:panelGroup>
+				</h:panelGrid>
+			</p:fieldset>
+
+			
+			<p:fieldset legend="Dados Pessoais" styleClass="fieldSet" toggleable="true" collapsed="true" toggleSpeed="500" style="margin-top:10px;">  
+		        <h:panelGrid columns="3">
+		        
+		        	<h:panelGroup>
+		        		<h:panelGrid>
+		        			<h:panelGroup>
+				        		<h:outputLabel for="nomeFunc" value="Nome:" styleClass="textIondax"/>
+				        		<h:inputText id="nomeFunc" value="#{usuarioBean.usuario.nome}" size="17"/>
+		        			</h:panelGroup>
+		        		</h:panelGrid>
+		        	</h:panelGroup>  
+		        	
+		        	<h:panelGroup>
+		        		<h:panelGrid>
+							<h:panelGroup>
+								<h:outputLabel for="idadeFunc" value="Idade:" styleClass="textIondax"/>
+				        		<p:inputMask mask="99" id="idadeFunc" value="#{usuarioBean.usuario.idade}" size="1"/>
+							</h:panelGroup>
+		        		</h:panelGrid>
+		        	</h:panelGroup> 
+		        	
+		        	<h:panelGroup> 
+		        		<h:panelGrid columns="2">
+		        			<h:panelGroup>
+				        		<h:outputLabel value="Sexo:" styleClass="textIondax"/>
+		        			</h:panelGroup>
+			        		<h:panelGroup>
+				        		<p:selectOneRadio value="#{usuarioBean.usuario.sexo}">
+			    	    			<f:selectItem itemLabel="M" itemValue="Masculino"/>
+			        				<f:selectItem itemLabel="F" itemValue="Feminino"/>
+			        			</p:selectOneRadio>
+			        		</h:panelGroup>
+		        		</h:panelGrid>
+		        	</h:panelGroup> 
+		        	
+		        	<h:panelGroup>
+		        		<h:panelGrid columns="2">
+			        		<h:panelGroup>
+				        		<h:outputLabel for="estadoCivilFunc" value="Estado Civil:" styleClass="textIondax"/>
+			        		</h:panelGroup>
+			        		<h:panelGroup>
+				        		<p:selectOneMenu id="estadoCivilFunc" style="margin-top:7px;" value="#{rhBean.usuario.estadoCivil}">
+				        			<f:selectItem itemLabel="Solteiro(a)" itemValue="Solteiro(a)"/>
+				        			<f:selectItem itemLabel="Casado(a)" itemValue="Casado(a)"/>
+				        			<f:selectItem itemLabel="Separado(a)" itemValue="Separado(a)"/>
+				        			<f:selectItem itemLabel="Divorciado(a)" itemValue="Divorciado(a)"/>
+				        			<f:selectItem itemLabel="Viúvio(o)" itemValue="Viúvio(o)"/>
+				        		</p:selectOneMenu>
+			        		</h:panelGroup>
+		        		</h:panelGrid>
+		        	</h:panelGroup>
+		        	
+		        	<h:panelGroup/>
+		        	
+		        	<h:panelGroup>
+		        		<h:panelGrid>
+		        			<h:panelGroup>
+		        				<h:outputLabel for="dtNascFunc" value="Data Nascimento:" styleClass="textIondax"/>
+				        		<p:calendar id="dtNascFunc" value="#{rhBean.usuario.dataNascimento}" pattern="dd/MM/yyyy" navigator="true" showButtonPanel="true" 
+				        			mode="popup" showOn="button" popupIconOnly="true" size="7" readonly="true"/>
+		        			</h:panelGroup>
+		        		</h:panelGrid>
+		        	</h:panelGroup> 
+		        	
+		        	<h:panelGroup>
+		        		<h:panelGrid>
+			        		<h:panelGroup>
+			    	    		<h:outputLabel for="rgFunc" value="RG:" styleClass="textIondax"/>
+			        			<p:inputMask mask="99.999.999-9" id="rgFunc" value="#{usuarioBean.usuario.rg}"  size="8"/>
+		    	    		</h:panelGroup>
+		        		</h:panelGrid>
+		        	</h:panelGroup> 
+		        	 
+		        	<h:panelGroup>
+		        		<h:panelGrid>
+		        			<h:panelGroup>
+		        				<h:outputLabel for="cpfFunc" value="CPF:" styleClass="textIondax"/>
+		        				<p:inputMask mask="999.999.999-99" id="cpfFunc" value="#{usuarioBean.usuario.cpf}" size="11"/>
+		        			</h:panelGroup>
+		        		</h:panelGrid>
+		        		
+		        	</h:panelGroup> 
+					
+					<h:panelGroup/>
+					
+					<h:panelGroup>
+						<h:panelGrid>
+			        		<h:panelGroup>
+								<h:outputLabel for="telFunc" value="Telefone:" styleClass="textIondax"/>
+				        		<p:inputMask mask="(99)9999-9999" id="telFunc" size="10" value="#{rhBean.usuario.contato.numTelefone}"/>
+				        	</h:panelGroup>
+				        </h:panelGrid>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<h:panelGrid>
+							<h:panelGroup>
+								<h:outputLabel for="celFunc" value="Celular:" styleClass="textIondax"/>
+		        				<p:inputMask mask="(99)9-9999-9999" id="celFunc" size="11" value="#{rhBean.usuario.contato.numCelular}"/>
+							</h:panelGroup>
+						</h:panelGrid>
+					</h:panelGroup>
+					
+					<h:panelGroup/>
+		        	
+		        </h:panelGrid>  
+		        
+		        <h:panelGrid style="margin-top:10px;" cellpadding="0" cellspacing="0">
+		        
+		        	<h:panelGroup> 
+		        		<h:outputLabel value="Naturalidade:" styleClass="textIondax"/>
+		        	</h:panelGroup>
+		        	
+		        	<h:panelGroup>
+				        <h:panelGrid columns="4" width="300">
+							
+							<h:panelGroup>
+								<h:outputLabel value="Estado:" for="naturalcboEstado" styleClass="textIondax"/>
+							</h:panelGroup>
+							
+							<h:panelGroup>
+				        		<p:selectOneMenu id="naturalcboEstado" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.naturalUf}">
+				        			<f:selectItems value="#{utils.comboUfs}"/>
+				        		</p:selectOneMenu>
+				        	</h:panelGroup>
+				        	
+							<h:panelGroup>
+								<h:outputLabel value="Cidade:" for="naturalCboCidade" styleClass="textIondax"/>
+							</h:panelGroup>
+							
+							<h:panelGroup>
+				        		<p:selectOneMenu id="naturalCboCidade" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.naturalCid}" disabled="true">
+				        			<f:selectItems value="#{utils.comboUfs}"/>
+				        		</p:selectOneMenu>
+				        	</h:panelGroup>
+				        	  
+						</h:panelGrid>
+		        	</h:panelGroup>
+		        	
+		        </h:panelGrid>
+		        
+		    </p:fieldset>
+		    
+		    
+		    <p:fieldset legend="Escolaridade" styleClass="fieldSet" toggleable="true" collapsed="true" toggleSpeed="500" style="margin-top:10px;">
+		    	
+		    	<p:fieldset legend="Formação Academica" styleClass="subFieldSet" toggleable="true" collapsed="true" toggleSpeed="500" style="margin-top:10px;">
+			    	
+			    	<h:panelGrid cellpadding="0" cellspacing="0" columns="1">
+				    	
+				    	<h:panelGroup>
+							<h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+						    	<h:panelGroup style="float:left;width:137px;">
+						    		<p:outputLabel value="Nome Instituição:" styleClass="textIondax" />
+						    	</h:panelGroup>
+						    	<h:panelGroup>
+						    		<p:inputText value="Universidade Educacional Nove de Julho - Uninove" size="70" styleClass="textIondax"/>
+						    	</h:panelGroup>
+							</h:panelGrid>
+				    	</h:panelGroup>
+				    	
+				    	<h:panelGroup>
+				    		<h:panelGrid columns="4" cellpadding="0" cellspacing="0" style="margin-top:5px;">
+				    	
+						    	<h:panelGroup>
+						    		<p:outputLabel value="Nível de Formação:" styleClass="textIondax"/>
+						    	</h:panelGroup>
+						    	<h:panelGroup>
+						    		<p:selectOneMenu value="4">
+						    			<f:selectItem itemLabel="Ensino Fundamental" itemValue="1"/>
+						    			<f:selectItem itemLabel="Ensino Médio Regular" itemValue="2"/>
+						    			<f:selectItem itemLabel="Ensino Médio Técnico" itemValue="3"/>
+						    			<f:selectItem itemLabel="Ensino Superior" itemValue="4"/>
+						    			<f:selectItem itemLabel="Pós Graduação" itemValue="5"/>
+						    			<f:selectItem itemLabel="Mestrado" itemValue="6"/>
+						    			<f:selectItem itemLabel="Doutorado" itemValue="7"/>
+						    			<f:selectItem itemLabel="PHD" itemValue="8"/>
+						    		</p:selectOneMenu>
+						    	</h:panelGroup>
+						    	
+						    	<h:panelGroup style="float:left;margin-left:5px;">
+						    		<p:outputLabel value="Status:" styleClass="textIondax"/>
+						    	</h:panelGroup>
+						    	<h:panelGroup>
+						    		<p:selectOneMenu value="1">
+						    			<f:selectItem itemLabel="Completo" itemValue="1"/>
+						    			<f:selectItem itemLabel="Incompleto" itemValue="2"/>
+						    			<f:selectItem itemLabel="Cursando" itemValue="3"/>
+						    		</p:selectOneMenu>
+						    	</h:panelGroup>
+						    	
+						    	<h:panelGroup>
+						    		<p:outputLabel value="Ano Inicio:" for="anoInicioCurso" styleClass="textIondax"/>
+						    	</h:panelGroup>
+						    	<h:panelGroup>
+						    		<p:calendar id="anoInicioCurso" pattern="dd/MM/yyyy" navigator="true" showButtonPanel="true" 
+						        			mode="popup" showOn="button" popupIconOnly="true" size="7" readonly="true"/>
+						    	</h:panelGroup>
+						    	
+						    	<h:panelGroup style="float:left;margin-left:5px;">
+						    		<p:outputLabel value="Ano Fim:" for="anoConclusaoCurso" styleClass="textIondax"/>
+						    	</h:panelGroup>
+						    	<h:panelGroup>
+						    		<p:calendar id="anoConclusaoCurso" pattern="dd/MM/yyyy" navigator="true" showButtonPanel="true" 
+						        			mode="popup" showOn="button" popupIconOnly="true" size="7" readonly="true"/>
+						    	</h:panelGroup>
+						    	
+						    	<h:panelGroup>
+						    		<p:outputLabel value="UF:" for="cboUFEscolaridade" styleClass="textIondax"/>
+						    	</h:panelGroup>
+						    	<h:panelGroup>
+						    		<p:selectOneMenu id="cboUFEscolaridade">
+						    			<f:selectItems value="#{utils.comboUfs}"/>
+						    		</p:selectOneMenu>
+						    	</h:panelGroup>
+						    	
+						    	<h:panelGroup style="float:left;margin-left:5px;">
+						    		<p:outputLabel value="Cidade:" for="cboCidadeEscolaridade" styleClass="textIondax"/>
+						    	</h:panelGroup>
+						    	<h:panelGroup>
+						    		<p:selectOneMenu id="cboCidadeEscolaridade">
+						    			<f:selectItems value="#{utils.comboUfs}"/>
+						    		</p:selectOneMenu>
+						    	</h:panelGroup>
+						    	
+					    	
+					    	</h:panelGrid>
+				    	
+				    	</h:panelGroup>
+			    	</h:panelGrid>
+		    	</p:fieldset>
+		    	
+		    
+		    </p:fieldset>
+		    
+		    
+		    
+		    <p:fieldset legend="Endereço" styleClass="fieldSet" toggleable="true" collapsed="true" toggleSpeed="500" style="margin-top:10px;"> 
+		    	
+		    	<h:panelGrid columns="3">
+			    	<h:panelGroup>
+						<h:outputLabel value="CEP:" for="cepEnd" styleClass="textIondax"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+		        		<p:inputMask id="cepEnd" mask="99999-999" value="#{rhBean.usuario.endereco.cep}" size="6">
+		        			<p:ajax update="linkVisualizarMapa" event="blur"/>
+		        		</p:inputMask>
+		        	</h:panelGroup>
+		        	
+		        	<h:panelGroup>
+		        		<h:outputLink id="linkVisualizarMapa" value="http://www.google.com.br/maps" target="_blank">
+		        			<f:param name="hl" value="pt-BR"/>
+		        			<f:param name="output" value="search"/>
+		        			<f:param name="q" value="#{rhBean.usuario.endereco.cep}"/>
+ 		        			<h:outputLabel value="Visualizar Mapa" styleClass="textLinkIondax" />
+		        		</h:outputLink>
+		        	</h:panelGroup>
+		        	
+		    	</h:panelGrid>
+		    	
+		    	<h:panelGrid columns="6">
+					
+					<h:panelGroup>
+						<h:outputLabel value="Estado:" for="cboEstadoEnd" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+		        		<p:selectOneMenu id="cboEstadoEnd" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.cidade.uf}">
+		        			<f:selectItems value="#{utils.comboUfs}"/>
+		        		</p:selectOneMenu>
+		        	</h:panelGroup>
+		        	
+					<h:panelGroup style="margin-left:5px;">
+						<h:outputLabel value="Cidade:" for="cboCidEnd" styleClass="textIondax" />
+					</h:panelGroup>
+					<h:panelGroup>
+		        		<p:selectOneMenu id="cboCidEnd" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.cidade.descCidade}" disabled="true">
+		        			<f:selectItems value="#{utils.comboUfs}"/>
+		        		</p:selectOneMenu>
+		        	</h:panelGroup>
+		        	
+					<h:panelGroup style="margin-left:5px;">
+						<h:outputLabel value="Bairro:" for="cboBairroEnd" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+		        		<p:selectOneMenu id="cboBairroEnd" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.bairro.descBairro}" disabled="true">
+		        			<f:selectItems value="#{utils.comboUfs}"/>
+		        		</p:selectOneMenu>
+		        	</h:panelGroup>
+		        	
+				</h:panelGrid>
+				
+				<h:panelGrid columns="4">
+					<h:panelGroup>
+						<p:outputLabel value="Logradouro:" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+		        		<p:inputText id="descEnd" size="30" value="#{rhBean.usuario.endereco.descEndereco}"/>
+		        	</h:panelGroup>
+		        	
+					<h:panelGroup style="margin-left:5px;">
+						<h:outputLabel value="Numero:" for="nroEnd" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+		        		<p:inputMask id="nroEnd" mask="99999" size="2" value="#{rhBean.usuario.endereco.numero}"/>
+		        	</h:panelGroup>
+				</h:panelGrid>
+				
+		    </p:fieldset>
+		    
+		    
+		    <p:fieldset legend="Carteira de Trabalho" styleClass="fieldSet" toggleable="true" collapsed="true" toggleSpeed="500" style="margin-top:10px;"> 
+		    	<h:panelGrid columns="8">
+					
+					<h:panelGroup>
+						<h:outputLabel value="Numero:" for="nroCTFunc" styleClass="textIondax"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+		        		<p:inputMask id="nroCTFunc" mask="999999" size="4" value="#{rhBean.usuario.funcionario.ctps.numero}"/>
+		        	</h:panelGroup>
+		        	
+					<h:panelGroup>
+						<h:outputLabel value="Série:" for="serieCTFunc" styleClass="textIondax"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+		        		<p:inputMask id="serieCTFunc" mask="99999" size="4" value="#{rhBean.usuario.funcionario.ctps.serie}"/>
+		        	</h:panelGroup>
+		        	
+					<h:panelGroup>
+						<h:outputLabel value="-" for="estadoSerieCTFunc"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+		        		<p:selectOneMenu id="estadoSerieCTFunc" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.funcionario.ctps.ufEmissao}">
+		        			<f:selectItems value="#{utils.comboUfs}"/>
+		        		</p:selectOneMenu>
+		        	</h:panelGroup>
+		        	
+		        	<h:panelGroup>
+						<h:outputLabel value="Data Emissão:" for="dtEmissaoCTFunc" styleClass="textIondax"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+		        		<p:calendar id="dtEmissaoCTFunc" value="#{usuarioBean.usuario.funcionario.ctps.dataEmissao}" pattern="dd/MM/yyyy" navigator="true" showButtonPanel="true" 
+		        		mode="popup" showOn="button" popupIconOnly="true" size="7" readonly="true"/>
+		        	</h:panelGroup>
+		        	  
+				</h:panelGrid>
+		    </p:fieldset>
+		    
+		    
+		    <p:fieldset legend="Titulo Eleitoral" styleClass="fieldSet" toggleable="true" collapsed="true" toggleSpeed="500" style="margin-top:10px;">
+		    	
+		    	<h:panelGrid columns="6">
+		    		<h:panelGroup>
+		    			<h:outputLabel value="Número:" for="nroTitFunc" styleClass="textIondax"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<p:inputMask id="nroTitFunc" mask="9999.9999.9999" size="11"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<h:outputLabel value="Seção:" for="nroSecTitFunc" styleClass="textIondax"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<p:inputMask id="nroSecTitFunc" mask="9999" size="1"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<h:outputLabel value="Zona:" for="nroZnTitFunc" styleClass="textIondax"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<p:inputMask id="nroZnTitFunc" mask="999" size="1"/>
+		    		</h:panelGroup>
+		    	</h:panelGrid>
+		    	
+		    </p:fieldset>
+		    
+		    
+		    <p:fieldset legend="Beneficios" styleClass="fieldSet" collapsed="true" toggleable="true" toggleSpeed="500" style="margin-top:10px;">
+	    		
+	    		<h:panelGrid cellpadding="0" cellspacing="0" columns="2">
+	    			<h:panelGroup style="float:left;margin-bottom:10px;">
+	    				<p:selectBooleanCheckbox/>
+	    			</h:panelGroup>
+	    			<h:panelGroup style="float:left;margin-bottom:10px;">
+		    			<p:outputLabel value="Cesta Básica" styleClass="textIondax"/>
+	    			</h:panelGroup>
+	    			<h:panelGroup>
+						<p:selectBooleanCheckbox/>	    				
+	    			</h:panelGroup>
+	    			<h:panelGroup>
+						<p:outputLabel value="Auxílio Creche" styleClass="textIondax"/>
+	    			</h:panelGroup>
+	    		
+	    			<h:panelGroup>
+	    				<p:selectBooleanCheckbox/>
+	    			</h:panelGroup>
+	    			<h:panelGroup style="width:97%;">
+    					<p:fieldset id="filedSetMenorTransporteBeneficios" collapsed="true" legend="Vale Transporte - Ida/Volta" styleClass="subFieldSet" toggleable="true" toggleSpeed="500" style="margin-top:10px;">
+		    		
+			    			<h:panelGrid id="gridInclusaoTransporte" columns="2" style="float:left; vertical-align:top;">
+					    		<h:panelGroup>
+					    			<h:outputLabel value="Tipo de Transporte:" for="tipoTransporte" styleClass="textIondax"/>
+					    		</h:panelGroup>
+					    		
+					    		<h:panelGroup>
+					    			<p:selectOneMenu value="#{rhBean.transporte.descTransporte}" id="tipoTransporte">
+					    				<f:selectItems value="#{rhBean.comboTransportes}"/>
+					    			</p:selectOneMenu>
+					    		</h:panelGroup>
+					    		
+					    		<h:panelGroup>
+					    			<h:outputLabel value="Valor do Vale-Transporte:" for="vlrTransporte" styleClass="textIondax"/>
+					    		</h:panelGroup>
+					    		
+					    		<h:panelGroup>
+					    			<p:inputMask id="vlrTransporte" mask="99.99" size="5" value="#{rhBean.transporte.valorTransporte}" >
+					    				<p:ajax event="blur" listener="#{rhBean.ativarDesativarBtnIncluir}" update="btnIncluirTransporte" />
+					    			</p:inputMask>
+					    		</h:panelGroup>
+					    		
+					    		<h:panelGroup style="text-align:center;">
+					    			<p:commandButton id="btnEscondidoTransporte" action="#{rhBean.ativarDesativarBtnIncluir}" update="btnIncluirTransporte" style="display:none;"></p:commandButton>
+					    			<p:commandButton id="btnIncluirTransporte" value="Incluir" disabled="#{rhBean.desativaIncluir}" action="#{rhBean.incluirTransporte}" icon="ui-icon-circle-plus" update="gridInclusaoTransporte,tabelaValeTransporte"/>
+					    		</h:panelGroup>
+					    		<h:panelGroup style="text-align:center;">
+					    			<p:commandButton id="btnExcluirTransporte" value="Excluir" update="tabelaValeTransporte" icon="ui-icon-circle-close" onclick="dialogoExcluirTransporte.show()" type="button" disabled="#{rhBean.desativaExcluir}"/>
+					    		</h:panelGroup>
+		   					</h:panelGrid>
+		
+							<p:dataTable id="tabelaValeTransporte" value="#{rhBean.listaValeTransportes}" selection="#{rhBean.listaValeTransportesSelecionados}" 
+								var="transporte" style="float:left; width:30%; margin-left:15px;" rowKey="#{transporte.codBeneficioTransporte}">
+								
+								<f:facet name="header">  
+						            Vale Transporte
+						        </f:facet> 
+		
+								<p:ajax event="rowSelect" listener="#{rhBean.ativaBtnExcluirTransporte}" update=":formIncFuncionario:btnExcluirTransporte"/>
+								<p:ajax event="toggleSelect" listener="#{rhBean.selecionarTodosTansportes}" update=":formIncFuncionario:btnExcluirTransporte"/>
+								
+								<p:ajax event="rowSelectCheckbox" listener="#{rhBean.ativaBtnExcluirTransporte}" update=":formIncFuncionario:btnExcluirTransporte"/>
+		     						<p:ajax event="rowUnselectCheckbox" listener="#{rhBean.desativaBtnExcluirTransporte}" update=":formIncFuncionario:btnExcluirTransporte"/>
+								
+								<p:column selectionMode="multiple" style="width:2%" />
+								
+								<p:column headerText="Transporte">  
+						            <h:outputText value="#{transporte.descTransporte}" />  
+						        </p:column>  
+						  
+						        <p:column headerText="Valor">  
+						            <h:outputText value="#{transporte.valorTransporte}" />  
+						        </p:column>  
+						  
+							</p:dataTable>
+							<p:confirmDialog header="Excluindo..." id="confirmacaoExclusao" width="250" widgetVar="dialogoExcluirTransporte"
+							 message="Tem certeza que deseja excluir os itens selecionados ? " showEffect="explode" severity="alert" >
+								
+								<p:commandButton id="btnSim" value="Sim" update="gridInclusaoTransporte,tabelaValeTransporte" oncomplete="dialogoExcluirTransporte.hide()"  
+		                 					actionListener="#{rhBean.excluirTransporte}" />
+		                 				
+		             				<p:commandButton id="btnNao" value="Não" onclick="dialogoExcluirTransporte.hide()" type="button" /> 
+		                 				
+							</p:confirmDialog>
+		
+						</p:fieldset>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+	    				<p:selectBooleanCheckbox/>
+	    			</h:panelGroup>
+	    			<h:panelGroup style="width:97%;">
+						<p:fieldset id="filedSetMenorAMBeneficios" collapsed="true" legend="Assistência Médica" styleClass="subFieldSet" toggleable="true" toggleSpeed="500" style="margin-top:10px;">
+		    		
+		    		
+				    		<p:dataTable>
+				    			<f:facet name="header">  
+						            Planos Médicos
+						        </f:facet> 
+						        
+				    			<p:column headerText="Ass. Médica">
+				    				
+				    			</p:column>
+				    			<p:column headerText="Plano">
+				    				
+				    			</p:column>
+				    			<p:column headerText="Valor do Plano">
+				    				
+				    			</p:column>
+				    			<p:column headerText="Valor disponibilizado">
+				    				
+				    			</p:column>
+				    			
+				    		</p:dataTable>
+				    		
+						</p:fieldset>
+					</h:panelGroup>
+				
+					<h:panelGroup>
+	    				<p:selectBooleanCheckbox/>
+	    			</h:panelGroup>
+	    			<h:panelGroup style="width:97%;">
+						<p:fieldset id="filedSetMenorAOBeneficios" collapsed="true" legend="Assistência Odontológica" styleClass="subFieldSet" toggleable="true" toggleSpeed="500" style="margin-top:10px;">
+				
+								<p:dataTable>
+					    			<f:facet name="header">  
+							            Planos Odontológicos
+							        </f:facet> 
+					    			<p:column headerText="Ass. Odontológica">
+					    				
+					    			</p:column>
+					    			<p:column headerText="Plano">
+					    				
+					    			</p:column>
+					    			<p:column headerText="Valor do Plano">
+					    				
+					    			</p:column>
+					    			<p:column headerText="Valor disponibilizado">
+					    				
+					    			</p:column>
+					    			
+					    		</p:dataTable>
+								
+							</p:fieldset>
+					</h:panelGroup>
+				
+					<h:panelGroup>
+	    				<p:selectBooleanCheckbox/>
+	    			</h:panelGroup>
+	    			<h:panelGroup style="width:97%;">
+						<p:fieldset id="filedSetMenorAlimentacaoBeneficios" collapsed="true" legend="Alimentação" styleClass="subFieldSet" toggleable="true" toggleSpeed="500" style="margin-top:10px;">
+				
+							<p:dataTable width="45%" style="float:left;">
+								<f:facet name="header">  
+						            Vale Refeição
+						        </f:facet> 
+				    			<p:column headerText="Valor do Benefício">
+				    				
+				    			</p:column>
+				    			<p:column headerText="Valor disponibilizado">
+				    				
+				    			</p:column>
+				    			
+				    		</p:dataTable>
+				    		
+							<p:dataTable width="45%" style="float:left;margin-left:20px;">
+								<f:facet name="header">  
+						            Vale Alimentação
+						        </f:facet> 
+				    			<p:column headerText="Valor do Benefício">
+				    				
+				    			</p:column>
+				    			<p:column headerText="Valor disponibilizado">
+				    				
+				    			</p:column>
+				    			
+				    		</p:dataTable>
+				
+						</p:fieldset>
+					</h:panelGroup>
+				
+					<h:panelGroup>
+	    				<p:selectBooleanCheckbox/>
+	    			</h:panelGroup>
+	    			<h:panelGroup style="width:97%;">
+						<p:fieldset id="filedSetMenorSeguroBeneficios" collapsed="true" legend="Seguro de Vida" styleClass="subFieldSet" toggleable="true" toggleSpeed="500" style="margin-top:10px;">
+					
+							<p:dataTable>
+								<f:facet name="header">  
+						            Seguros de vida
+						        </f:facet> 
+				    			<p:column headerText="Seguro">
+				    				
+				    			</p:column>
+				    			<p:column headerText="Capital">
+				    				
+				    			</p:column>
+				    			<p:column headerText="Custo para a empresa">
+				    				
+				    			</p:column>
+				    			<p:column headerText="Custo para o empregado">
+				    				
+				    			</p:column>
+				    			
+				    		</p:dataTable>
+						
+						</p:fieldset>
+					</h:panelGroup>
+				
+				</h:panelGrid>
+		    </p:fieldset>
+		    
+			<p:fieldset legend="Conta Bancária" styleClass="fieldSet" toggleable="true" collapsed="true" toggleSpeed="500" style="margin-top:10px;">
+				
+				<h:panelGrid columns="6">
+		    		<h:panelGroup>
+		    			<h:outputLabel value="Banco:" for="banco" styleClass="textIondax"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<p:inputMask id="banco" size="3" mask="9999"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<h:outputLabel value="Agencia:" for="agencia" styleClass="textIondax"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<p:inputMask id="agencia" mask="99999" size="4"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<h:outputLabel value="Conta:" for="conta" styleClass="textIondax"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<p:inputMask id="conta" maxlength="15" size="15"/>
+		    		</h:panelGroup>
+		    		
+		    	</h:panelGrid>
+				
+			</p:fieldset>
+			
+			
+			<p:fieldset legend="Cargo" styleClass="fieldSet" toggleable="true" collapsed="true" toggleSpeed="500" style="margin-top:10px;">
+				
+				<h:panelGrid columns="6">
+					
+					<h:panelGroup>
+		    			<h:outputLabel value="Filial:" for="filial" styleClass="textIondax"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<p:selectOneMenu id="filial" size="30">
+		    				<f:selectItem itemLabel="Alphaville"/>
+		    				<f:selectItem itemLabel="Osasco"/>
+		    				<f:selectItem itemLabel="São Paulo"/>
+		    			</p:selectOneMenu>
+		    		</h:panelGroup>
+	
+		    		<h:panelGroup>
+		    			<h:outputLabel value="Função:" for="cargo" styleClass="textIondax"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<p:selectOneMenu id="cargo" size="30">
+		    				<f:selectItem itemLabel="Programador"/>
+		    				<f:selectItem itemLabel="Gerente"/>
+		    				<f:selectItem itemLabel="SubGerente"/>
+		    			</p:selectOneMenu>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<h:outputLabel value="Salário:" for="salario" styleClass="textIondax"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<p:inputMask id="salario" mask="99999.99" size="11"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<h:outputLabel value="Setor:" for="setor" styleClass="textIondax"/>
+		    		</h:panelGroup>
+
+		    		<h:panelGroup>
+		    			<p:inputText id="setor"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    			<h:outputLabel value="Tipo Contratação:" for="tipoContratacao" styleClass="textIondax"/>
+		    		</h:panelGroup>
+
+		    		<h:panelGroup>
+		    			<p:inputText id="tipoContratacao"/>
+		    		</h:panelGroup>
+		    		
+		    	</h:panelGrid>
+			
+			</p:fieldset>
+
+			
+			<p:fieldset legend="Horário de expediente" styleClass="fieldSet" toggleable="true" collapsed="true" toggleSpeed="500" style="margin-top:10px;">
+			
+				<h:panelGrid cellspacing="0" cellpadding="0">
+					
+					<h:panelGroup>
+		    			<h:outputLabel value="Período de Expediente:" styleClass="textIondax"/>
+		    		</h:panelGroup>
+					
+		    		<h:panelGroup style="float:left;">
+		    			<h:panelGrid columns="4">
+		    			
+		    				<h:panelGroup>
+				    			<h:outputLabel value="Entrada:" for="horarioEntradaExp" styleClass="textIondax"/>
+		    				</h:panelGroup>
+		    				
+				    		<h:panelGroup>
+				    			<p:calendar timeOnly="true" pattern="HH:mm" id="horarioEntradaExp" size="5"/>
+				    		</h:panelGroup>
+				    		
+				    		<h:panelGroup>
+				    			<h:outputLabel value="Saída:" for="horarioSaidaExp" styleClass="textIondax"/>
+				    		</h:panelGroup>
+				    		
+				    		<h:panelGroup>
+				    			<p:calendar timeOnly="true" pattern="HH:mm" id="horarioSaidaExp" size="5"/>
+				    		</h:panelGroup>
+				    		
+		    			</h:panelGrid>
+		    		</h:panelGroup>
+		    		
+		    		
+		    		<h:panelGroup style="float:left;margin-top:10px;">
+		    			<h:outputLabel value="Período de Pausa:" styleClass="textIondax"/>
+		    		</h:panelGroup>
+		    		
+		    		<h:panelGroup>
+		    		
+			    		<h:panelGrid columns="4">
+			    			
+		    				<h:panelGroup>
+				    			<h:outputLabel value="Entrada:" for="horarioEntradaPausa" styleClass="textIondax"/>
+		    				</h:panelGroup>
+		    				
+				    		<h:panelGroup>
+				    			<p:calendar timeOnly="true" pattern="HH:mm" id="horarioEntradaPausa" size="5"/>
+				    		</h:panelGroup>
+				    		
+				    		<h:panelGroup>
+				    			<h:outputLabel value="Saída:" for="horarioSaidaPausa" styleClass="textIondax"/>
+				    		</h:panelGroup>
+				    		
+				    		<h:panelGroup>
+				    			<p:calendar timeOnly="true" pattern="HH:mm" id="horarioSaidaPausa" size="5"/>
+				    		</h:panelGroup>
+				    		
+		    			</h:panelGrid>
+		    		
+		    		</h:panelGroup>
+		    	</h:panelGrid>
+			
+			</p:fieldset>
+			
+			
+			<p:commandButton value="Incluir Funcionário" action="#{rhBean.confirmarInclusaoFuncionario}" style="float:left;margin-top:15px;margin-bottom:15px;"/>
+		</h:form>
+	</ui:define>
+</ui:composition>

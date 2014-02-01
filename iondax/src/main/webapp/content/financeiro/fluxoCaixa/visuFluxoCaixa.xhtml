@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="../../../template/template_gerenciador.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:param name="titulo" value="IONDAX - Design e Tecnologia"/>
+	
+	<ui:param name="tabAtiva" value="2"/>
+	
+	<ui:define name="importacaoAdicional">
+		<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/content/financeiro/financeiro.css" />
+	</ui:define>
+	
+	<ui:define name="body_content">
+		<h:form id="formVisuFluxoCaixa">
+			
+			<h:panelGrid columns="2">
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Selecione o Ano:" />
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu>
+						<f:selectItem itemLabel="2011"/>
+						<f:selectItem itemLabel="2012"/>
+						<f:selectItem itemLabel="2013"/>
+						<f:selectItem itemLabel="2014"/>
+					</p:selectOneMenu>
+				</h:panelGroup>
+			</h:panelGrid>
+			
+			<h:panelGrid>
+				<h:panelGroup>
+					<p:dataTable value="#{financeiroBean.listaCategoriaFluxo}" var="c" style="margin-left:5px;width:90%;">
+							
+						<p:column styleClass="colunaVazia"></p:column>
+						<p:column headerText="Jan"></p:column>
+						<p:column headerText="Fev"></p:column>
+						<p:column headerText="Mar"></p:column>
+						<p:column headerText="Abr"></p:column>
+						<p:column headerText="Mai"></p:column>
+						<p:column headerText="Jun"></p:column>
+						<p:column headerText="Jul"></p:column>
+						<p:column headerText="Ago"></p:column>
+						<p:column headerText="Set"></p:column>
+						<p:column headerText="Out"></p:column>
+						<p:column headerText="Nov"></p:column>
+						<p:column headerText="Dez"></p:column>
+						
+						<p:subTable id="subtable" value="#{c.listaNomesCategorias}" var="cat">
+							<f:facet name="header">
+								#{c.tipo}
+							</f:facet>
+							
+							<p:column>#{cat.nome}</p:column>
+							<p:column>1</p:column>
+							<p:column>1</p:column>
+							<p:column>1</p:column>
+							<p:column>1</p:column>
+							<p:column>1</p:column>
+							<p:column>1</p:column>
+							<p:column>1</p:column>
+							<p:column>1</p:column>
+							<p:column>1</p:column>
+							<p:column>1</p:column>
+							<p:column>1</p:column>
+							<p:column>1</p:column>
+						
+						</p:subTable>
+						
+					</p:dataTable>  
+				</h:panelGroup>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

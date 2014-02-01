@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="../../../template/template_gerenciador.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:param name="titulo" value="IONDAX - Design e Tecnologia"/>
+	
+	<ui:param name="tabAtiva" value="2"/>
+	
+	<ui:define name="importacaoAdicional">
+		<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/content/financeiro/financeiro.css" />
+	</ui:define>
+	
+	<ui:define name="body_content">
+		<h:form id="formInclusaoContaAReceber" enctype="multipart/form-data">
+			
+			<h:panelGrid id="formularioInclusaoReceita" columns="4">
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Nome da receita"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{financeiroBean.contaAReceber.nome}"/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Banco"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu id="comboBancos" value="#{financeiroBean.numBancoSelecionado}">
+						<f:selectItem itemValue="0" itemLabel="::SELECIONE::"></f:selectItem>
+						<f:selectItems value="#{financeiroBean.listaBancos}"/>
+					</p:selectOneMenu>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Valor"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{financeiroBean.contaAReceber.valorReceita}"/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Data de vencimento"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:calendar value="#{financeiroBean.contaAReceber.dataVencimento}"/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Situação"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanCheckbox value="#{financeiroBean.contaAReceber.booleanSituacao}">
+					</p:selectBooleanCheckbox>
+					<p:outputLabel styleClass="textIondax" value="Recebido"/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Categoria"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu id="comboCategoriaReceitas" value="#{financeiroBean.numCategoriaReceitaSelecionado}">
+						<f:selectItem itemValue="0" itemLabel="::SELECIONE::"/>
+						<f:selectItems value="#{financeiroBean.comboCategoriaReceitasEDespesas}"/>
+					</p:selectOneMenu>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Recorrência"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanCheckbox value="#{financeiroBean.contaAReceber.recorrencia.repetir}">
+						<p:ajax update="@form"/>
+					</p:selectBooleanCheckbox>
+					<p:outputLabel styleClass="textIondax" value="Repetir"/>
+				</h:panelGroup>
+				
+			</h:panelGrid>
+				
+			<h:panelGrid id="painelRepeticaoInclusaoReceita" columns="4" rendered="#{financeiroBean.contaAReceber.recorrencia.repetir}">
+					
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Frequência de repetição"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu id="comboFrequenciaRepeticao" value="#{financeiroBean.contaAReceber.recorrencia.numComboFrequencia}">
+						<f:selectItem itemValue="0" itemLabel="::SELECIONE::"/>
+						<f:selectItems value="#{financeiroBean.contaAReceber.recorrencia.comboFrequenciaRepeticao}"/>
+					</p:selectOneMenu>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Número de repetições"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{financeiroBean.contaAReceber.recorrencia.numComboFrequencia}"/>
+				</h:panelGroup>
+				
+			</h:panelGrid>
+				
+				
+			<h:panelGrid columns="4">
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Cliente"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{financeiroBean.contaAReceber.cliente.nome}"/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Data de competencia"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:calendar value="#{financeiroBean.contaAReceber.dataCompetencia}"/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Observações"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputTextarea cols="30" rows="3" value="#{financeiroBean.contaAReceber.observacoes}"/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Anexos"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:fileUpload fileUploadListener="#{financeiroBean.pegarNomeDoArquivo}" mode="advanced" dragDropSupport="false"
+					multiple="true" sizeLimit="1000000" fileLimit="10" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+				</h:panelGroup>
+			</h:panelGrid>	
+			
+			<!-- Sem action -->
+			<p:commandButton id="btnAdicionarReceita" value="Adicionar Receita"/>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

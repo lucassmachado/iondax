@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<html
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<ui:insert name="importacaoAdicional" />
+	<meta http-equiv="Content-Type" content="text/html;CHARSET=ISO-8859-1" />
+	<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/template/estilosTemplate.css" />
+	<script src="#{facesContext.externalContext.requestContextPath}/js/scripts.js" ></script>
+	<title><h:outputText value="#{titulo}" /></title>
+</h:head>
+
+<h:body>
+	
+	<!-- Utilziado para carregar javascript da barra lateral -->
+	<p:calendar rendered="false"/>
+	
+	<div id="parteSuperior">
+		<h:panelGroup id="header" >
+			<div id="logo"> <h:graphicImage url="/img/meuLogo4.jpg"/> </div>
+			<div id="cabecalho">
+				<div id="nomeUsuario"><h:outputLabel rendered="#{usuarioBean.usuario.statusSistema}" value="Seja Bem-vindo #{usuarioBean.usuario.nome}"/> </div>
+				<div id="sair"><p:commandLink value="Sair" action="#{usuarioBean.deslogar}" rendered="#{usuarioBean.usuario.statusSistema}" update="header"/></div>
+			</div>
+			<div class="menuHeader">
+				<p:tabMenu id="menuHeaderTab" activeIndex="#{tabAtiva}" width="100%">  
+				    <p:menuitem value="Home" url="/content/index.jsf" icon="ui-icon-home" style="width:7%;" rendered="#{usuarioBean.usuario.statusSistema}"/>
+				    <p:menuitem value="Compra" url="/content/compra/compra.jsf" icon="ui-icon-cart" rendered="#{usuarioBean.usuario.statusSistema}"/>  
+				    <p:menuitem value="Financeiro" url="/content/financeiro/financeiro.jsf" icon="ui-icon-calculator" rendered="#{usuarioBean.usuario.statusSistema}"/>  
+				    <p:menuitem value="Fornecedores" url="/content/fornecedores/fornecedores.jsf" icon="ui-icon-calculator" rendered="#{usuarioBean.usuario.statusSistema}"/>  
+				    <p:menuitem value="Logística" url="/content/logistica/logistica.jsf" icon="ui-icon-cart" rendered="#{usuarioBean.usuario.statusSistema}"/>  
+				    <p:menuitem value="Marketing" url="/content/marketingDivulgacao/marketingDivulgacao.jsf" icon="ui-icon-contact" rendered="#{usuarioBean.usuario.statusSistema}"/>  
+				    <p:menuitem value="Producao" url="/content/producao/producao.jsf" icon="ui-icon-gear" rendered="#{usuarioBean.usuario.statusSistema}"/>  
+				    <p:menuitem value="RH" url="/content/rh/rh.jsf" icon="ui-icon-person" rendered="#{usuarioBean.usuario.statusSistema}"/>  
+				    <p:menuitem value="Solicitações" url="/content/solicitacoes/solicitacoes.jsf" icon="ui-icon-wrench" rendered="#{usuarioBean.usuario.statusSistema}"/>  
+				    <p:menuitem value="Treinamento" url="/content/treinamento/treinamento.jsf" icon="ui-icon-note" rendered="#{usuarioBean.usuario.statusSistema}"/>  
+				    <p:menuitem value="Vendas" url="/content/vendas/vendas.jsf" icon="ui-icon-cart" rendered="#{usuarioBean.usuario.statusSistema}"/>  
+				</p:tabMenu>
+			</div>
+		</h:panelGroup>
+	</div>
+	
+	<div id="sidebar">
+		<h:panelGroup id="menuLateral" rendered="#{usuarioBean.usuario.statusSistema}">
+			<h:form id="menuLateralForm" name="menuLateralForm">
+			
+				<p:panelMenu id="menuLateralHome" rendered="#{tabAtiva == 0}">  
+			       <p:submenu styleClass="menuLateralItens" label="Dados Pessoais">  
+			            <p:menuitem value="Atualizar" icon="ui-icon-circle-zoomin"/>  
+			            <p:menuitem value="Visualizar" icon="ui-icon-circle-plus"/>  
+			        </p:submenu>  
+		    	</p:panelMenu>
+	
+				<p:panelMenu id="menuLateralCompra" rendered="#{tabAtiva == 1}">  
+			       <p:submenu styleClass="menuLateralItens" label="Produtos">  
+			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
+			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/>  
+			        </p:submenu>  
+			        <p:submenu styleClass="menuLateralItens" label="Serviços">  
+			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
+			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/> 
+			        </p:submenu>
+		    	</p:panelMenu>
+		    	
+		    	<p:panelMenu id="menuLateralFinanceiro" rendered="#{tabAtiva == 2}">
+		    		<p:submenu styleClass="menuLateralItens" label="Contas Bancárias">  
+			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin" action="#{financeiroBean.abrirPaginaConsultaConta}"/>  
+			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus" action="#{financeiroBean.abrirPaginaIncContaBanc}"/>  
+			            <p:menuitem value="Contas a pagar" icon="ui-icon-circle-plus" action="#{financeiroBean.abrirPaginaIncContaAPagar}"/>  
+			            <p:menuitem value="Contas a receber" icon="ui-icon-circle-plus" action="#{financeiroBean.abrirPaginaIncContaAReceber}"/>  
+			        </p:submenu>
+		    		<p:submenu styleClass="menuLateralItens" label="Fluxo de Caixa">  
+			            <p:menuitem value="Visualizar" icon="ui-icon-circle-zoomin" action="#{financeiroBean.visualizarFluxoCaixa}"/>  
+			            <p:menuitem value="Editar Categorias" icon="ui-icon-circle-plus" action="#{financeiroBean.editarCategoriasFluxoCaixa}"/>  
+			        </p:submenu>
+			        
+			        <p:submenu styleClass="menuLateralItens" label="Relatórios">  
+			            <p:menuitem value="Extrato" icon="ui-icon-circle-plus" action="#{financeiroBean.abrirPaginaExtrato}"/> 
+			            <p:menuitem value="Hist. de Mov." icon="ui-icon-circle-plus" action="#{financeiroBean.abrirPaginaHistoricoMovimentacao}"/> 
+			        </p:submenu>
+		    	</p:panelMenu>
+	
+	
+	
+		    	<p:panelMenu id="menuLateralFornecedores" rendered="#{tabAtiva == 3}">  
+		    	</p:panelMenu> 
+		    	
+		    	
+		    	
+	
+		    	<p:panelMenu id="menuLateralLogistica" rendered="#{tabAtiva == 4}">  
+			        <p:submenu styleClass="menuLateralItens" label="Produtos" >  
+			            <p:menuitem value="Enviados" icon="ui-icon-arrowrefresh-1-w" />  
+			            <p:menuitem value="Aguard. Liberação" icon="ui-icon-arrowrefresh-1-w" />  
+			        </p:submenu>  
+		    	</p:panelMenu> 
+				
+				
+				
+				<p:panelMenu id="menuLateralMktDivulgacao"  rendered="#{tabAtiva == 5}">  
+		         	<p:submenu styleClass="menuLateralItens" label="Normal">  
+			            <p:menuitem value="Postais" icon="ui-icon-circle-plus"/>  
+			            <p:menuitem value="Outdoors" icon="ui-icon-circle-plus"/>  
+			            <p:menuitem value="Carros Mensageiros" icon="ui-icon-circle-plus"/>  
+			            <p:menuitem value="Rádio" icon="ui-icon-circle-plus"/>  
+			            <p:menuitem value="Jornal" icon="ui-icon-circle-plus"/>  
+			            <p:menuitem value="Revistas" icon="ui-icon-circle-zoomin"/>  
+			        </p:submenu>
+			        <p:submenu styleClass="menuLateralItens" label="Digital">  
+			            <p:menuitem value="Mala Direta" icon="ui-icon-circle-zoomin"/>  
+			            <p:menuitem value="Telefonemas" icon="ui-icon-circle-plus"/>  
+			            <p:menuitem value="Redes Sociais" icon="ui-icon-circle-plus"/>  
+			            <p:menuitem value="Sites Externos" icon="ui-icon-circle-plus"/>  
+			        </p:submenu>   
+		    	</p:panelMenu>  
+				
+				
+				
+				<p:panelMenu id="menuLateralProducao" rendered="#{tabAtiva == 6}">  
+			        <p:submenu styleClass="menuLateralItens" label="Estoque">  
+			            <p:menuitem value="Hardware" icon="ui-icon-disk"/>  
+			            <p:menuitem value="Redes" icon="ui-icon-arrowrefresh-1-w"/>  
+			        </p:submenu>  
+			        <p:submenu styleClass="menuLateralItens" label="Demandas">  
+			            <p:submenu styleClass="menuLateralItens" label="Manutenção">
+			            	<p:menuitem value="Mont. Micro" icon="ui-icon-disk"/>
+			            	<p:menuitem value="Mont. Redes" icon="ui-icon-disk"/>
+			            </p:submenu>  
+			            <p:submenu styleClass="menuLateralItens" label="Vendas">
+			            	<p:menuitem value="Mont. Micro" icon="ui-icon-disk"/>
+			            	<p:menuitem value="Mont. Redes" icon="ui-icon-disk"/>
+			            </p:submenu>  
+			        </p:submenu>
+		    	</p:panelMenu>  
+		    	
+		    	
+		    	
+		    	<p:panelMenu id="menuLateralRh" rendered="#{tabAtiva == 7}">  
+			        <p:submenu styleClass="menuLateralItens" label="Funcionário">  
+			            <p:menuitem value="Consultar" icon="ui-icon-arrowrefresh-1-w" action="#{rhBean.consultarFuncionario}" />  
+			            <p:menuitem value="Cargos" icon="ui-icon-arrowrefresh-1-w" />  
+			            <p:menuitem value="Incluir" icon="ui-icon-arrowrefresh-1-w" action="#{rhBean.cadastrarFuncionario}"/>  
+			            <p:menuitem value="Ponto" icon="ui-icon-arrowrefresh-1-w" />  
+			            <p:menuitem value="Benefícios" icon="ui-icon-arrowrefresh-1-w" />  
+			        </p:submenu>  
+			        <p:submenu styleClass="menuLateralItens" label="Candidatos" >  
+			            <p:menuitem value="Consultar" icon="ui-icon-arrowrefresh-1-w" />  
+			            <p:menuitem value="Currículos" icon="ui-icon-arrowrefresh-1-w" />  
+			            <p:menuitem value="Incluir" icon="ui-icon-arrowrefresh-1-w" />  
+			            <p:menuitem value="Vagas" icon="ui-icon-disk" />  
+			        </p:submenu>
+		    	</p:panelMenu>  
+					    	
+					    	
+					    	
+		    	<p:panelMenu id="menuLateralSolicitacoes" rendered="#{tabAtiva == 8}">  
+			        <p:submenu styleClass="menuLateralItens" label="Internas">  
+			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
+			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/>  
+			        </p:submenu>  
+			        <p:submenu styleClass="menuLateralItens" label="Produtos">  
+			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
+			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/>  
+			        </p:submenu>  
+			        <p:submenu styleClass="menuLateralItens" label="Projetos">  
+			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
+			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/> 
+			        </p:submenu> 
+		    	</p:panelMenu> 
+		    	
+		    	
+		    	
+		    	<p:panelMenu id="menuLateralTreinamento" rendered="#{tabAtiva == 9}">  
+			        <p:submenu styleClass="menuLateralItens" label="Turmas">  
+			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
+			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/>  
+			        </p:submenu>  
+			        <p:submenu styleClass="menuLateralItens" label="Instrutores">  
+			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
+			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/>  
+			        </p:submenu>  
+			       <p:submenu styleClass="menuLateralItens" label="Avaliacoes">  
+			           <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
+			           <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/> 
+			        </p:submenu>  
+		    	</p:panelMenu>  
+		    	
+		    	
+		    	<p:panelMenu id="menuLateralVendas" rendered="#{tabAtiva == 10}">  
+		         	<p:submenu styleClass="menuLateralItens" label="Produtos">  
+			            <p:menuitem value="Hardware" icon="ui-icon-circle-zoomin"/>  
+			            <p:menuitem value="Redes" icon="ui-icon-circle-plus"/>  
+			        </p:submenu>
+			        <p:submenu styleClass="menuLateralItens" label="Serviços">  
+			            <p:menuitem value="Hardware" icon="ui-icon-circle-zoomin"/>  
+			            <p:menuitem value="Software" icon="ui-icon-circle-plus"/>  
+			            <p:menuitem value="Redes" icon="ui-icon-circle-plus"/>  
+			        </p:submenu>   
+		    	</p:panelMenu>
+	    	
+			</h:form>
+		</h:panelGroup>
+	</div>	
+	
+	<h:panelGroup rendered="#{usuarioBean.usuario.statusSistema}">
+		<div id="bordaLateralPagina"></div>
+	</h:panelGroup>
+	
+	<!-- PÁGINAS -->
+	<h:panelGroup rendered="#{usuarioBean.usuario.statusSistema}">
+		<div id="conteudo">
+			<h:panelGroup id="corpo">
+				<ui:insert id="body_content" name="body_content"/>
+			</h:panelGroup>
+		</div>
+	</h:panelGroup>
+	
+	<!-- LOGIN -->
+	<h:panelGroup rendered="#{!(usuarioBean.usuario.statusSistema)}">
+		<div id="conteudo1">
+			<h:panelGroup id="corpo1">
+				<ui:insert id="body_content1" name="body_content1"/>
+			</h:panelGroup>
+		</div>
+	</h:panelGroup>
+	
+	
+	
+</h:body>
+</html>

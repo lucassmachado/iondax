@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="../../../template/template_gerenciador.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:param name="titulo" value="IONDAX - Design e Tecnologia"/>
+	
+	<ui:param name="tabAtiva" value="7"/>
+	
+	<ui:define name="importacaoAdicional">
+		<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/content/rh/rh.css" />
+	</ui:define>
+	
+	<ui:define name="body_content">
+	
+		<h:form id="formConFuncionario">
+			
+			<p:dataTable id="gridFuncionarios" style="float:left;" value="#{rhBean.listaFuncionarios}" var="usuario">
+			
+				<p:column headerText="Filial" style="width:150px">
+					<h:outputText value="#{usuario.funcionario.filial} - #{usuario.funcionario.descFilial}"/>
+				</p:column>
+				<p:column headerText="Nome" style="width:150px">
+					<h:outputText value="#{usuario.nome}"/>
+				</p:column>
+				<p:column headerText="Registro de Empregado (RE)" style="width:10px">
+					<h:outputText value="#{usuario.funcionario.re}"/>
+				</p:column>
+				<p:column headerText="Setor" style="width:150px">
+					<h:outputText value="#{usuario.funcionario.setor}" />
+				</p:column>
+				<p:column headerText="Data de Admissão" style="width:100px">
+					<h:outputText value="#{usuario.funcionario.dataAdmissao}" converter="DataConverter"/>
+				</p:column>
+				
+			</p:dataTable>
+		
+		</h:form>
+	
+	</ui:define>
+	
+	
+</ui:composition>
+	

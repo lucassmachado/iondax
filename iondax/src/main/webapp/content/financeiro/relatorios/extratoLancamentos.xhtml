@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="../../../template/template_gerenciador.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:param name="titulo" value="IONDAX - Design e Tecnologia"/>
+	
+	<ui:param name="tabAtiva" value="2"/>
+	
+	<ui:define name="importacaoAdicional">
+		<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/content/financeiro/financeiro.css" />
+	</ui:define>
+	
+	<ui:define name="body_content">
+		<h:form id="formExtratoLancamentos">
+			
+			<p:dataTable style="width:700px;">
+				<p:column headerText="Data"></p:column>
+				<p:column headerText="Categoria"></p:column>
+				<p:column headerText="Nome"></p:column>
+				<p:column headerText="Valor"></p:column>
+				<p:column headerText="Saldo Disponível"></p:column>
+			</p:dataTable>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="../../../template/template_gerenciador.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:param name="titulo" value="IONDAX - Design e Tecnologia"/>
+	
+	<ui:param name="tabAtiva" value="2"/>
+	
+	<ui:define name="importacaoAdicional">
+		<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/content/financeiro/financeiro.css" />
+	</ui:define>
+	
+	<ui:define name="body_content">
+		<h:form id="formConsultarConta">
+			
+			<p:dataTable id="listaDeContas" value="#{financeiroBean.listaContas}" style="float:left;" var="conta">
+				<p:column headerText="Conta">
+					<p:outputLabel value="#{conta.nomeContaBancaria}"/>
+				</p:column>
+				<p:column headerText="Banco">
+					<p:outputLabel value="#{conta.banco}"/>
+				</p:column>
+				<p:column headerText="Agência">
+					<p:outputLabel value="#{conta.agencia}"/>
+				</p:column>
+				<p:column headerText="N° da conta">
+					<p:outputLabel value="#{conta.nroConta}"/>
+				</p:column>
+				<p:column headerText="Saldo">
+					<p:outputLabel value="#{conta.saldoAtual}"/>
+				</p:column>
+				<p:column headerText="Carteira">
+					<p:outputLabel value="#{conta.carteira}"/>
+				</p:column>
+			</p:dataTable>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

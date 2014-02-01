@@ -1,0 +1,16 @@
+@CHARSET "ISO-8859-1";
+
+.gridLoginStyle{
+	width:240px;
+	height:130px;
+	margin:150px auto;
+}
+
+.textIondax{
+	font-family:arial;
+	font-size:13px;
+	font-weight: bold;
+	text-transform: none;
+	color:#004276;
+}
+

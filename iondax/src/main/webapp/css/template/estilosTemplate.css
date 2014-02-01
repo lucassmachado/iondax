@@ -1,0 +1,214 @@
+/*************************************************************************
+**                               						  				**
+**   Autor:Rafael Silva Oliveira 						  				**
+**   Data:14/11/2012             						 				**
+**   Nome:estilos-template.css   						  				**
+**   link dos icones do jquery: jqueryui.com/themeroller/ 				**
+**   viniciussousa88.wordpress.com/2012/03/26/icones-do-primefaces/     **
+**                               						  				**
+**************************************************************************/
+body{
+	margin:0;
+	padding:0;
+	overflow: hidden;
+}
+/********************************
+**                             **
+**      Secao Cabeçalho        **
+**                             **
+*********************************/
+#header{
+	background-image: url("../../img/gerenciadorGeral/fundoMenu.jpg");
+    background-repeat: repeat-x;
+    float: left;
+    width: 100%;
+    height:90px;
+    border-bottom: 5px solid #EEEEEE;
+}
+#cabecalho{
+	float:left;
+	width:1130px;
+	height:56px;
+}
+#logo{
+	width:150px;
+	height:90px;
+	float:left;
+}
+#nomeUsuario{
+	margin-top:15px;
+	margin-left:500px;
+	font-size:15px;
+	font-weight: bold;
+	color:#eeeddd;
+	width:350px;
+	height:15px;
+	float:left;
+}
+#sair a{
+	margin-left:715px;
+	font-size:15px;
+	font-weight: bold;
+	text-decoration:none;
+	color:#eeeddd;
+	width:60px;
+	height:15px;
+	float:left;
+}
+#sair a:hover{
+	margin-left:715px;
+	font-size:15px;
+	font-weight: bold;
+	text-decoration:underline;
+	color:#eeeddd;
+	width:60px;
+	height:18px;
+	float:left;
+}
+.menuHeader{
+	float:left;
+	width:auto;
+}
+#menuHeaderTab{
+	border:none;
+/* 	margin-right:-3px; */
+	float:right;
+}
+
+/* Exclusivas TabMenu */
+.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem {
+	list-style: none;
+	float: left;
+	position: relative;
+	margin: 0 2px 1px 0;
+	white-space: nowrap;
+	display: block;
+	border-bottom: 0;
+	top: 1px;
+}
+.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem-hasicon a {
+	padding: 6px 4px 7px 0px;
+	font-size:12px;
+}
+
+#parteSuperior{
+	width:100%;
+	height:95px;
+}
+
+#bordaLateralPagina{
+	margin-left:12%;
+	height:100%;
+/* 	float:left; */
+	position:absolute;
+	border-right:5px solid #EEE;
+}
+
+
+/********************************
+**                             **
+**      Parte Lateral          **
+**                             **
+******************************** */
+#sidebar{
+	float:left;
+	width:12%;
+	height:100%;
+	
+}
+#menuLateral{
+	background:#fff;
+	float:left;
+	height:100%;
+	width:100%;
+}
+
+
+/* Exclusivas panelMenu */
+.ui-panelmenu {
+	width: 100%;
+	font-size:14px;
+}
+.ui-corner-all {
+	border-radius: 2px;
+}
+.ui-panelmenu .ui-panelmenu-header a {
+	display: block;
+	font-size: 15px;
+	padding: .5em .5em .5em 2.2em;
+}
+
+
+
+
+
+
+/********************************
+**                             **
+**      Secao Corpo            **
+**                             **
+******************************** */
+#conteudo1{
+	overflow-y:auto;
+/* 	float:right; */
+	width:100%;
+	height:860px;
+	margin-top:5px;
+	text-align: center;
+}
+#corpo1{
+	width:100%;
+	margin-top:3px;
+}
+
+#conteudo{
+	overflow-y:auto;
+	float:right;
+	width:87.5%;
+	height:860px;
+	margin-top:5px;
+}
+
+#corpo{
+	width:100%;
+	margin-top:3px;
+}
+
+.ui-widget {
+	font-family: Arial,sans-serif;
+	font-size: 13px;
+}
+
+
+
+.textIondax{
+	font-family:arial;
+	font-size:15px;
+	font-weight: bold;
+	text-transform: none;
+	color:#004276;
+}
+.textIondaxTitulo{
+	font-family:arial;
+	font-size:15px;
+	font-weight: bold;
+	text-decoration:underline;
+	color:#004276;
+}
+.textLinkIondax{
+	font-family:arial;
+	font-size:12px;
+	font-weight: bold;
+	text-transform: none;
+	color:#004276;
+	cursor: pointer;
+}
+
+
+.colunaVazia{
+	color:white;
+	background: white;
+	border-top:0px;
+	border-left:0px;
+	border-right:1px solid #d8dcdf;
+}
