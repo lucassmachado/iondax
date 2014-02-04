@@ -1,5 +1,7 @@
 package br.com.iondax.controller.view.usuario;
 
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -7,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.iondax.entities.usuario.Usuario;
-import br.com.iondax.services.IUsuarioService;
+import br.com.iondax.repositories.IUsuarioRepository;
 
 @Component
 @ManagedBean(name="usuarioBean")
@@ -17,7 +19,7 @@ public class UsuarioBean {
 	Usuario usuario = new Usuario();
 	
 	@Autowired
-	IUsuarioService usuarioService;
+	IUsuarioRepository usuarioRepository;
 	
 	public UsuarioBean(){
 		super();
@@ -31,7 +33,10 @@ public class UsuarioBean {
 			
 			
 			//Testando Spring
-			System.out.println(usuarioService.getMessage());
+			List<Usuario> listaUsusarios = usuarioRepository.findAll();
+			for(Usuario u:listaUsusarios){
+				System.out.println(u+"\n---------------------------\n\n");
+			}
 		
 		
 		}else{

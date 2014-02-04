@@ -1,31 +1,25 @@
 package br.com.iondax.entities.usuario;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import br.com.iondax.entities.rh.Funcionario;
+import br.com.iondax.util.BaseEntities;
 
 @Entity
-public class Usuario implements Serializable{
+@Table(name = "teste")
+public class Usuario extends BaseEntities<Long> {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue
-	private Long id;
-	
+	private static final long serialVersionUID = -2325703609610144911L;
+
 	private String username;
 	
-	@Transient
 	private String senha;
+	
 	@Transient
 	private String nome;
 	@Transient
@@ -74,7 +68,6 @@ public class Usuario implements Serializable{
 	
 	public Usuario(Usuario u){
 		super();
-		this.id = u.getId();
 		this.username = u.getUsername();
 		this.senha = u.getSenha();
 		this.sexo = u.getSexo();
@@ -88,12 +81,6 @@ public class Usuario implements Serializable{
 		this.funcionario = u.getFuncionario();
 	}
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getUsername() {
 		return username;
 	}
