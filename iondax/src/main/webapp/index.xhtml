@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="template/template_login.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="importacaoAdicional">
+		<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/content/index/index.css" />
+	</ui:define>	
+	
+	<ui:param name="titulo" value="index-IONDAX - Design e Tecnologia"/>
+	
+	<ui:param name="tabAtiva" value="0"/>
+	<div id="testebody"></div>
+	<ui:define name="body_content">
+		
+		<h:form id="formLogin" name="formLogin">
+			
+			<h:panelGrid id="gridLogin" cellpadding="0" cellspacing="0" styleClass="gridLoginStyle">
+				<p:panelGrid columns="2">  
+				    <f:facet name="header">  
+				        <h:outputLabel value="Por favor, faça o login"/>  
+				    </f:facet>
+				  
+				    <h:outputLabel for="username" value="Usuário:" styleClass="textIondax"/>  
+				    <h:inputText id="username" value="#{usuarioBean.usuarioV}"/>  
+				  
+				    <h:outputLabel for="senha" value="Senha:" styleClass="textIondax"/>  
+				    <h:inputSecret id="senha" value="#{usuarioBean.senhaV}"/> 
+				  	
+				  	<f:facet name="footer">
+				        <p:commandButton id="botaoEntrar" style="float:right;" value="Entrar" action="#{usuarioBean.logar}" update="formIndex,nomeUsuario" ajax="false"/>  
+				    </f:facet> 
+		    
+				</p:panelGrid>  
+			</h:panelGrid>
+		
+		</h:form>
+	</ui:define>
+	
+	
+	
+	
+</ui:composition>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="../../../template/template_gerenciador.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:param name="titulo" value="IONDAX - Design e Tecnologia"/>
+	
+	<ui:param name="tabAtiva" value="2"/>
+	
+	<ui:define name="body_content">
+		<h:form id="formIncFornecedores">
+				
+			<p:fieldset legend="Dados da empresa" styleClass="fieldSet" toggleable="true" collapsed="true" toggleSpeed="500" style="margin-top:10px;">
+				<h:panelGrid columns="2">
+					<h:panelGroup>
+						<p:outputLabel value="Fornecedor Ativo ?" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectBooleanCheckbox/> <p:outputLabel value="Sim" styleClass="textIondax" style="margin-left:3px;"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:outputLabel value="Razão Social" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputText/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:outputLabel value="Nome Fantasia" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputText/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:outputLabel value="CNPJ" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputText/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:outputLabel value="Inscrição Estadual" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputText/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:outputLabel value="Pessoa" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectOneRadio id="tipoPessoa" styleClass="textIondax">
+							<f:selectItem itemValue="F" itemLabel="Física"/>
+							<f:selectItem itemValue="J" itemLabel="Jurídica"/>
+						</p:selectOneRadio>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:outputLabel value="Observações" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputTextarea autoResize="true" cols="60" rows="10"/>
+					</h:panelGroup>
+					
+				</h:panelGrid>
+			</p:fieldset>
+			
+			
+			<p:fieldset legend="Localização" styleClass="fieldSet" toggleable="true" collapsed="true" toggleSpeed="500" style="margin-top:10px;">
+				<h:panelGrid columns="3">
+			    	<h:panelGroup>
+						<h:outputLabel value="CEP:" for="cepEnd" styleClass="textIondax"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+		        		<p:inputMask id="cepEnd" mask="99999-999" size="6">
+		        			<p:ajax update="linkVisualizarMapa" event="blur"/>
+		        		</p:inputMask>
+		        	</h:panelGroup>
+		        	
+		        	<h:panelGroup>
+		        		<h:outputLink id="linkVisualizarMapa" value="http://www.google.com.br/maps" target="_blank">
+		        			<f:param name="hl" value="pt-BR"/>
+		        			<f:param name="output" value="search"/>
+		        			<f:param name="q" value="#{rhBean.usuario.endereco.cep}"/>
+ 		        			<h:outputLabel value="Visualizar Mapa" styleClass="textLinkIondax" />
+		        		</h:outputLink>
+		        	</h:panelGroup>
+		        	
+		    	</h:panelGrid>
+		    	
+		    	<h:panelGrid columns="6">
+					
+					<h:panelGroup>
+						<h:outputLabel value="Estado:" for="cboEstadoEnd" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+		        		<p:selectOneMenu id="cboEstadoEnd" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.cidade.uf}">
+		        			<f:selectItems value="#{utils.comboUfs}"/>
+		        		</p:selectOneMenu>
+		        	</h:panelGroup>
+		        	
+					<h:panelGroup style="margin-left:5px;">
+						<h:outputLabel value="Cidade:" for="cboCidEnd" styleClass="textIondax" />
+					</h:panelGroup>
+					<h:panelGroup>
+		        		<p:selectOneMenu id="cboCidEnd" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.cidade.descCidade}" disabled="true">
+		        			<f:selectItems value="#{utils.comboUfs}"/>
+		        		</p:selectOneMenu>
+		        	</h:panelGroup>
+		        	
+					<h:panelGroup style="margin-left:5px;">
+						<h:outputLabel value="Bairro:" for="cboBairroEnd" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+		        		<p:selectOneMenu id="cboBairroEnd" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.bairro.descBairro}" disabled="true">
+		        			<f:selectItems value="#{utils.comboUfs}"/>
+		        		</p:selectOneMenu>
+		        	</h:panelGroup>
+		        	
+				</h:panelGrid>
+				
+				<h:panelGrid columns="4">
+					<h:panelGroup>
+						<p:outputLabel value="Logradouro:" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+		        		<p:inputText id="descEnd" size="30" value="#{rhBean.usuario.endereco.descEndereco}"/>
+		        	</h:panelGroup>
+		        	
+					<h:panelGroup style="margin-left:5px;">
+						<h:outputLabel value="Numero:" for="nroEnd" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+		        		<p:inputMask id="nroEnd" mask="99999" size="2" value="#{rhBean.usuario.endereco.numero}"/>
+		        	</h:panelGroup>
+				</h:panelGrid>
+			</p:fieldset>
+			
+			
+			<p:fieldset legend="Contato" styleClass="fieldSet" toggleable="true" collapsed="true" toggleSpeed="500" style="margin-top:10px;">
+				<h:panelGrid>
+					<h:panelGroup>
+						<p:outputLabel value="E-mail" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputText/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:outputLabel value="Telefone" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputText/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:outputLabel value="Celular" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputText/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:outputLabel value="Site" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputText/>
+					</h:panelGroup>
+				</h:panelGrid>
+			</p:fieldset>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

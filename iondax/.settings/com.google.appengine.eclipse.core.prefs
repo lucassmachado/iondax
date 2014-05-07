@@ -1,0 +1,14 @@
+eclipse.preferences.version=1
+filesCopiedToWebInfLib=
+gaeDatanucleusEnabled=false
+gaeDeployDialogSettings=
+gaeLaunchAppInBrowser=true
+googleCloudSqlEnabled=false
+localDevMySqlEnabled=true
+mySqlDatabaseName=iondax
+mySqlDatabasePassword=123456
+mySqlDatabaseUser=root
+mySqlHostName=localhost
+mySqlIsConfigured=true
+mySqlJdbcJar=I\:\\Java\\Repositorio\\mysql\\mysql-connector-java\\5.1.28\\mysql-connector-java-5.1.28.jar
+mySqlPort=3306

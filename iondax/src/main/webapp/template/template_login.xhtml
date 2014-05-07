@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<html
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<ui:insert name="importacaoAdicional" />
+	<meta http-equiv="Content-Type" content="text/html;CHARSET=ISO-8859-1" />
+	<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/template/estilosTemplate.css" />
+	
+	<title><h:outputText value="#{titulo}" /></title>
+	<link rel="icon" type="image/x-icon" href="#{facesContext.externalContext.requestContextPath}/img/ico.png" /> 
+</h:head>
+
+<h:body>
+	
+	<!-- Utilziado para carregar javascript da barra lateral -->
+	<p:calendar rendered="false"/>
+	
+	<div id="parteSuperior">
+		<h:panelGroup id="header">
+			<div id="logo"> <h:graphicImage url="/img/meuLogo4.jpg"/> </div>
+		</h:panelGroup>
+	</div>
+	
+	<!-- LOGIN -->
+	<h:panelGroup>
+		<div id="conteudo1">
+			<h:panelGroup id="corpo1">
+				<ui:insert id="body_content" name="body_content"/>
+			</h:panelGroup>
+		</div>
+	</h:panelGroup>
+	
+	
+	
+</h:body>
+</html>

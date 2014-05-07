@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="../../../../template/template_gerenciador.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:param name="titulo" value="IONDAX - Design e Tecnologia"/>
+	
+	<ui:param name="tabAtiva" value="2"/>
+	
+	<ui:define name="body_content">
+		<h:form id="formIncProdutos">
+				
+			<h:panelGrid columns="2" style="margin-top:10px;margin-left:10px;">
+				
+				<h:panelGroup>
+					<p:outputLabel value="Código de barras" styleClass="textIondax"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText type="numeric" id="codigoBarrasEAN" maxlength="14" onkeypress="validaCampoNumerico(event)" onkeydown=""/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel value="Marca/Fabricante" styleClass="textIondax"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText id="marcaFabricante"/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel value="Categoria" styleClass="textIondax"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText id="categoriaProduto" />
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel value="Descrição" styleClass="textIondax"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputTextarea id="descProduto" autoResize="true" cols="40" rows="5"/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel value="Custo" styleClass="textIondax"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText id="custoProduto"/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel value="Preço" styleClass="textIondax"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText id="precoUnit"/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel value="Margem Lucro" styleClass="textIondax"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText id="margemLucroProduto"/>
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<p:outputLabel value="Imagens do Produto" styleClass="textIondax"/>
+				</h:panelGroup>
+				<h:panelGroup>
+			 		<p:fileUpload label="Selecionar" uploadLabel="Enviar" mode="advanced" cancelLabel="Cancelar" id="uploaderImagensProdutos"
+			 		invalidSizeMessage="Limite de 10MB excedido" dragDropSupport="false" multiple="true" sizeLimit="10485760" fileLimit="10" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" /> 
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel value="Unidade Compra" styleClass="textIondax"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu id="unidadeCompra">
+						<f:selectItem itemValue="cx" itemLabel="Caixa" />
+						<f:selectItem itemValue="hr" itemLabel="Hora" />
+						<f:selectItem itemValue="pct" itemLabel="Pacote" />
+						<f:selectItem itemValue="pç" itemLabel="Peça" />
+						<f:selectItem itemValue="un" itemLabel="Unidade" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+				
+				
+				<h:panelGroup>
+					<p:outputLabel value="Unidade Venda" styleClass="textIondax"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu id="unidadeVenda">
+						<f:selectItem itemValue="cx" itemLabel="Caixa" />
+						<f:selectItem itemValue="hr" itemLabel="Hora" />
+						<f:selectItem itemValue="pct" itemLabel="Pacote" />
+						<f:selectItem itemValue="pç" itemLabel="Peça" />
+						<f:selectItem itemValue="un" itemLabel="Unidade" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:commandButton value="Incluir Produto"/>
+				</h:panelGroup>
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
