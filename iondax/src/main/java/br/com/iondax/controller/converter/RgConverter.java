@@ -7,8 +7,8 @@ import javax.faces.convert.FacesConverter;
 
 import br.com.iondax.controller.utils.CpfCnpjRGUtils;
 
-@FacesConverter(value="RgConverter")
-public class RgConverter implements Converter{
+@FacesConverter(value = "RgConverter")
+public class RgConverter implements Converter {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component,
@@ -21,5 +21,5 @@ public class RgConverter implements Converter{
 			Object value) {
 		return CpfCnpjRGUtils.rgToString(value);
 	}
-	
+
 }

@@ -10,7 +10,37 @@
 	<meta http-equiv="Content-Type" content="text/html;CHARSET=ISO-8859-1" />
 	<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/template/estilosTemplate.css" />
 	<script src="#{facesContext.externalContext.requestContextPath}/js/scripts.js" ></script>
+	<script>
+		PrimeFaces.locales['pt'] = { 
+				closeText: 'Fechar', 
+				prevText: 'Anterior', 
+				nextText: 'Próximo', 
+				currentText: 'Começo', 
+				monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'], 
+				monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Dez'], 
+				dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'], 
+				dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'], 
+				dayNamesMin: ['D','S','T','Q','Q','S','S'], 
+				weekHeader: 'Semana', 
+				firstDay: 1, 
+				isRTL: false, 
+				showMonthAfterYear: false, 
+				yearSuffix: '', 
+				timeOnlyTitle: 'Só Horas', 
+				timeText: 'Tempo', 
+				hourText: 'Hora', 
+				minuteText: 'Minuto', 
+				secondText: 'Segundo', 
+				currentText: 'Data Atual', 
+				ampm: false, 
+				month: 'Mês', 
+				week: 'Semana', 
+				day: 'Dia', 
+				allDayText : 'Todo Dia' 
+			}; 
+	</script>
 	<title><h:outputText value="#{titulo}" /></title>
+	<link rel="icon" type="image/x-icon" href="#{facesContext.externalContext.requestContextPath}/img/ico.png" /> 
 </h:head>
 
 <h:body>
@@ -19,32 +49,31 @@
 	<p:calendar rendered="false"/>
 	
 	<div id="parteSuperior">
-		<h:panelGroup id="header" >
+		<h:panelGroup id="header">
 			<div id="logo"> <h:graphicImage url="/img/meuLogo4.jpg"/> </div>
 			<div id="cabecalho">
 				<div id="nomeUsuario"><h:outputLabel rendered="#{usuarioBean.usuario.statusSistema}" value="Seja Bem-vindo #{usuarioBean.usuario.nome}"/> </div>
-				<div id="sair"><p:commandLink value="Sair" action="#{usuarioBean.deslogar}" rendered="#{usuarioBean.usuario.statusSistema}" update="header"/></div>
+				<div id="sair"><p:commandLink value="Sair" action="#{usuarioBean.deslogar}" immediate="true"/></div>
 			</div>
 			<div class="menuHeader">
 				<p:tabMenu id="menuHeaderTab" activeIndex="#{tabAtiva}" width="100%">  
-				    <p:menuitem value="Home" url="/content/index.jsf" icon="ui-icon-home" style="width:7%;" rendered="#{usuarioBean.usuario.statusSistema}"/>
-				    <p:menuitem value="Compra" url="/content/compra/compra.jsf" icon="ui-icon-cart" rendered="#{usuarioBean.usuario.statusSistema}"/>  
-				    <p:menuitem value="Financeiro" url="/content/financeiro/financeiro.jsf" icon="ui-icon-calculator" rendered="#{usuarioBean.usuario.statusSistema}"/>  
-				    <p:menuitem value="Fornecedores" url="/content/fornecedores/fornecedores.jsf" icon="ui-icon-calculator" rendered="#{usuarioBean.usuario.statusSistema}"/>  
-				    <p:menuitem value="Logística" url="/content/logistica/logistica.jsf" icon="ui-icon-cart" rendered="#{usuarioBean.usuario.statusSistema}"/>  
-				    <p:menuitem value="Marketing" url="/content/marketingDivulgacao/marketingDivulgacao.jsf" icon="ui-icon-contact" rendered="#{usuarioBean.usuario.statusSistema}"/>  
-				    <p:menuitem value="Producao" url="/content/producao/producao.jsf" icon="ui-icon-gear" rendered="#{usuarioBean.usuario.statusSistema}"/>  
-				    <p:menuitem value="RH" url="/content/rh/rh.jsf" icon="ui-icon-person" rendered="#{usuarioBean.usuario.statusSistema}"/>  
-				    <p:menuitem value="Solicitações" url="/content/solicitacoes/solicitacoes.jsf" icon="ui-icon-wrench" rendered="#{usuarioBean.usuario.statusSistema}"/>  
-				    <p:menuitem value="Treinamento" url="/content/treinamento/treinamento.jsf" icon="ui-icon-note" rendered="#{usuarioBean.usuario.statusSistema}"/>  
-				    <p:menuitem value="Vendas" url="/content/vendas/vendas.jsf" icon="ui-icon-cart" rendered="#{usuarioBean.usuario.statusSistema}"/>  
+				    <p:menuitem value="Home" url="/content/bemVindo.jsf" icon="ui-icon-home" style="width:7%;" />
+				    <p:menuitem value="Financeiro" url="/content/financeiro/financeiro.jsf" icon="ui-icon-calculator" />  
+				    <p:menuitem value="Fornecedores" url="/content/fornecedores/fornecedores.jsf" icon="ui-icon-calculator" />  
+				    <p:menuitem value="Logística" url="/content/logistica/logistica.jsf" icon="ui-icon-cart" />  
+				    <p:menuitem value="Marketing" url="/content/marketingDivulgacao/marketingDivulgacao.jsf" icon="ui-icon-contact" />  
+				    <p:menuitem value="Producao" url="/content/producao/producao.jsf" icon="ui-icon-gear" />  
+				    <p:menuitem value="RH" url="/content/rh/rh.jsf" icon="ui-icon-person" />  
+				    <p:menuitem value="Solicitações" url="/content/solicitacoes/solicitacoes.jsf" icon="ui-icon-wrench" />  
+				    <p:menuitem value="Treinamento" url="/content/treinamento/treinamento.jsf" icon="ui-icon-note" />  
+				    <p:menuitem value="Vendas" url="/content/vendas/vendas.jsf" icon="ui-icon-cart" />  
 				</p:tabMenu>
 			</div>
 		</h:panelGroup>
 	</div>
 	
 	<div id="sidebar">
-		<h:panelGroup id="menuLateral" rendered="#{usuarioBean.usuario.statusSistema}">
+		<h:panelGroup id="menuLateral">
 			<h:form id="menuLateralForm" name="menuLateralForm">
 			
 				<p:panelMenu id="menuLateralHome" rendered="#{tabAtiva == 0}">  
@@ -54,18 +83,7 @@
 			        </p:submenu>  
 		    	</p:panelMenu>
 	
-				<p:panelMenu id="menuLateralCompra" rendered="#{tabAtiva == 1}">  
-			       <p:submenu styleClass="menuLateralItens" label="Produtos">  
-			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
-			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/>  
-			        </p:submenu>  
-			        <p:submenu styleClass="menuLateralItens" label="Serviços">  
-			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
-			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/> 
-			        </p:submenu>
-		    	</p:panelMenu>
-		    	
-		    	<p:panelMenu id="menuLateralFinanceiro" rendered="#{tabAtiva == 2}">
+		    	<p:panelMenu id="menuLateralFinanceiro" rendered="#{tabAtiva == 1}">
 		    		<p:submenu styleClass="menuLateralItens" label="Contas Bancárias">  
 			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin" action="#{financeiroBean.abrirPaginaConsultaConta}"/>  
 			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus" action="#{financeiroBean.abrirPaginaIncContaBanc}"/>  
@@ -85,22 +103,39 @@
 	
 	
 	
-		    	<p:panelMenu id="menuLateralFornecedores" rendered="#{tabAtiva == 3}">  
+		    	<p:panelMenu id="menuLateralFornecedores" rendered="#{tabAtiva == 2}"> 
+		    		<p:submenu styleClass="menuLateralItens" label="Fornecedores">
+		    			<p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
+			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus" action="#{fornecedorBean.carregaTelaInclusaoFornecedores}"/>  
+		            </p:submenu> 
+		            
+		            <p:submenu styleClass="menuLateralItens" label="Produtos">  
+				       	<p:submenu styleClass="menuLateralItens" label="Produtos">  
+			            	<p:menuitem value="Consultar" icon="ui-icon-circle-zoomin" action="#{produtoBean.carregaTelaConsultaProdutos}"/>  
+				            <p:menuitem value="Incluir" icon="ui-icon-circle-plus" action="#{produtoBean.carregaTelaInclusaoProdutos}"/>  
+			       	 	</p:submenu>    
+				        <p:submenu styleClass="menuLateralItens" label="Serviços">  
+				            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
+				            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/> 
+				        </p:submenu>
+			    	</p:submenu>
+		    	
+		             
 		    	</p:panelMenu> 
 		    	
 		    	
 		    	
 	
-		    	<p:panelMenu id="menuLateralLogistica" rendered="#{tabAtiva == 4}">  
+		    	<p:panelMenu id="menuLateralLogistica" rendered="#{tabAtiva == 3}">  
 			        <p:submenu styleClass="menuLateralItens" label="Produtos" >  
 			            <p:menuitem value="Enviados" icon="ui-icon-arrowrefresh-1-w" />  
 			            <p:menuitem value="Aguard. Liberação" icon="ui-icon-arrowrefresh-1-w" />  
 			        </p:submenu>  
 		    	</p:panelMenu> 
+			
 				
 				
-				
-				<p:panelMenu id="menuLateralMktDivulgacao"  rendered="#{tabAtiva == 5}">  
+				<p:panelMenu id="menuLateralMktDivulgacao"  rendered="#{tabAtiva == 4}">  
 		         	<p:submenu styleClass="menuLateralItens" label="Normal">  
 			            <p:menuitem value="Postais" icon="ui-icon-circle-plus"/>  
 			            <p:menuitem value="Outdoors" icon="ui-icon-circle-plus"/>  
@@ -119,7 +154,7 @@
 				
 				
 				
-				<p:panelMenu id="menuLateralProducao" rendered="#{tabAtiva == 6}">  
+				<p:panelMenu id="menuLateralProducao" rendered="#{tabAtiva == 5}">  
 			        <p:submenu styleClass="menuLateralItens" label="Estoque">  
 			            <p:menuitem value="Hardware" icon="ui-icon-disk"/>  
 			            <p:menuitem value="Redes" icon="ui-icon-arrowrefresh-1-w"/>  
@@ -138,7 +173,7 @@
 		    	
 		    	
 		    	
-		    	<p:panelMenu id="menuLateralRh" rendered="#{tabAtiva == 7}">  
+		    	<p:panelMenu id="menuLateralRh" rendered="#{tabAtiva == 6}">  
 			        <p:submenu styleClass="menuLateralItens" label="Funcionário">  
 			            <p:menuitem value="Consultar" icon="ui-icon-arrowrefresh-1-w" action="#{rhBean.consultarFuncionario}" />  
 			            <p:menuitem value="Cargos" icon="ui-icon-arrowrefresh-1-w" />  
@@ -156,7 +191,7 @@
 					    	
 					    	
 					    	
-		    	<p:panelMenu id="menuLateralSolicitacoes" rendered="#{tabAtiva == 8}">  
+		    	<p:panelMenu id="menuLateralSolicitacoes" rendered="#{tabAtiva == 7}">  
 			        <p:submenu styleClass="menuLateralItens" label="Internas">  
 			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
 			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/>  
@@ -173,7 +208,7 @@
 		    	
 		    	
 		    	
-		    	<p:panelMenu id="menuLateralTreinamento" rendered="#{tabAtiva == 9}">  
+		    	<p:panelMenu id="menuLateralTreinamento" rendered="#{tabAtiva == 8}">  
 			        <p:submenu styleClass="menuLateralItens" label="Turmas">  
 			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
 			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/>  
@@ -189,7 +224,7 @@
 		    	</p:panelMenu>  
 		    	
 		    	
-		    	<p:panelMenu id="menuLateralVendas" rendered="#{tabAtiva == 10}">  
+		    	<p:panelMenu id="menuLateralVendas" rendered="#{tabAtiva == 9}">  
 		         	<p:submenu styleClass="menuLateralItens" label="Produtos">  
 			            <p:menuitem value="Hardware" icon="ui-icon-circle-zoomin"/>  
 			            <p:menuitem value="Redes" icon="ui-icon-circle-plus"/>  
@@ -200,34 +235,24 @@
 			            <p:menuitem value="Redes" icon="ui-icon-circle-plus"/>  
 			        </p:submenu>   
 		    	</p:panelMenu>
-	    	
+		    	
+		    	
 			</h:form>
 		</h:panelGroup>
 	</div>	
 	
-	<h:panelGroup rendered="#{usuarioBean.usuario.statusSistema}">
+	<h:panelGroup>
 		<div id="bordaLateralPagina"></div>
 	</h:panelGroup>
 	
 	<!-- PÁGINAS -->
-	<h:panelGroup rendered="#{usuarioBean.usuario.statusSistema}">
+	<h:panelGroup>
 		<div id="conteudo">
 			<h:panelGroup id="corpo">
 				<ui:insert id="body_content" name="body_content"/>
 			</h:panelGroup>
 		</div>
 	</h:panelGroup>
-	
-	<!-- LOGIN -->
-	<h:panelGroup rendered="#{!(usuarioBean.usuario.statusSistema)}">
-		<div id="conteudo1">
-			<h:panelGroup id="corpo1">
-				<ui:insert id="body_content1" name="body_content1"/>
-			</h:panelGroup>
-		</div>
-	</h:panelGroup>
-	
-	
 	
 </h:body>
 </html>

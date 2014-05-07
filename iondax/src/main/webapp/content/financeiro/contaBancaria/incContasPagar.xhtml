@@ -7,7 +7,7 @@
 	
 	<ui:param name="titulo" value="IONDAX - Design e Tecnologia"/>
 	
-	<ui:param name="tabAtiva" value="2"/>
+	<ui:param name="tabAtiva" value="1"/>
 	
 	<ui:define name="importacaoAdicional">
 		<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/content/financeiro/financeiro.css" />
@@ -18,7 +18,7 @@
 			
 			<h:panelGrid id="formularioInclusaoDespesa" columns="4">
 				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Nome da receita"/>
+					<p:outputLabel styleClass="textIondax" value="Nome da despesa"/>
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:inputText value="#{financeiroBean.contaAPagar.nome}"/>

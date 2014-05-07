@@ -8,23 +8,22 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-@FacesConverter(value="DecimalConverter")
-public class DecimalConverter implements Converter{
-	
+@FacesConverter(value = "DecimalConverter")
+public class DecimalConverter implements Converter {
 
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String value) throws ConverterException {
-				return value;
-//		return DecimalUtils.convert(value);
+		return value;
+		// return DecimalUtils.convert(value);
 	}
 
 	public String getAsString(FacesContext context, UIComponent component,
 			Object value) throws ConverterException {
 		if (value instanceof BigDecimal) {
-//			return DecimalUtils.format((BigDecimal) value);
+			// return DecimalUtils.format((BigDecimal) value);
 		}
 
 		return null;
 	}
-	
+
 }

@@ -4,31 +4,31 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class ContaBancaria implements Serializable{
+public class ContaBancaria implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 9156272129043052939L;
-	
-	private String banco;
+
 	private String agencia;
+	private String banco;
+	private String carteira;
+	private String codigoDoCliente;
+	private String convenio;
+	private String modalidade;
+	private String nomeContaBancaria;
+	private String nossoNumeroInicial;
 	private String nroConta;
 	private BigDecimal saldoAtual;
 	private Date ultimaVisualizacaoSaldo;
-	private String nomeContaBancaria;
-	private String carteira;
-	private String convenio;
 	private String variacaoCarteira;
-	private String modalidade;
-	private String codigoDoCliente;
-	private String nossoNumeroInicial;
-	
-	public ContaBancaria(){
+
+	public ContaBancaria() {
 		super();
 	}
-	
-	public ContaBancaria(ContaBancaria c){
+
+	public ContaBancaria(ContaBancaria c) {
 		super();
 		this.banco = c.getBanco();
 		this.agencia = c.getAgencia();
@@ -42,80 +42,101 @@ public class ContaBancaria implements Serializable{
 		this.modalidade = c.getModalidade();
 		this.codigoDoCliente = c.getCodigoDoCliente();
 	}
-	
-	public String getBanco() {
-		return banco;
-	}
-	public void setBanco(String banco) {
-		this.banco = banco;
-	}
+
 	public String getAgencia() {
 		return agencia;
 	}
-	public void setAgencia(String agencia) {
-		this.agencia = agencia;
+
+	public String getBanco() {
+		return banco;
 	}
-	public String getNroConta() {
-		return nroConta;
-	}
-	public void setNroConta(String nroConta) {
-		this.nroConta = nroConta;
-	}
-	public BigDecimal getSaldoAtual() {
-		return saldoAtual;
-	}
-	public void setSaldoAtual(BigDecimal saldoAtual) {
-		this.saldoAtual = saldoAtual;
-	}
-	public Date getUltimaVisualizacaoSaldo() {
-		return ultimaVisualizacaoSaldo;
-	}
-	public void setUltimaVisualizacaoSaldo(Date ultimaVisualizacaoSaldo) {
-		this.ultimaVisualizacaoSaldo = ultimaVisualizacaoSaldo;
-	}
-	public String getNomeContaBancaria() {
-		return nomeContaBancaria;
-	}
-	public void setNomeContaBancaria(String nomeContaBancaria) {
-		this.nomeContaBancaria = nomeContaBancaria;
-	}
+
 	public String getCarteira() {
 		return carteira;
 	}
-	public void setCarteira(String carteira) {
-		this.carteira = carteira;
-	}
-	public String getConvenio() {
-		return convenio;
-	}
-	public void setConvenio(String convenio) {
-		this.convenio = convenio;
-	}
-	public String getVariacaoCarteira() {
-		return variacaoCarteira;
-	}
-	public void setVariacaoCarteira(String variacaoCarteira) {
-		this.variacaoCarteira = variacaoCarteira;
-	}
-	public String getModalidade() {
-		return modalidade;
-	}
-	public void setModalidade(String modalidade) {
-		this.modalidade = modalidade;
-	}
+
 	public String getCodigoDoCliente() {
 		return codigoDoCliente;
 	}
-	public void setCodigoDoCliente(String codigoDoCliente) {
-		this.codigoDoCliente = codigoDoCliente;
+
+	public String getConvenio() {
+		return convenio;
+	}
+
+	public String getModalidade() {
+		return modalidade;
+	}
+
+	public String getNomeContaBancaria() {
+		return nomeContaBancaria;
 	}
 
 	public String getNossoNumeroInicial() {
 		return nossoNumeroInicial;
 	}
 
+	public String getNroConta() {
+		return nroConta;
+	}
+
+	public BigDecimal getSaldoAtual() {
+		return saldoAtual;
+	}
+
+	public Date getUltimaVisualizacaoSaldo() {
+		return ultimaVisualizacaoSaldo;
+	}
+
+	public String getVariacaoCarteira() {
+		return variacaoCarteira;
+	}
+
+	public void setAgencia(String agencia) {
+		this.agencia = agencia;
+	}
+
+	public void setBanco(String banco) {
+		this.banco = banco;
+	}
+
+	public void setCarteira(String carteira) {
+		this.carteira = carteira;
+	}
+
+	public void setCodigoDoCliente(String codigoDoCliente) {
+		this.codigoDoCliente = codigoDoCliente;
+	}
+
+	public void setConvenio(String convenio) {
+		this.convenio = convenio;
+	}
+
+	public void setModalidade(String modalidade) {
+		this.modalidade = modalidade;
+	}
+
+	public void setNomeContaBancaria(String nomeContaBancaria) {
+		this.nomeContaBancaria = nomeContaBancaria;
+	}
+
 	public void setNossoNumeroInicial(String nossoNumeroInicial) {
 		this.nossoNumeroInicial = nossoNumeroInicial;
+	}
+
+	public void setNroConta(String nroConta) {
+		this.nroConta = nroConta;
+	}
+
+	public void setSaldoAtual(BigDecimal saldoAtual) {
+		this.saldoAtual = saldoAtual;
+	}
+
+	public void setUltimaVisualizacaoSaldo(Date ultimaVisualizacaoSaldo) {
+		this.ultimaVisualizacaoSaldo = ultimaVisualizacaoSaldo;
+	}
+
+	public void setVariacaoCarteira(String variacaoCarteira) {
+		this.variacaoCarteira = variacaoCarteira;
 	}
 
 }

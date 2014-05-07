@@ -27,7 +27,7 @@ body{
 }
 #cabecalho{
 	float:left;
-	width:1130px;
+	width:850px;
 	height:56px;
 }
 #logo{
@@ -41,38 +41,41 @@ body{
 	font-size:15px;
 	font-weight: bold;
 	color:#eeeddd;
-	width:350px;
+	width:280px;
 	height:15px;
 	float:left;
+	text-align: right;
 }
 #sair a{
-	margin-left:715px;
+/* 	margin-left:715px; */
 	font-size:15px;
 	font-weight: bold;
 	text-decoration:none;
 	color:#eeeddd;
-	width:60px;
+	width:780px;
 	height:15px;
 	float:left;
+	text-align: right;
 }
 #sair a:hover{
-	margin-left:715px;
+/* 	margin-left:715px; */
 	font-size:15px;
 	font-weight: bold;
 	text-decoration:underline;
 	color:#eeeddd;
-	width:60px;
+	width:780px;
 	height:18px;
 	float:left;
+	text-align: right;
 }
 .menuHeader{
 	float:left;
-	width:auto;
+	width:950px;
 }
 #menuHeaderTab{
 	border:none;
 /* 	margin-right:-3px; */
-	float:right;
+	float:left;
 }
 
 /* Exclusivas TabMenu */

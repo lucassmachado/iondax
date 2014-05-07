@@ -10,9 +10,11 @@
 		http://www.springframework.org/schema/data/jpa
 		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
+	<context:annotation-config />  
+	
 	<context:component-scan base-package="br.com.iondax" />
 	
-	<jpa:repositories base-package="br.com.iondax.repositories" />
+	<jpa:repositories base-package="br.com.iondax.repositories"/>
 
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -34,9 +36,9 @@
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://177.68.97.42:3308/teste?createDatabaseIfNotExist=true" />
+		<property name="url" value="jdbc:mysql://localhost:3306/iondax?createDatabaseIfNotExist=true" />
 		<property name="username" value="root" />
-		<property name="password" value="root" />
+		<property name="password" value="123456" />
 	</bean>
 	
 </beans>

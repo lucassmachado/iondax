@@ -7,7 +7,7 @@
 	
 	<ui:param name="titulo" value="IONDAX - Design e Tecnologia"/>
 	
-	<ui:param name="tabAtiva" value="7"/>
+	<ui:param name="tabAtiva" value="6"/>
 	
 	<ui:define name="importacaoAdicional">
 		<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/content/rh/rh.css" />
@@ -103,7 +103,7 @@
 		        		<h:panelGrid>
 		        			<h:panelGroup>
 		        				<h:outputLabel for="dtNascFunc" value="Data Nascimento:" styleClass="textIondax"/>
-				        		<p:calendar id="dtNascFunc" value="#{rhBean.usuario.dataNascimento}" pattern="dd/MM/yyyy" navigator="true" showButtonPanel="true" 
+				        		<p:calendar locale="pt"  id="dtNascFunc" value="#{rhBean.usuario.dataNascimento}" pattern="dd/MM/yyyy" navigator="true" showButtonPanel="true" 
 				        			mode="popup" showOn="button" popupIconOnly="true" size="7" readonly="true"/>
 		        			</h:panelGroup>
 		        		</h:panelGrid>
@@ -240,7 +240,7 @@
 						    		<p:outputLabel value="Ano Inicio:" for="anoInicioCurso" styleClass="textIondax"/>
 						    	</h:panelGroup>
 						    	<h:panelGroup>
-						    		<p:calendar id="anoInicioCurso" pattern="dd/MM/yyyy" navigator="true" showButtonPanel="true" 
+						    		<p:calendar locale="pt"  id="anoInicioCurso" pattern="dd/MM/yyyy" navigator="true" showButtonPanel="true" 
 						        			mode="popup" showOn="button" popupIconOnly="true" size="7" readonly="true"/>
 						    	</h:panelGroup>
 						    	
@@ -248,7 +248,7 @@
 						    		<p:outputLabel value="Ano Fim:" for="anoConclusaoCurso" styleClass="textIondax"/>
 						    	</h:panelGroup>
 						    	<h:panelGroup>
-						    		<p:calendar id="anoConclusaoCurso" pattern="dd/MM/yyyy" navigator="true" showButtonPanel="true" 
+						    		<p:calendar locale="pt"  id="anoConclusaoCurso" pattern="dd/MM/yyyy" navigator="true" showButtonPanel="true" 
 						        			mode="popup" showOn="button" popupIconOnly="true" size="7" readonly="true"/>
 						    	</h:panelGroup>
 						    	
@@ -390,7 +390,7 @@
 					</h:panelGroup>
 					
 					<h:panelGroup>
-		        		<p:calendar id="dtEmissaoCTFunc" value="#{usuarioBean.usuario.funcionario.ctps.dataEmissao}" pattern="dd/MM/yyyy" navigator="true" showButtonPanel="true" 
+		        		<p:calendar locale="pt"  id="dtEmissaoCTFunc" value="#{usuarioBean.usuario.funcionario.ctps.dataEmissao}" pattern="dd/MM/yyyy" navigator="true" showButtonPanel="true" 
 		        		mode="popup" showOn="button" popupIconOnly="true" size="7" readonly="true"/>
 		        	</h:panelGroup>
 		        	  
@@ -747,7 +747,7 @@
 		    				</h:panelGroup>
 		    				
 				    		<h:panelGroup>
-				    			<p:calendar timeOnly="true" pattern="HH:mm" id="horarioEntradaExp" size="5"/>
+				    			<p:calendar locale="pt"  timeOnly="true" pattern="HH:mm" id="horarioEntradaExp" size="5"/>
 				    		</h:panelGroup>
 				    		
 				    		<h:panelGroup>
@@ -755,7 +755,7 @@
 				    		</h:panelGroup>
 				    		
 				    		<h:panelGroup>
-				    			<p:calendar timeOnly="true" pattern="HH:mm" id="horarioSaidaExp" size="5"/>
+				    			<p:calendar locale="pt"  timeOnly="true" pattern="HH:mm" id="horarioSaidaExp" size="5"/>
 				    		</h:panelGroup>
 				    		
 		    			</h:panelGrid>
@@ -775,7 +775,7 @@
 		    				</h:panelGroup>
 		    				
 				    		<h:panelGroup>
-				    			<p:calendar timeOnly="true" pattern="HH:mm" id="horarioEntradaPausa" size="5"/>
+				    			<p:calendar locale="pt"  timeOnly="true" pattern="HH:mm" id="horarioEntradaPausa" size="5"/>
 				    		</h:panelGroup>
 				    		
 				    		<h:panelGroup>
@@ -783,7 +783,7 @@
 				    		</h:panelGroup>
 				    		
 				    		<h:panelGroup>
-				    			<p:calendar timeOnly="true" pattern="HH:mm" id="horarioSaidaPausa" size="5"/>
+				    			<p:calendar locale="pt"  timeOnly="true" pattern="HH:mm" id="horarioSaidaPausa" size="5"/>
 				    		</h:panelGroup>
 				    		
 		    			</h:panelGrid>

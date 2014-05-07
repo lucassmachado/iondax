@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="../template/template_gerenciador.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="importacaoAdicional">
+		<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/content/index/index.css" />
+	</ui:define>	
+	
+	<ui:param name="titulo" value="bem vindo-IONDAX - Design e Tecnologia"/>
+	
+	<ui:param name="tabAtiva" value="0"/>
+	<div id="teste"></div>
+	<ui:define name="body_content">
+			
+			<h:panelGrid id="gridLogin" cellpadding="0" cellspacing="0" styleClass="gridLoginStyle">
+				<p:outputLabel>Bem Vindo!</p:outputLabel>
+			</h:panelGrid>
+		
+	</ui:define>
+	
+	
+	
+	
+</ui:composition>

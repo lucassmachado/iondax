@@ -7,7 +7,7 @@
 	
 	<ui:param name="titulo" value="IONDAX - Design e Tecnologia"/>
 	
-	<ui:param name="tabAtiva" value="2"/>
+	<ui:param name="tabAtiva" value="1"/>
 	
 	<ui:define name="importacaoAdicional">
 		<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/content/financeiro/financeiro.css" />
@@ -318,7 +318,7 @@
 					<p:inputMask mask="999999999999999.99" size="20" value="#{financeiroBean.conta.saldoAtual}"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:calendar value="#{financeiroBean.conta.ultimaVisualizacaoSaldo}"/>
+					<p:calendar locale="pt" value="#{financeiroBean.conta.ultimaVisualizacaoSaldo}"/>
 				</h:panelGroup>
 			</h:panelGrid>
 			

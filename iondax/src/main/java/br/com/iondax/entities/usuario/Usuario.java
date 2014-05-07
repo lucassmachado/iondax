@@ -10,26 +10,31 @@ import br.com.iondax.entities.rh.Funcionario;
 import br.com.iondax.util.BaseEntities;
 
 @Entity
-@Table(name = "teste")
+@Table(name = "usuario2")
 public class Usuario extends BaseEntities<Long> {
-	
-	
+
 	private static final long serialVersionUID = -2325703609610144911L;
 
-	private String username;
-	
-	private String senha;
-	
 	@Transient
-	private String nome;
+	private Bairro bairro;
+	// Fim Endereço
+
 	@Transient
-	private String sexo;
+	private Cidade cidade;
+
 	@Transient
-	private Integer rg;
-	@Transient
-	private Date dataNascimento;
+	private Contato contato;
 	@Transient
 	private Long cpf;
+	@Transient
+	private Date dataNascimento;
+	// Endereço
+	@Transient
+	private EnderecoUsuario endereco;
+	@Transient
+	private String estadoCivil;
+	@Transient
+	private Funcionario funcionario;
 	@Transient
 	private Integer idade;
 	@Transient
@@ -37,27 +42,19 @@ public class Usuario extends BaseEntities<Long> {
 	@Transient
 	private String naturalUf;
 	@Transient
-	private String estadoCivil;
+	private String nome;
+
+	@Transient
+	private Integer rg;
+	private String senha;
+	@Transient
+	private String sexo;
 	@Transient
 	private boolean statusSistema;
-	
-	//Endereço
-	@Transient
-	private EnderecoUsuario endereco;
-	@Transient
-	private Cidade cidade;
-	@Transient
-	private Bairro bairro;
-	// Fim Endereço
-	
-	@Transient
-	private Funcionario funcionario;
-	
-	@Transient
-	private Contato contato;
-	
-	
-	public Usuario(){
+
+	private String username;
+
+	public Usuario() {
 		super();
 		endereco = new EnderecoUsuario();
 		cidade = new Cidade();
@@ -65,8 +62,8 @@ public class Usuario extends BaseEntities<Long> {
 		funcionario = new Funcionario();
 		contato = new Contato();
 	}
-	
-	public Usuario(Usuario u){
+
+	public Usuario(Usuario u) {
 		super();
 		this.username = u.getUsername();
 		this.senha = u.getSenha();
@@ -79,111 +76,146 @@ public class Usuario extends BaseEntities<Long> {
 		this.naturalUf = u.getNaturalUf();
 		this.estadoCivil = u.getEstadoCivil();
 		this.funcionario = u.getFuncionario();
+		this.statusSistema = u.isStatusSistema();
 	}
-	
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	public String getSexo() {
-		return sexo;
-	}
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-	public Integer getRg() {
-		return rg;
-	}
-	public void setRg(Integer rg) {
-		this.rg = rg;
-	}
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-	public Long getCpf() {
-		return cpf;
-	}
-	public void setCpf(Long cpf) {
-		this.cpf = cpf;
-	}
-	public Integer getIdade() {
-		return idade;
-	}
-	public void setIdade(Integer idade) {
-		this.idade = idade;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getNaturalCid() {
-		return naturalCid;
-	}
-	public void setNaturalCid(String naturalCid) {
-		this.naturalCid = naturalCid;
-	}
-	public String getNaturalUf() {
-		return naturalUf;
-	}
-	public void setNaturalUf(String naturalUf) {
-		this.naturalUf = naturalUf;
-	}
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-	public String getEstadoCivil() {
-		return estadoCivil;
-	}
-	public void setEstadoCivil(String estadoCivil) {
-		this.estadoCivil = estadoCivil;
-	}
-	public boolean isStatusSistema() {
-		return statusSistema;
-	}
-	public void setStatusSistema(boolean statusSistema) {
-		this.statusSistema = statusSistema;
-	}
-	public EnderecoUsuario getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(EnderecoUsuario endereco) {
-		this.endereco = endereco;
-	}
-	public Contato getContato() {
-		return contato;
-	}
-	public void setcontato(Contato contato) {
-		this.contato = contato;
-	}
-	public Cidade getCidade() {
-		return cidade;
-	}
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
-	}
+
 	public Bairro getBairro() {
 		return bairro;
 	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public Contato getContato() {
+		return contato;
+	}
+
+	public Long getCpf() {
+		return cpf;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public EnderecoUsuario getEndereco() {
+		return endereco;
+	}
+
+	public String getEstadoCivil() {
+		return estadoCivil;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public Integer getIdade() {
+		return idade;
+	}
+
+	public String getNaturalCid() {
+		return naturalCid;
+	}
+
+	public String getNaturalUf() {
+		return naturalUf;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public Integer getRg() {
+		return rg;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public boolean isStatusSistema() {
+		return statusSistema;
+	}
+
 	public void setBairro(Bairro bairro) {
 		this.bairro = bairro;
 	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	public void setcontato(Contato contato) {
+		this.contato = contato;
+	}
+
 	public void setContato(Contato contato) {
 		this.contato = contato;
+	}
+
+	public void setCpf(Long cpf) {
+		this.cpf = cpf;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public void setEndereco(EnderecoUsuario endereco) {
+		this.endereco = endereco;
+	}
+
+	public void setEstadoCivil(String estadoCivil) {
+		this.estadoCivil = estadoCivil;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
+	public void setIdade(Integer idade) {
+		this.idade = idade;
+	}
+
+	public void setNaturalCid(String naturalCid) {
+		this.naturalCid = naturalCid;
+	}
+
+	public void setNaturalUf(String naturalUf) {
+		this.naturalUf = naturalUf;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setRg(Integer rg) {
+		this.rg = rg;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	public void setStatusSistema(boolean statusSistema) {
+		this.statusSistema = statusSistema;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }

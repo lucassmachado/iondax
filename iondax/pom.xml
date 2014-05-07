@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>iondax-tcc</groupId>
   <artifactId>br.com.iondax</artifactId>
@@ -20,7 +22,42 @@
 			</roles>
 		</developer>
 	</developers>
-
+	
+	
+	<build>
+		<finalName>Iondax</finalName>
+		
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+	
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<version>1.1</version>
+				<configuration>
+					<url>http://54.213.124.206/manager/text</url>
+	
+					<server>TomcatServer</server>
+	
+					<path>/iondax</path>
+	
+				</configuration>
+	
+			</plugin>
+	
+		</plugins>
+	</build>
+	
+	
+	
 	<repositories>
 		<!-- PRIMEFACES REPOSITORY -->
 		<repository>
@@ -58,24 +95,38 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+		<repository>
+			<id>JBoss</id>
+			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
+		</repository>
+		
 	</repositories>
-
+	
 
 	<!-- DEPENDÊNCIAS -->
+	
+	
 	<dependencies>
+	
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
+		<dependency>
+		   <groupId>org.jboss.seam.persistence</groupId>
+		   <artifactId>seam-persistence</artifactId>
+		   <version>3.0.0.Final</version>
+		</dependency>
+            
         
         <!-- SPRING TESTE -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>4.0.1.RELEASE</version>
-			<scope>test</scope>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework</groupId> -->
+<!-- 			<artifactId>spring-test</artifactId> -->
+<!-- 			<version>4.0.1.RELEASE</version> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
 
 		<!-- SPRING CORE -->
 		<dependency>
@@ -158,15 +209,10 @@
 		</dependency>
  
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-		</dependency>
- 
-		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>2.1</version>
+			 <scope>provided</scope>
 		</dependency>
 
 		<!-- PRIME=(primefaces) -->
@@ -212,6 +258,14 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.2.1</version>
 		</dependency>
+		
+		<!-- Java - E-mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
+		</dependency>
+            
 
 	</dependencies>
   

@@ -2,29 +2,28 @@ package br.com.iondax.entities.venda;
 
 import java.io.Serializable;
 
-public class Cliente implements Serializable{
-	
+public class Cliente implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 165699970730983089L;
 
+	private String nome;
 
-	public Cliente(){
+	public Cliente() {
 		super();
 	}
-	
-	public Cliente(String nome){
-		super();
-		this.nome = nome;
-	}
-	
-	public Cliente(Cliente c){
+
+	public Cliente(Cliente c) {
 		super();
 		this.nome = c.getNome();
 	}
-	
-	private String nome;
+
+	public Cliente(String nome) {
+		super();
+		this.nome = nome;
+	}
 
 	public String getNome() {
 		return nome;
@@ -33,7 +32,5 @@ public class Cliente implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
-	
+
 }

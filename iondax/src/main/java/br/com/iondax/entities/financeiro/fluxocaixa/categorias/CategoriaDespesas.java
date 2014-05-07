@@ -2,26 +2,28 @@ package br.com.iondax.entities.financeiro.fluxocaixa.categorias;
 
 import java.io.Serializable;
 
-
-public class CategoriaDespesas extends CategoriasFluxoCaixa implements Serializable{
+public class CategoriaDespesas extends CategoriasFluxoCaixa implements
+		Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1433262692789927920L;
-	
+
 	private String nome;
-	
-	public CategoriaDespesas(){
+
+	public CategoriaDespesas() {
 		super();
 	}
-	public CategoriaDespesas(String nome){
-		super();
-		this.nome = nome;
-	}
-	public CategoriaDespesas(CategoriaDespesas cd){
+
+	public CategoriaDespesas(CategoriaDespesas cd) {
 		super();
 		this.nome = cd.getNome();
+	}
+
+	public CategoriaDespesas(String nome) {
+		super();
+		this.nome = nome;
 	}
 
 	public String getNome() {
@@ -31,6 +33,5 @@ public class CategoriaDespesas extends CategoriasFluxoCaixa implements Serializa
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
+
 }

@@ -9,27 +9,27 @@ public class Funcionario implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -7187641030303731589L;
-	
-	private Date dataDemissao;
-	private Long re;
-	private Date dataAdmissao;
-	private Integer qtdDependentes;
-	private Long pis;
-	private boolean statusFuncionario;
-	private Long numCAM;
-	private String escolaridade;
-	private String setor;
-	private Long filial;
-	private String descFilial;
-	
+
 	private CTPS ctps;
-	
-	public Funcionario(){
+	private Date dataAdmissao;
+	private Date dataDemissao;
+	private String descFilial;
+	private String escolaridade;
+	private Long filial;
+	private Long numCAM;
+	private Long pis;
+	private Integer qtdDependentes;
+	private Long re;
+	private String setor;
+
+	private boolean statusFuncionario;
+
+	public Funcionario() {
 		super();
 		ctps = new CTPS();
 	}
-	
-	public Funcionario(Funcionario f){
+
+	public Funcionario(Funcionario f) {
 		super();
 		this.dataDemissao = f.getDataDemissao();
 		this.re = f.getRe();
@@ -41,85 +41,102 @@ public class Funcionario implements Serializable {
 		this.setor = f.getSetor();
 		this.filial = f.getFilial();
 	}
-	
-	//Getters e Setters
-	public Long getRe() {
-		return re;
+
+	public CTPS getCtps() {
+		return ctps;
 	}
-	public void setRe(Long re) {
-		this.re = re;
-	}
-	public boolean isStatusFuncionario() {
-		return statusFuncionario;
-	}
-	public void setStatusFuncionario(boolean statusFuncionario) {
-		this.statusFuncionario = statusFuncionario;
-	}
-	public Date getDataDemissao() {
-		return dataDemissao;
-	}
-	public void setDataDemissao(Date dataDemissao) {
-		this.dataDemissao = dataDemissao;
-	}
+
 	public Date getDataAdmissao() {
 		return dataAdmissao;
 	}
-	public void setDataAdmissao(Date dataAdmissao) {
-		this.dataAdmissao = dataAdmissao;
-	}
-	public Integer getQtdDependentes() {
-		return qtdDependentes;
-	}
-	public void setQtdDependentes(Integer qtdDependentes) {
-		this.qtdDependentes = qtdDependentes;
-	}
-	public Long getPis() {
-		return pis;
-	}
-	public void setPis(Long pis) {
-		this.pis = pis;
-	}
-	public Long getNumCAM() {
-		return numCAM;
-	}
-	public void setNumCAM(Long numCAM) {
-		this.numCAM = numCAM;
-	}
-	public String getEscolaridade() {
-		return escolaridade;
-	}
-	public void setEscolaridade(String escolaridade) {
-		this.escolaridade = escolaridade;
-	}
-	public String getSetor() {
-		return setor;
-	}
-	public void setSetor(String setor) {
-		this.setor = setor;
-	}
 
-	public Long getFilial() {
-		return filial;
-	}
-
-	public void setFilial(Long filial) {
-		this.filial = filial;
+	public Date getDataDemissao() {
+		return dataDemissao;
 	}
 
 	public String getDescFilial() {
 		return descFilial;
 	}
 
-	public void setDescFilial(String descFilial) {
-		this.descFilial = descFilial;
+	public String getEscolaridade() {
+		return escolaridade;
 	}
 
-	public CTPS getCtps() {
-		return ctps;
+	public Long getFilial() {
+		return filial;
+	}
+
+	public Long getNumCAM() {
+		return numCAM;
+	}
+
+	public Long getPis() {
+		return pis;
+	}
+
+	public Integer getQtdDependentes() {
+		return qtdDependentes;
+	}
+
+	// Getters e Setters
+	public Long getRe() {
+		return re;
+	}
+
+	public String getSetor() {
+		return setor;
+	}
+
+	public boolean isStatusFuncionario() {
+		return statusFuncionario;
 	}
 
 	public void setCtps(CTPS ctps) {
 		this.ctps = ctps;
 	}
-	
+
+	public void setDataAdmissao(Date dataAdmissao) {
+		this.dataAdmissao = dataAdmissao;
+	}
+
+	public void setDataDemissao(Date dataDemissao) {
+		this.dataDemissao = dataDemissao;
+	}
+
+	public void setDescFilial(String descFilial) {
+		this.descFilial = descFilial;
+	}
+
+	public void setEscolaridade(String escolaridade) {
+		this.escolaridade = escolaridade;
+	}
+
+	public void setFilial(Long filial) {
+		this.filial = filial;
+	}
+
+	public void setNumCAM(Long numCAM) {
+		this.numCAM = numCAM;
+	}
+
+	public void setPis(Long pis) {
+		this.pis = pis;
+	}
+
+	public void setQtdDependentes(Integer qtdDependentes) {
+		this.qtdDependentes = qtdDependentes;
+	}
+
+	public void setRe(Long re) {
+		this.re = re;
+	}
+
+	public void setSetor(String setor) {
+		this.setor = setor;
+	}
+
+	public void setStatusFuncionario(boolean statusFuncionario) {
+		this.statusFuncionario = statusFuncionario;
+	}
+
 }

@@ -12,18 +12,20 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
  * 
  * @author Branquinho
  */
-public abstract class BaseEntities<PK extends Serializable> extends AbstractPersistable<PK> implements Serializable {
+public abstract class BaseEntities<PK extends Serializable> extends
+		AbstractPersistable<PK> implements Serializable {
 
 	private static final long serialVersionUID = -1076604560833245138L;
 
 	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this,
+				ToStringStyle.MULTI_LINE_STYLE);
 	}
 
 }
