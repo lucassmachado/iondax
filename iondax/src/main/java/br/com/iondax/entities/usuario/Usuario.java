@@ -2,25 +2,23 @@ package br.com.iondax.entities.usuario;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import br.com.iondax.entities.rh.Funcionario;
+import org.hibernate.annotations.ForeignKey;
+
+import br.com.iondax.entities.rh.funcionario.Funcionario;
 import br.com.iondax.util.BaseEntities;
 
 @Entity
-@Table(name = "usuario2")
-public class Usuario extends BaseEntities<Long> {
+@Table(name="tb_usuarios")
+public class Usuario extends BaseEntities<Long>{
 
 	private static final long serialVersionUID = -2325703609610144911L;
-
-	@Transient
-	private Bairro bairro;
-	// Fim Endereço
-
-	@Transient
-	private Cidade cidade;
 
 	@Transient
 	private Contato contato;
@@ -28,13 +26,20 @@ public class Usuario extends BaseEntities<Long> {
 	private Long cpf;
 	@Transient
 	private Date dataNascimento;
+
 	// Endereço
-	@Transient
-	private EnderecoUsuario endereco;
+	@OneToOne
+	@ForeignKey(name="FK_Usuario_Endereco_id")
+	@JoinColumn(name = "usuario_endereco_id", referencedColumnName = "id", insertable = false, updatable = false)
+	private Enderecos endereco;
+	
+	
+	//Funcionario 
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+	private Funcionario funcionario;
+	
 	@Transient
 	private String estadoCivil;
-	@Transient
-	private Funcionario funcionario;
 	@Transient
 	private Integer idade;
 	@Transient
@@ -53,13 +58,10 @@ public class Usuario extends BaseEntities<Long> {
 	private boolean statusSistema;
 
 	private String username;
-
+	
 	public Usuario() {
 		super();
-		endereco = new EnderecoUsuario();
-		cidade = new Cidade();
-		bairro = new Bairro();
-		funcionario = new Funcionario();
+		endereco = new Enderecos();
 		contato = new Contato();
 	}
 
@@ -79,14 +81,6 @@ public class Usuario extends BaseEntities<Long> {
 		this.statusSistema = u.isStatusSistema();
 	}
 
-	public Bairro getBairro() {
-		return bairro;
-	}
-
-	public Cidade getCidade() {
-		return cidade;
-	}
-
 	public Contato getContato() {
 		return contato;
 	}
@@ -99,7 +93,7 @@ public class Usuario extends BaseEntities<Long> {
 		return dataNascimento;
 	}
 
-	public EnderecoUsuario getEndereco() {
+	public Enderecos getEndereco() {
 		return endereco;
 	}
 
@@ -147,14 +141,6 @@ public class Usuario extends BaseEntities<Long> {
 		return statusSistema;
 	}
 
-	public void setBairro(Bairro bairro) {
-		this.bairro = bairro;
-	}
-
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
-	}
-
 	public void setcontato(Contato contato) {
 		this.contato = contato;
 	}
@@ -171,7 +157,7 @@ public class Usuario extends BaseEntities<Long> {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public void setEndereco(EnderecoUsuario endereco) {
+	public void setEndereco(Enderecos endereco) {
 		this.endereco = endereco;
 	}
 

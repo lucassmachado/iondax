@@ -1,4 +1,4 @@
-package br.com.iondax.entities.rh;
+package br.com.iondax.entities.rh.funcionario;
 
 import java.io.Serializable;
 import java.util.Date;

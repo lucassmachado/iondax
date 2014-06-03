@@ -1,16 +1,13 @@
-package br.com.iondax.entities.rh;
+package br.com.iondax.entities.rh.funcionario.beneficios;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class ValeTransporte implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8673396381834615863L;
 
-	private Long codBeneficioTransporte;
+	private Long codValeTransporte;
 	private String descTransporte;
 	private BigDecimal valorTransporte;
 
@@ -20,14 +17,14 @@ public class ValeTransporte implements Serializable {
 
 	public ValeTransporte(ValeTransporte b) {
 		super();
-		this.codBeneficioTransporte = b.getCodBeneficioTransporte();
+		this.codValeTransporte = b.getCodBeneficioTransporte();
 		this.descTransporte = b.getDescTransporte();
 		this.valorTransporte = b.getValorTransporte();
 	}
 
 	// Getters e Setters
 	public Long getCodBeneficioTransporte() {
-		return codBeneficioTransporte;
+		return codValeTransporte;
 	}
 
 	public String getDescTransporte() {
@@ -39,7 +36,7 @@ public class ValeTransporte implements Serializable {
 	}
 
 	public void setCodBeneficioTransporte(Long codBeneficioTransporte) {
-		this.codBeneficioTransporte = codBeneficioTransporte;
+		this.codValeTransporte = codBeneficioTransporte;
 	}
 
 	public void setDescTransporte(String descTransporte) {

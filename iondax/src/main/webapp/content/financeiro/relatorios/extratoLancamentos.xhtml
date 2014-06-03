@@ -16,13 +16,38 @@
 	<ui:define name="body_content">
 		<h:form id="formExtratoLancamentos">
 			
-			<p:dataTable style="width:700px;">
-				<p:column headerText="Data"></p:column>
-				<p:column headerText="Categoria"></p:column>
-				<p:column headerText="Nome"></p:column>
-				<p:column headerText="Valor"></p:column>
-				<p:column headerText="Saldo Disponível"></p:column>
+			<p:dataTable id="tabelaLancamentos" style="width:99%; margin-bottom:5px;" rowKey="#{lan.id}" selection="#{financeiroBean.listaLancamentosSelecionados}" value="#{financeiroBean.listaLancamentos}" var="lan">
+				
+				<p:ajax event="rowSelect" update=":formExtratoLancamentos:btnEditar,:formExtratoLancamentos:btnExcluir" 
+					listener="#{financeiroBean.ativaBotoesTelaExtrato}"/>
+				<p:ajax event="toggleSelect" update=":formExtratoLancamentos:btnEditar,:formExtratoLancamentos:btnExcluir" 
+					listener="#{financeiroBean.ativaBotoesTelaExtrato}"/>
+				<p:ajax event="rowSelectCheckbox" update=":formExtratoLancamentos:btnEditar,:formExtratoLancamentos:btnExcluir" 
+					listener="#{financeiroBean.ativaBotoesTelaExtrato}"/>
+				<p:ajax event="rowUnselectCheckbox" update=":formExtratoLancamentos:btnEditar,:formExtratoLancamentos:btnExcluir" 
+					listener="#{financeiroBean.ativaBotoesTelaExtrato}"/>
+				
+				<p:column selectionMode="multiple" style="width:4%;text-align:center"/>
+				
+				<p:column headerText="Data" width="10%">
+					<p:outputLabel value="#{lan.dataTransacao}" converter="DataConverter"/>
+				</p:column>
+				<p:column headerText="Categoria" width="10%">
+					<p:outputLabel value="#{lan.tipo}"/>
+				</p:column>
+				<p:column headerText="Nome">
+					<p:outputLabel value="#{lan.nomeTransacao}"/>
+				</p:column>
+				<p:column headerText="Valor" width="20%">
+					<p:outputLabel value="R$"/><p:outputLabel style="float:right;" value="#{lan.valor}" converter="DecimalConverter"/>
+				</p:column>
+				<p:column headerText="Saldo Disponível" width="20%">
+					<p:outputLabel value="R$"/><p:outputLabel style="float:right;" value="#{lan.saldo}" converter="DecimalConverter"/>
+				</p:column>
 			</p:dataTable>
+			
+			<p:commandButton id="btnEditar" rendered="#{not empty financeiroBean.listaLancamentos}" value="Editar" disabled="#{financeiroBean.ativaBotaoEditarTelaExtrato}"/>
+			<p:commandButton id="btnExcluir" rendered="#{not empty financeiroBean.listaLancamentos}" value="Excluir" disabled="#{financeiroBean.ativaBotaoExcluirTelaExtrato}"/>
 			
 		</h:form>
 	</ui:define>

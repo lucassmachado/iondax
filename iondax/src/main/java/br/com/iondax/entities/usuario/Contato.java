@@ -1,25 +1,26 @@
 package br.com.iondax.entities.usuario;
 
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-public class Contato implements Serializable {
+import br.com.iondax.util.BaseEntities;
 
-	/**
-	 * 
-	 */
+@Entity
+@Table(name="tb_contatos")
+public class Contato extends BaseEntities<Long> {
+
 	private static final long serialVersionUID = -5913623775064926361L;
 
 	private String descEmail;
-	private Long id;
 	private String numCelular;
 	private String numTelefone;
-
+	private String site;
+	
 	public Contato() {
 		super();
 	}
 
 	public Contato(Contato c) {
-		this.id = c.getId();
 		this.numTelefone = c.getNumTelefone();
 		this.numCelular = c.getNumCelular();
 		this.descEmail = c.getDescEmail();
@@ -27,10 +28,6 @@ public class Contato implements Serializable {
 
 	public String getDescEmail() {
 		return descEmail;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public String getNumCelular() {
@@ -45,16 +42,20 @@ public class Contato implements Serializable {
 		this.descEmail = descEmail;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public void setNumCelular(String numCelular) {
 		this.numCelular = numCelular;
 	}
 
 	public void setNumTelefone(String numTelefone) {
 		this.numTelefone = numTelefone;
+	}
+
+	public String getSite() {
+		return site;
+	}
+
+	public void setSite(String site) {
+		this.site = site;
 	}
 
 }

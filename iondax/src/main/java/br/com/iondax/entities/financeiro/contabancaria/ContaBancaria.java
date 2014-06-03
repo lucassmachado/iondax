@@ -1,16 +1,31 @@
 package br.com.iondax.entities.financeiro.contabancaria;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
-public class ContaBancaria implements Serializable {
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
-	/**
-	 * 
-	 */
+import br.com.iondax.entities.financeiro.contabancaria.transacoes.despesa.Despesa;
+import br.com.iondax.entities.financeiro.contabancaria.transacoes.receita.Receita;
+import br.com.iondax.entities.financeiro.contabancaria.transacoes.transferencia.Transferencia;
+import br.com.iondax.entities.financeiro.relatorios.Lancamentos;
+import br.com.iondax.util.BaseEntities;
+
+@Entity
+@Table(name="tb_contabancaria")
+public class ContaBancaria extends BaseEntities<Long> {
+
 	private static final long serialVersionUID = 9156272129043052939L;
-
+	@Transient
+	private Long rowkey;
+	
 	private String agencia;
 	private String banco;
 	private String carteira;
@@ -19,7 +34,20 @@ public class ContaBancaria implements Serializable {
 	private String modalidade;
 	private String nomeContaBancaria;
 	private String nossoNumeroInicial;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contaBancaria")
+	private List<Despesa> listaDespesas;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contaBancaria")
+	private List<Receita> listaReceitas;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contaBancaria")
+	private List<Transferencia> listaTransferencia;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contaBancaria")
+	private List<Lancamentos> lancamentos;
+	
+	// nroConta terá de ser um índice
+	@Column(insertable=true,updatable=true,unique=true)
 	private String nroConta;
+	
 	private BigDecimal saldoAtual;
 	private Date ultimaVisualizacaoSaldo;
 	private String variacaoCarteira;
@@ -137,6 +165,18 @@ public class ContaBancaria implements Serializable {
 
 	public void setVariacaoCarteira(String variacaoCarteira) {
 		this.variacaoCarteira = variacaoCarteira;
+	}
+
+	public Long getRowkey() {
+		return super.getId();
+	}
+
+	public void setRowkey(Long rowkey) {
+		this.rowkey = super.getId();
+	}
+	
+	public void setId(Long id){
+		super.setId(id);
 	}
 
 }

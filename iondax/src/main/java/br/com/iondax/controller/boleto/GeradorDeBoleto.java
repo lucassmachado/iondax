@@ -51,8 +51,7 @@ public class GeradorDeBoleto {
 		/*
 		 * INFORMANDO DADOS SOBRE O SACADOR AVALISTA.
 		 */
-		SacadorAvalista sacadorAvalista = new SacadorAvalista(
-				"JRimum Enterprise", "00.000.000/0001-91");
+		SacadorAvalista sacadorAvalista = new SacadorAvalista("JRimum Enterprise", "00.000.000/0001-91");
 
 		// Informando o endereço do sacador avalista.
 		Endereco enderecoSacAval = new Endereco();
@@ -69,15 +68,13 @@ public class GeradorDeBoleto {
 		 */
 
 		// Informando dados sobre a conta bancária do título.
-		ContaBancaria contaBancaria = new ContaBancaria(
-				BancosSuportados.BANCO_DO_BRASIL.create());
+		ContaBancaria contaBancaria = new ContaBancaria(BancosSuportados.BANCO_DO_BRASIL.create());
 		contaBancaria.setNumeroDaConta(new NumeroDaConta(456, "0"));
 		contaBancaria.setCarteira(new Carteira(2, TipoDeCobranca.SEM_REGISTRO));
 		contaBancaria.setAgencia(new Agencia(1234, "1"));
 		contaBancaria.setModalidade(new Modalidade(1));
 
-		Titulo titulo = new Titulo(contaBancaria, sacado, cedente,
-				sacadorAvalista);
+		Titulo titulo = new Titulo(contaBancaria, sacado, cedente, sacadorAvalista);
 		titulo.setNumeroDoDocumento("123456");
 		titulo.setNossoNumero("99999999999999999");
 		titulo.setDigitoDoNossoNumero("5");

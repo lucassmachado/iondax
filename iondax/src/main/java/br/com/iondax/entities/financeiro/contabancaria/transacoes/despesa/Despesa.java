@@ -1,30 +1,65 @@
-package br.com.iondax.entities.financeiro.contabancaria.despesa;
+package br.com.iondax.entities.financeiro.contabancaria.transacoes.despesa;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import br.com.iondax.entities.financeiro.contabancaria.receitas.Recorrencia;
-import br.com.iondax.entities.financeiro.fluxocaixa.categorias.CategoriasFluxoCaixa;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.ForeignKey;
+
+import br.com.iondax.entities.financeiro.contabancaria.ContaBancaria;
+import br.com.iondax.entities.financeiro.contabancaria.transacoes.Recorrencia;
+import br.com.iondax.entities.financeiro.fluxocaixa.CategoriaTransacao;
+import br.com.iondax.entities.financeiro.relatorios.Lancamentos;
 import br.com.iondax.entities.fornecedor.Fornecedor;
+import br.com.iondax.util.BaseEntities;
 
-public class Despesa extends CategoriasFluxoCaixa implements Serializable {
+@Entity
+@Table(name="tb_despesas")
+public class Despesa extends BaseEntities<Long>{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6601008180509865287L;
-
+	
+	private String nomeDespesa;
 	private boolean booleanSituacao;
 	private String caminhoArquivoAnexo;
 	private String categoria;
-	private String contaBancaria;
+	private Date dataDespesa;
+	
+	@ManyToOne
+	@ForeignKey(name="FK_Despesa_ContaBancaria_ID")
+	@JoinColumn(name="contaBancaria_id", referencedColumnName="id",nullable=false,updatable=true, insertable = true)
+	private ContaBancaria contaBancaria;
+	
 	private Date dataCompetencia;
 	private Date dataVencimento;
+	
+	@ManyToOne
+	@ForeignKey(name="FK_Despesa_Fornecedor_ID")
+    @JoinColumn(name="fornecedor_id", referencedColumnName = "id",nullable=true,updatable=true, insertable = true)
 	private Fornecedor fornecedor;
-	private String nome;
+
+	@ManyToOne
+	@ForeignKey(name="FK_Despesa_CategoriaTransacao_ID")
+	@JoinColumn(name="subTipo_id", referencedColumnName = "id", insertable = true)
+	private CategoriaTransacao subTipo;
+	
 	private String observacoes;
+	
+	@OneToOne
+	@ForeignKey(name="FK_Despesa_Recorrencia_ID")
+	@JoinColumn(name = "recorrencia_id",nullable=true,insertable=true,updatable=true)
 	private Recorrencia recorrencia;
+	
+	@OneToOne
+	@ForeignKey(name="FK_Despesa_Lancamentos_ID")
+	@JoinColumn(name = "lancamentos_id",nullable=true,insertable=true,updatable=true)
+	private Lancamentos lancamentos;
+	
 	private BigDecimal valorDespesa;
 
 	public Despesa() {
@@ -33,22 +68,21 @@ public class Despesa extends CategoriasFluxoCaixa implements Serializable {
 
 	public Despesa(Despesa d) {
 		super();
-		this.nome = d.getNome();
 		this.categoria = d.getCategoria();
 		this.valorDespesa = d.getValorDespesa();
 		this.dataVencimento = d.getDataVencimento();
 		this.booleanSituacao = d.isBooleanSituacao();
 		this.dataCompetencia = d.getDataCompetencia();
+		this.subTipo = d.getSubTipo();
 		this.observacoes = d.getObservacoes();
 		this.caminhoArquivoAnexo = d.getCaminhoArquivoAnexo();
 	}
 
-	public Despesa(String nome, String categoria, BigDecimal valorDespesa,
-			String contaBancaria, Date dataVencimento, boolean situacao,
+	public Despesa(String categoria, BigDecimal valorDespesa,
+			ContaBancaria contaBancaria, Date dataVencimento, boolean situacao,
 			Recorrencia recorrencia, Fornecedor fornecedor,
-			Date dataCompetencia, String observacoes, String caminhoArquivoAnexo) {
+			Date dataCompetencia, String observacoes,CategoriaTransacao subTipo, String caminhoArquivoAnexo) {
 		super();
-		this.nome = nome;
 		this.categoria = categoria;
 		this.valorDespesa = valorDespesa;
 		this.contaBancaria = contaBancaria;
@@ -57,6 +91,7 @@ public class Despesa extends CategoriasFluxoCaixa implements Serializable {
 		this.recorrencia = recorrencia;
 		this.fornecedor = fornecedor;
 		this.dataCompetencia = dataCompetencia;
+		this.subTipo = subTipo;
 		this.observacoes = observacoes;
 		this.caminhoArquivoAnexo = caminhoArquivoAnexo;
 	}
@@ -69,7 +104,7 @@ public class Despesa extends CategoriasFluxoCaixa implements Serializable {
 		return categoria;
 	}
 
-	public String getContaBancaria() {
+	public ContaBancaria getContaBancaria() {
 		return contaBancaria;
 	}
 
@@ -83,10 +118,6 @@ public class Despesa extends CategoriasFluxoCaixa implements Serializable {
 
 	public Fornecedor getFornecedor() {
 		return fornecedor;
-	}
-
-	public String getNome() {
-		return nome;
 	}
 
 	public String getObservacoes() {
@@ -117,7 +148,7 @@ public class Despesa extends CategoriasFluxoCaixa implements Serializable {
 		this.categoria = categoria;
 	}
 
-	public void setContaBancaria(String contaBancaria) {
+	public void setContaBancaria(ContaBancaria contaBancaria) {
 		this.contaBancaria = contaBancaria;
 	}
 
@@ -133,10 +164,6 @@ public class Despesa extends CategoriasFluxoCaixa implements Serializable {
 		this.fornecedor = fornecedor;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
 	}
@@ -147,6 +174,38 @@ public class Despesa extends CategoriasFluxoCaixa implements Serializable {
 
 	public void setValorDespesa(BigDecimal valorDespesa) {
 		this.valorDespesa = valorDespesa;
+	}
+
+	public CategoriaTransacao getSubTipo() {
+		return subTipo;
+	}
+
+	public void setSubTipo(CategoriaTransacao subTipo) {
+		this.subTipo = subTipo;
+	}
+
+	public String getNomeDespesa() {
+		return nomeDespesa;
+	}
+
+	public void setNomeDespesa(String nomeDespesa) {
+		this.nomeDespesa = nomeDespesa;
+	}
+
+	public Date getDataDespesa() {
+		return dataDespesa;
+	}
+
+	public void setDataDespesa(Date dataDespesa) {
+		this.dataDespesa = dataDespesa;
+	}
+
+	public Lancamentos getLancamentos() {
+		return lancamentos;
+	}
+
+	public void setLancamentos(Lancamentos lancamentos) {
+		this.lancamentos = lancamentos;
 	}
 
 }

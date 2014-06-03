@@ -33,25 +33,27 @@
 						<p:inputText/>
 					</h:panelGroup>
 					<h:panelGroup>
-						<p:outputLabel value="CNPJ" styleClass="textIondax"/>
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:inputText/>
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:outputLabel value="Inscrição Estadual" styleClass="textIondax"/>
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:inputText/>
-					</h:panelGroup>
-					<h:panelGroup>
 						<p:outputLabel value="Pessoa" styleClass="textIondax"/>
 					</h:panelGroup>
 					<h:panelGroup>
-						<p:selectOneRadio id="tipoPessoa" styleClass="textIondax">
-							<f:selectItem itemValue="F" itemLabel="Física"/>
-							<f:selectItem itemValue="J" itemLabel="Jurídica"/>
+						<p:selectOneRadio id="tipoPessoa" styleClass="textIondax" value="#{fornecedorBean.fornecedor.tipoPessoa}">
+							<f:selectItem itemValue="1" itemLabel="Física"/>
+							<f:selectItem itemValue="2" itemLabel="Jurídica"/>
 						</p:selectOneRadio>
+					</h:panelGroup>
+					
+					<h:panelGroup rendered="#{fornecedorBean.fornecedor.tipoPessoa == 1}">
+						<p:outputLabel value="CPF" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{fornecedorBean.fornecedor.tipoPessoa == 1}">
+						<p:inputMask mask="###.###.###-##"/>
+					</h:panelGroup>
+					
+					<h:panelGroup rendered="#{fornecedorBean.fornecedor.tipoPessoa == 2}">
+						<p:outputLabel value="CNPJ" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{fornecedorBean.fornecedor.tipoPessoa == 2}">
+						<p:inputMask mask="##.###.###/####-##"/>
 					</h:panelGroup>
 					
 					<h:panelGroup>
@@ -81,7 +83,7 @@
 		        		<h:outputLink id="linkVisualizarMapa" value="http://www.google.com.br/maps" target="_blank">
 		        			<f:param name="hl" value="pt-BR"/>
 		        			<f:param name="output" value="search"/>
-		        			<f:param name="q" value="#{rhBean.usuario.endereco.cep}"/>
+		        			<f:param name="q" value="#{fornecedorBean.fornecedor.endereco.cep}"/>
  		        			<h:outputLabel value="Visualizar Mapa" styleClass="textLinkIondax" />
 		        		</h:outputLink>
 		        	</h:panelGroup>
@@ -94,7 +96,7 @@
 						<h:outputLabel value="Estado:" for="cboEstadoEnd" styleClass="textIondax"/>
 					</h:panelGroup>
 					<h:panelGroup>
-		        		<p:selectOneMenu id="cboEstadoEnd" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.cidade.uf}">
+		        		<p:selectOneMenu id="cboEstadoEnd" style="margin-top:5px; margin-left:2px;">
 		        			<f:selectItems value="#{utils.comboUfs}"/>
 		        		</p:selectOneMenu>
 		        	</h:panelGroup>
@@ -103,7 +105,7 @@
 						<h:outputLabel value="Cidade:" for="cboCidEnd" styleClass="textIondax" />
 					</h:panelGroup>
 					<h:panelGroup>
-		        		<p:selectOneMenu id="cboCidEnd" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.cidade.descCidade}" disabled="true">
+		        		<p:selectOneMenu id="cboCidEnd" style="margin-top:5px; margin-left:2px;">
 		        			<f:selectItems value="#{utils.comboUfs}"/>
 		        		</p:selectOneMenu>
 		        	</h:panelGroup>
@@ -112,7 +114,7 @@
 						<h:outputLabel value="Bairro:" for="cboBairroEnd" styleClass="textIondax"/>
 					</h:panelGroup>
 					<h:panelGroup>
-		        		<p:selectOneMenu id="cboBairroEnd" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.bairro.descBairro}" disabled="true">
+		        		<p:selectOneMenu id="cboBairroEnd" style="margin-top:5px; margin-left:2px;">
 		        			<f:selectItems value="#{utils.comboUfs}"/>
 		        		</p:selectOneMenu>
 		        	</h:panelGroup>
@@ -124,14 +126,14 @@
 						<p:outputLabel value="Logradouro:" styleClass="textIondax"/>
 					</h:panelGroup>
 					<h:panelGroup>
-		        		<p:inputText id="descEnd" size="30" value="#{rhBean.usuario.endereco.descEndereco}"/>
+		        		<p:inputText id="descEnd" size="30"/>
 		        	</h:panelGroup>
 		        	
 					<h:panelGroup style="margin-left:5px;">
 						<h:outputLabel value="Numero:" for="nroEnd" styleClass="textIondax"/>
 					</h:panelGroup>
 					<h:panelGroup>
-		        		<p:inputMask id="nroEnd" mask="99999" size="2" value="#{rhBean.usuario.endereco.numero}"/>
+		        		<p:inputMask id="nroEnd" mask="99999" size="2"/>
 		        	</h:panelGroup>
 				</h:panelGrid>
 			</p:fieldset>
@@ -165,7 +167,8 @@
 					</h:panelGroup>
 				</h:panelGrid>
 			</p:fieldset>
-
+			
+			<p:commandButton action="#{fornecedorBean.incluirFornecedores}" value="Incluir Fornecedor"/>
 		</h:form>
 	</ui:define>
 </ui:composition>

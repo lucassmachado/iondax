@@ -1,50 +1,64 @@
 package br.com.iondax.entities.usuario;
 
-import java.io.Serializable;
+import java.util.List;
 
-public class Cidade implements Serializable {
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-	/**
-	 * 
-	 */
+import org.hibernate.annotations.ForeignKey;
+
+import br.com.iondax.util.BaseEntities;
+
+@Entity
+@Table(name="tb_cidades")
+public class Cidade extends BaseEntities<Long> {
+
 	private static final long serialVersionUID = -281343803322270441L;
-
-	private String descCidade;
-	private Long id;
-	private String uf;
-
+	private String nomeCidade;
+	
+	@ManyToOne
+	@ForeignKey(name="FK_Cidade_Estado_ID")
+    @JoinColumn(name="cidade_estado_id", referencedColumnName = "id", insertable = true)
+	private Estado estadoCidade;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "cidade")
+	private List<Enderecos> listaEnderecos;
+	
 	public Cidade() {
 		super();
 	}
 
 	public Cidade(Cidade c) {
 		super();
-		this.id = c.getId();
-		this.descCidade = c.getDescCidade();
-		this.uf = c.getUf();
 	}
 
-	public String getDescCidade() {
-		return descCidade;
+	public String getNomeCidade() {
+		return nomeCidade;
 	}
 
-	public Long getId() {
-		return id;
+	public void setNomeCidade(String nomeCidade) {
+		this.nomeCidade = nomeCidade;
+	}
+	
+	public List<Enderecos> getListaEnderecos() {
+		return listaEnderecos;
 	}
 
-	public String getUf() {
-		return uf;
+	public void setListaEnderecos(List<Enderecos> listaEnderecos) {
+		this.listaEnderecos = listaEnderecos;
 	}
 
-	public void setDescCidade(String descCidade) {
-		this.descCidade = descCidade;
+	public Estado getEstadoCidade() {
+		return estadoCidade;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setEstadoCidade(Estado estadoCidade) {
+		this.estadoCidade = estadoCidade;
 	}
 
-	public void setUf(String uf) {
-		this.uf = uf;
-	}
 }

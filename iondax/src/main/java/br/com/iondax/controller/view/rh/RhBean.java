@@ -9,9 +9,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
-import br.com.iondax.entities.rh.AssistenciaMedica;
-import br.com.iondax.entities.rh.Funcionario;
-import br.com.iondax.entities.rh.ValeTransporte;
+import br.com.iondax.entities.rh.funcionario.Funcionario;
+import br.com.iondax.entities.rh.funcionario.beneficios.AssistenciaMedica;
+import br.com.iondax.entities.rh.funcionario.beneficios.ValeTransporte;
+import br.com.iondax.entities.rh.funcionario.filial.Filial;
 import br.com.iondax.entities.usuario.Usuario;
 
 @ManagedBean(name = "rhBean")
@@ -33,7 +34,7 @@ public class RhBean {
 	private List<ValeTransporte> listaValeTransportesSelecionados;
 	private BigDecimal totalVlrTransporte;
 	private ValeTransporte transporte;
-	private Usuario usuario;
+	private Funcionario funcionario;
 
 	public void ativaBtnExcluirTransporte() {
 		setDesativaExcluir(false);
@@ -50,7 +51,7 @@ public class RhBean {
 
 	// Pagina INCLUSÃO
 	public String cadastrarFuncionario() {
-		usuario = new Usuario();
+		funcionario = new Funcionario();
 
 		// Vale Transporte
 		preencherComboTransportes();
@@ -81,17 +82,15 @@ public class RhBean {
 		listaFuncionarios.get(0).setFuncionario(new Funcionario());
 		listaFuncionarios.get(0).setNome("Rafael");
 		listaFuncionarios.get(0).getFuncionario().setRe(new Long(1));
-		listaFuncionarios.get(0).getFuncionario().setFilial(new Long(1));
-		listaFuncionarios.get(0).getFuncionario().setDescFilial("Cotia");
-		listaFuncionarios.get(0).getFuncionario()
-				.setSetor("Desenvolvimento/Programação");
+		listaFuncionarios.get(0).getFuncionario().setFilial(new Filial("Filial Cotia"));
+		listaFuncionarios.get(0).getFuncionario().setSetor("Desenvolvimento/Programação");
 		listaFuncionarios.get(0).getFuncionario().setDataAdmissao(new Date());
 
 		return listaFuncionarios;
 	}
 
 	public String confirmarInclusaoFuncionario() {
-		System.out.println(usuario.getCpf());
+		System.out.println(funcionario.getUsuario().getCpf());
 		return "/content/index.jsf?faces-redirect=true";
 	}
 
@@ -154,10 +153,6 @@ public class RhBean {
 	// INCLUSAO DE FUNCIONARIO
 	public ValeTransporte getTransporte() {
 		return transporte;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
 	}
 
 	public void incluirTransporte() {
@@ -251,8 +246,12 @@ public class RhBean {
 		this.transporte = transporte;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 
 }

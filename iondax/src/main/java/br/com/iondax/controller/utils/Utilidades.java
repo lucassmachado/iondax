@@ -3,9 +3,12 @@ package br.com.iondax.controller.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.print.attribute.standard.Severity;
 
 @ManagedBean(name = "utils")
 @SessionScoped
@@ -19,38 +22,6 @@ public class Utilidades {
 		case 1:
 			lista.add(new SelectItem("16", "16"));
 			lista.add(new SelectItem("18", "18"));
-			break;
-		case 4:
-			lista.add(new SelectItem("4", "11"));
-			lista.add(new SelectItem("41", "16"));
-			lista.add(new SelectItem("45", "45"));
-			lista.add(new SelectItem("46", "46"));
-			lista.add(new SelectItem("47", "47"));
-			lista.add(new SelectItem("48", "48"));
-			lista.add(new SelectItem("49", "49"));
-			lista.add(new SelectItem("50", "50"));
-			lista.add(new SelectItem("51", "51"));
-			lista.add(new SelectItem("52", "52"));
-			lista.add(new SelectItem("53", "53"));
-			lista.add(new SelectItem("54", "54"));
-			lista.add(new SelectItem("55", "55"));
-			lista.add(new SelectItem("57", "57"));
-			lista.add(new SelectItem("58", "58"));
-			lista.add(new SelectItem("59", "59"));
-			lista.add(new SelectItem("61", "61"));
-			lista.add(new SelectItem("63", "63"));
-			lista.add(new SelectItem("95", "95"));
-			lista.add(new SelectItem("97", "97"));
-			break;
-		case 21:
-			lista.add(new SelectItem("2", "2"));
-			lista.add(new SelectItem("3", "3"));
-			lista.add(new SelectItem("4", "4"));
-			lista.add(new SelectItem("5", "5"));
-			lista.add(new SelectItem("6", "6"));
-			lista.add(new SelectItem("7", "7"));
-			lista.add(new SelectItem("11", "11"));
-			lista.add(new SelectItem("13", "13"));
 			break;
 		case 33:
 			lista.add(new SelectItem("101", "101"));
@@ -72,26 +43,9 @@ public class Utilidades {
 		case 151:
 			lista.add(new SelectItem("9", "9"));
 			break;
-		case 399:
-			lista.add(new SelectItem("CNR", "CNR "));
-			lista.add(new SelectItem("CSB", "CSB"));
+		case 237:
 			break;
-		case 409:
-			lista.add(new SelectItem("caucao", "Caução"));
-			lista.add(new SelectItem("direta", "Direta"));
-			lista.add(new SelectItem("especial", "Especial"));
-			lista.add(new SelectItem("escritural", "Escritural"));
-			lista.add(new SelectItem("simples", "Simples"));
-			lista.add(new SelectItem("simples-especial", "Simples-Especial"));
-			break;
-		case 422:
-			lista.add(new SelectItem("1", "1"));
-			lista.add(new SelectItem("2", "2"));
-			lista.add(new SelectItem("4", "4"));
-			lista.add(new SelectItem("6", "6"));
-			lista.add(new SelectItem("50", "050"));
-			lista.add(new SelectItem("60", "060"));
-			lista.add(new SelectItem("229", "229"));
+		case 341:
 			break;
 		}
 
@@ -102,22 +56,11 @@ public class Utilidades {
 		List<SelectItem> lista = new ArrayList<SelectItem>();
 
 		lista.add(new SelectItem(1, "001 - Banco do Brasil"));
-		lista.add(new SelectItem(4, "004 - Banco do norderste"));
-		lista.add(new SelectItem(21, "021 - Banestes"));
 		lista.add(new SelectItem(33, "033 - Santander"));
-		lista.add(new SelectItem(41, "041 - Barisul"));
 		lista.add(new SelectItem(104, "104 - Caixa Econômica Federeal"));
 		lista.add(new SelectItem(151, "151 - Nossa Caixa"));
 		lista.add(new SelectItem(237, "237 - Bradesco"));
 		lista.add(new SelectItem(341, "341 - Itaú"));
-		lista.add(new SelectItem(356, "356 - Banco Real"));
-		lista.add(new SelectItem(389, "389 - Mercantil do Brasil"));
-		lista.add(new SelectItem(399, "399 - HSBC"));
-		lista.add(new SelectItem(409, "409 - Unibanco"));
-		lista.add(new SelectItem(422, "422 - Safra"));
-		lista.add(new SelectItem(453, "453 - Banco Rural"));
-		lista.add(new SelectItem(748, "748 - Sicredi"));
-		lista.add(new SelectItem(756, "756 - Bancoob - Banco Cooperativo"));
 
 		return lista;
 	}
@@ -164,4 +107,25 @@ public class Utilidades {
 
 		return lista;
 	}
+	
+	/**
+	 * 
+	 * @param mensagem
+	 * @param tipo
+	 * 		<br><strong> tipo pode ser "erro", "alerta", "sucesso"  </strong>
+	 */
+	public static void mensagemNaTela(String mensagem, String tipo){
+		FacesContext context = FacesContext.getCurrentInstance();
+        
+		if(tipo.equals("sucesso") ){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Sucesso",mensagem) );	
+		}
+		if(tipo.equals("erro") ){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Erro", mensagem));
+		}
+		if(tipo.equals("alerta") ){
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Alerta", mensagem));
+		}
+	}
+	
 }

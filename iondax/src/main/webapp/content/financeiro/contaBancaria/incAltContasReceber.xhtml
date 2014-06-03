@@ -14,14 +14,14 @@
 	</ui:define>
 	
 	<ui:define name="body_content">
-		<h:form id="formInclusaoContaAPagar" enctype="multipart/form-data">
+		<h:form id="formInclusaoContaAReceber" enctype="multipart/form-data">
 			
-			<h:panelGrid id="formularioInclusaoDespesa" columns="4">
+			<h:panelGrid id="formularioInclusaoReceita" columns="4">
 				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Nome da despesa"/>
+					<p:outputLabel styleClass="textIondax" value="Nome da receita"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{financeiroBean.contaAPagar.nome}"/>
+					<p:inputText value="#{financeiroBean.contaAReceber.nomeReceita}"/>
 				</h:panelGroup>
 				
 				<h:panelGroup>
@@ -38,21 +38,21 @@
 					<p:outputLabel styleClass="textIondax" value="Valor"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{financeiroBean.contaAPagar.valorDespesa}"/>
+					<p:inputText value="#{financeiroBean.contaAReceber.valorReceita}"/>
 				</h:panelGroup>
 				
 				<h:panelGroup>
 					<p:outputLabel styleClass="textIondax" value="Data de vencimento"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:calendar value="#{financeiroBean.contaAPagar.dataVencimento}"/>
+					<p:calendar locale="pt" value="#{financeiroBean.contaAReceber.dataVencimento}"/>
 				</h:panelGroup>
 				
 				<h:panelGroup>
 					<p:outputLabel styleClass="textIondax" value="Situação"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectBooleanCheckbox value="#{financeiroBean.contaAPagar.booleanSituacao}">
+					<p:selectBooleanCheckbox value="#{financeiroBean.contaAReceber.booleanSituacao}">
 					</p:selectBooleanCheckbox>
 					<p:outputLabel styleClass="textIondax" value="Recebido"/>
 				</h:panelGroup>
@@ -61,9 +61,9 @@
 					<p:outputLabel styleClass="textIondax" value="Categoria"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectOneMenu id="comboCategoriaDespesa" value="#{financeiroBean.numCategoriaReceitaSelecionado}">
+					<p:selectOneMenu id="comboCategoriaReceitas" value="#{financeiroBean.numCategoriaTransacaoSelecionado}">
 						<f:selectItem itemValue="0" itemLabel="::SELECIONE::"/>
-						<f:selectItems value="#{financeiroBean.comboCategoriaReceitasEDespesas}"/>
+						<f:selectItems value="#{financeiroBean.comboCategoriaTransacao}"/>
 					</p:selectOneMenu>
 				</h:panelGroup>
 				
@@ -71,7 +71,7 @@
 					<p:outputLabel styleClass="textIondax" value="Recorrência"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectBooleanCheckbox value="#{financeiroBean.contaAPagar.recorrencia.repetir}">
+					<p:selectBooleanCheckbox value="#{financeiroBean.contaAReceber.recorrencia.repetir}">
 						<p:ajax update="@form"/>
 					</p:selectBooleanCheckbox>
 					<p:outputLabel styleClass="textIondax" value="Repetir"/>
@@ -79,15 +79,15 @@
 				
 			</h:panelGrid>
 				
-			<h:panelGrid id="painelRepeticaoInclusaoReceita" columns="4" rendered="#{financeiroBean.contaAPagar.recorrencia.repetir}">
+			<h:panelGrid id="painelRepeticaoInclusaoReceita" columns="4" rendered="#{financeiroBean.contaAReceber.recorrencia.repetir}">
 					
 				<h:panelGroup>
 					<p:outputLabel styleClass="textIondax" value="Frequência de repetição"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectOneMenu id="comboFrequenciaRepeticao" value="#{financeiroBean.contaAPagar.recorrencia.numComboFrequencia}">
+					<p:selectOneMenu id="comboFrequenciaRepeticao" value="#{financeiroBean.contaAReceber.recorrencia.numComboFrequencia}">
 						<f:selectItem itemValue="0" itemLabel="::SELECIONE::"/>
-						<f:selectItems value="#{financeiroBean.contaAPagar.recorrencia.comboFrequenciaRepeticao}"/>
+						<f:selectItems value="#{financeiroBean.contaAReceber.recorrencia.comboFrequenciaRepeticao}"/>
 					</p:selectOneMenu>
 				</h:panelGroup>
 				
@@ -95,7 +95,7 @@
 					<p:outputLabel styleClass="textIondax" value="Número de repetições"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{financeiroBean.contaAPagar.recorrencia.numComboFrequencia}"/>
+					<p:inputText value="#{financeiroBean.contaAReceber.recorrencia.numComboFrequencia}"/>
 				</h:panelGroup>
 				
 			</h:panelGrid>
@@ -103,37 +103,37 @@
 				
 			<h:panelGrid columns="4">
 				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Fornecedor"/>
+					<p:outputLabel styleClass="textIondax" value="Pagador"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{financeiroBean.contaAPagar.fornecedor.nome}"/>
+					<p:inputText value="#{financeiroBean.contaAReceber.cliente.nome}"/>
 				</h:panelGroup>
 				
 				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Data de competencia"/>
+					<p:outputLabel styleClass="textIondax" value="Data de competência"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:calendar value="#{financeiroBean.contaAPagar.dataCompetencia}"/>
+					<p:calendar locale="pt" value="#{financeiroBean.contaAReceber.dataCompetencia}"/>
 				</h:panelGroup>
 				
 				<h:panelGroup>
 					<p:outputLabel styleClass="textIondax" value="Observações"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputTextarea cols="30" rows="3" value="#{financeiroBean.contaAPagar.observacoes}"/>
+					<p:inputTextarea cols="30" rows="3" value="#{financeiroBean.contaAReceber.observacoes}"/>
 				</h:panelGroup>
 				
 				<h:panelGroup>
 					<p:outputLabel styleClass="textIondax" value="Anexos"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:fileUpload fileUploadListener="#{financeiroBean.pegarNomeDoArquivo}" mode="advanced" dragDropSupport="false"
+					<p:fileUpload fileUploadListener="#{financeiroBean.pegarNomeDoArquivoContaReceber}" mode="advanced" dragDropSupport="false" label="Selecionar" uploadLabel="Enviar" cancelLabel="Cancelar"
 					multiple="true" sizeLimit="1000000" fileLimit="10" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 				</h:panelGroup>
 			</h:panelGrid>	
 			
 			<!-- Sem action -->
-			<p:commandButton id="btnAdicionarDespesa" value="Adicionar Despesa"/>
+			<p:commandButton id="btnAdicionarReceita" value="Adicionar Receita"/>
 			
 		</h:form>
 	</ui:define>

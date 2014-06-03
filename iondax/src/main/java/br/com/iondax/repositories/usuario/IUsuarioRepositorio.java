@@ -1,4 +1,4 @@
-package br.com.iondax.repositories;
+package br.com.iondax.repositories.usuario;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

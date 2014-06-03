@@ -44,7 +44,6 @@
 				</h:panelGrid>
 			</p:fieldset>
 
-			
 			<p:fieldset legend="Dados Pessoais" styleClass="fieldSet" toggleable="true" collapsed="true" toggleSpeed="500" style="margin-top:10px;">  
 		        <h:panelGrid columns="3">
 		        
@@ -86,7 +85,7 @@
 				        		<h:outputLabel for="estadoCivilFunc" value="Estado Civil:" styleClass="textIondax"/>
 			        		</h:panelGroup>
 			        		<h:panelGroup>
-				        		<p:selectOneMenu id="estadoCivilFunc" style="margin-top:7px;" value="#{rhBean.usuario.estadoCivil}">
+				        		<p:selectOneMenu id="estadoCivilFunc" style="margin-top:7px;" value="#{rhBean.funcionario.usuario.estadoCivil}">
 				        			<f:selectItem itemLabel="Solteiro(a)" itemValue="Solteiro(a)"/>
 				        			<f:selectItem itemLabel="Casado(a)" itemValue="Casado(a)"/>
 				        			<f:selectItem itemLabel="Separado(a)" itemValue="Separado(a)"/>
@@ -103,7 +102,7 @@
 		        		<h:panelGrid>
 		        			<h:panelGroup>
 		        				<h:outputLabel for="dtNascFunc" value="Data Nascimento:" styleClass="textIondax"/>
-				        		<p:calendar locale="pt"  id="dtNascFunc" value="#{rhBean.usuario.dataNascimento}" pattern="dd/MM/yyyy" navigator="true" showButtonPanel="true" 
+				        		<p:calendar locale="pt"  id="dtNascFunc" value="#{rhBean.funcionario.usuario.dataNascimento}" pattern="dd/MM/yyyy" navigator="true" showButtonPanel="true" 
 				        			mode="popup" showOn="button" popupIconOnly="true" size="7" readonly="true"/>
 		        			</h:panelGroup>
 		        		</h:panelGrid>
@@ -134,7 +133,7 @@
 						<h:panelGrid>
 			        		<h:panelGroup>
 								<h:outputLabel for="telFunc" value="Telefone:" styleClass="textIondax"/>
-				        		<p:inputMask mask="(99)9999-9999" id="telFunc" size="10" value="#{rhBean.usuario.contato.numTelefone}"/>
+				        		<p:inputMask mask="(99)9999-9999" id="telFunc" size="10" value="#{rhBean.funcionario.usuario.contato.numTelefone}"/>
 				        	</h:panelGroup>
 				        </h:panelGrid>
 					</h:panelGroup>
@@ -143,7 +142,7 @@
 						<h:panelGrid>
 							<h:panelGroup>
 								<h:outputLabel for="celFunc" value="Celular:" styleClass="textIondax"/>
-		        				<p:inputMask mask="(99)9-9999-9999" id="celFunc" size="11" value="#{rhBean.usuario.contato.numCelular}"/>
+		        				<p:inputMask mask="(99)9-9999-9999" id="celFunc" size="11" value="#{rhBean.funcionario.usuario.contato.numCelular}"/>
 							</h:panelGroup>
 						</h:panelGrid>
 					</h:panelGroup>
@@ -290,7 +289,7 @@
 					</h:panelGroup>
 					
 					<h:panelGroup>
-		        		<p:inputMask id="cepEnd" mask="99999-999" value="#{rhBean.usuario.endereco.cep}" size="6">
+		        		<p:inputMask id="cepEnd" mask="99999-999" value="#{rhBean.funcionario.usuario.endereco.cep}" size="6">
 		        			<p:ajax update="linkVisualizarMapa" event="blur"/>
 		        		</p:inputMask>
 		        	</h:panelGroup>
@@ -299,7 +298,7 @@
 		        		<h:outputLink id="linkVisualizarMapa" value="http://www.google.com.br/maps" target="_blank">
 		        			<f:param name="hl" value="pt-BR"/>
 		        			<f:param name="output" value="search"/>
-		        			<f:param name="q" value="#{rhBean.usuario.endereco.cep}"/>
+		        			<f:param name="q" value="#{rhBean.funcionario.usuario.endereco.cep}"/>
  		        			<h:outputLabel value="Visualizar Mapa" styleClass="textLinkIondax" />
 		        		</h:outputLink>
 		        	</h:panelGroup>
@@ -312,7 +311,7 @@
 						<h:outputLabel value="Estado:" for="cboEstadoEnd" styleClass="textIondax"/>
 					</h:panelGroup>
 					<h:panelGroup>
-		        		<p:selectOneMenu id="cboEstadoEnd" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.cidade.uf}">
+		        		<p:selectOneMenu id="cboEstadoEnd" style="margin-top:5px; margin-left:2px;" value="#{rhBean.funcionario.usuario.endereco.estadoEndereco.id}">
 		        			<f:selectItems value="#{utils.comboUfs}"/>
 		        		</p:selectOneMenu>
 		        	</h:panelGroup>
@@ -321,7 +320,7 @@
 						<h:outputLabel value="Cidade:" for="cboCidEnd" styleClass="textIondax" />
 					</h:panelGroup>
 					<h:panelGroup>
-		        		<p:selectOneMenu id="cboCidEnd" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.cidade.descCidade}" disabled="true">
+		        		<p:selectOneMenu id="cboCidEnd" style="margin-top:5px; margin-left:2px;" value="#{rhBean.funcionario.usuario.endereco.cidade.id}">
 		        			<f:selectItems value="#{utils.comboUfs}"/>
 		        		</p:selectOneMenu>
 		        	</h:panelGroup>
@@ -330,9 +329,7 @@
 						<h:outputLabel value="Bairro:" for="cboBairroEnd" styleClass="textIondax"/>
 					</h:panelGroup>
 					<h:panelGroup>
-		        		<p:selectOneMenu id="cboBairroEnd" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.bairro.descBairro}" disabled="true">
-		        			<f:selectItems value="#{utils.comboUfs}"/>
-		        		</p:selectOneMenu>
+		        		<p:inputText id="cboBairroEnd" style="margin-top:5px; margin-left:2px;" value="#{rhBean.funcionario.usuario.endereco.bairro.descBairro}"/>
 		        	</h:panelGroup>
 		        	
 				</h:panelGrid>
@@ -342,14 +339,14 @@
 						<p:outputLabel value="Logradouro:" styleClass="textIondax"/>
 					</h:panelGroup>
 					<h:panelGroup>
-		        		<p:inputText id="descEnd" size="30" value="#{rhBean.usuario.endereco.descEndereco}"/>
+		        		<p:inputText id="descEnd" size="30" value="#{rhBean.funcionario.usuario.endereco.descEndereco}"/>
 		        	</h:panelGroup>
 		        	
 					<h:panelGroup style="margin-left:5px;">
 						<h:outputLabel value="Numero:" for="nroEnd" styleClass="textIondax"/>
 					</h:panelGroup>
 					<h:panelGroup>
-		        		<p:inputMask id="nroEnd" mask="99999" size="2" value="#{rhBean.usuario.endereco.numero}"/>
+		        		<p:inputMask id="nroEnd" mask="99999" size="2" value="#{rhBean.funcionario.usuario.endereco.numero}"/>
 		        	</h:panelGroup>
 				</h:panelGrid>
 				
@@ -364,7 +361,7 @@
 					</h:panelGroup>
 					
 					<h:panelGroup>
-		        		<p:inputMask id="nroCTFunc" mask="999999" size="4" value="#{rhBean.usuario.funcionario.ctps.numero}"/>
+		        		<p:inputMask id="nroCTFunc" mask="999999" size="4"/>
 		        	</h:panelGroup>
 		        	
 					<h:panelGroup>
@@ -372,7 +369,7 @@
 					</h:panelGroup>
 					
 					<h:panelGroup>
-		        		<p:inputMask id="serieCTFunc" mask="99999" size="4" value="#{rhBean.usuario.funcionario.ctps.serie}"/>
+		        		<p:inputMask id="serieCTFunc" mask="99999" size="4"/>
 		        	</h:panelGroup>
 		        	
 					<h:panelGroup>
@@ -380,7 +377,7 @@
 					</h:panelGroup>
 					
 					<h:panelGroup>
-		        		<p:selectOneMenu id="estadoSerieCTFunc" style="margin-top:5px; margin-left:2px;" value="#{usuarioBean.usuario.funcionario.ctps.ufEmissao}">
+		        		<p:selectOneMenu id="estadoSerieCTFunc" style="margin-top:5px; margin-left:2px;">
 		        			<f:selectItems value="#{utils.comboUfs}"/>
 		        		</p:selectOneMenu>
 		        	</h:panelGroup>
@@ -428,7 +425,6 @@
 		    	
 		    </p:fieldset>
 		    
-		    
 		    <p:fieldset legend="Beneficios" styleClass="fieldSet" collapsed="true" toggleable="true" toggleSpeed="500" style="margin-top:10px;">
 	    		
 	    		<h:panelGrid cellpadding="0" cellspacing="0" columns="2">
@@ -467,7 +463,7 @@
 					    		</h:panelGroup>
 					    		
 					    		<h:panelGroup>
-					    			<p:inputMask id="vlrTransporte" mask="99.99" size="5" value="#{rhBean.transporte.valorTransporte}" >
+					    			<p:inputMask id="vlrTransporte" mask="##,##" size="5" value="#{rhBean.transporte.valorTransporte}" >
 					    				<p:ajax event="blur" listener="#{rhBean.ativarDesativarBtnIncluir}" update="btnIncluirTransporte" />
 					    			</p:inputMask>
 					    		</h:panelGroup>
@@ -530,16 +526,20 @@
 						            Planos Médicos
 						        </f:facet> 
 						        
-				    			<p:column headerText="Ass. Médica">
+				    			
+				    			<p:column headerText="Plano">
 				    				
 				    			</p:column>
-				    			<p:column headerText="Plano">
+				    			<p:column headerText="Acomodação">
 				    				
 				    			</p:column>
 				    			<p:column headerText="Valor do Plano">
 				    				
 				    			</p:column>
 				    			<p:column headerText="Valor disponibilizado">
+				    				
+				    			</p:column>
+				    			<p:column headerText="Validade">
 				    				
 				    			</p:column>
 				    			
@@ -586,10 +586,10 @@
 								<f:facet name="header">  
 						            Vale Refeição
 						        </f:facet> 
-				    			<p:column headerText="Valor do Benefício">
+				    			<p:column headerText="Custo para Empresa">
 				    				
 				    			</p:column>
-				    			<p:column headerText="Valor disponibilizado">
+				    			<p:column headerText="Custo para Funcionário">
 				    				
 				    			</p:column>
 				    			
@@ -599,10 +599,10 @@
 								<f:facet name="header">  
 						            Vale Alimentação
 						        </f:facet> 
-				    			<p:column headerText="Valor do Benefício">
+				    			<p:column headerText="Custo para Empresa">
 				    				
 				    			</p:column>
-				    			<p:column headerText="Valor disponibilizado">
+				    			<p:column headerText="Custo para Funcionário">
 				    				
 				    			</p:column>
 				    			
@@ -747,7 +747,7 @@
 		    				</h:panelGroup>
 		    				
 				    		<h:panelGroup>
-				    			<p:calendar locale="pt"  timeOnly="true" pattern="HH:mm" id="horarioEntradaExp" size="5"/>
+				    			<p:calendar locale="pt" timeOnly="true" pattern="HH:mm" id="horarioEntradaExp" size="5"/>
 				    		</h:panelGroup>
 				    		
 				    		<h:panelGroup>

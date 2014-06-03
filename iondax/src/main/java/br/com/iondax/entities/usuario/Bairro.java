@@ -1,24 +1,31 @@
 package br.com.iondax.entities.usuario;
 
-import java.io.Serializable;
+import java.util.List;
 
-public class Bairro implements Serializable{
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-	/**
-	 * 
-	 */
+import br.com.iondax.util.BaseEntities;
+
+@Entity
+@Table(name="tb_bairros")
+public class Bairro extends BaseEntities<Long> {
+
 	private static final long serialVersionUID = 1520264487762967427L;
-	
 	private String descBairro;
-	private Long id;
-
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "bairro")
+	private List<Enderecos> listaEnderecos;
+	
 	public Bairro() {
 		super();
 	}
 
 	public Bairro(Bairro b) {
 		super();
-		this.id = b.getId();
 		this.descBairro = b.getDescBairro();
 	}
 
@@ -26,16 +33,17 @@ public class Bairro implements Serializable{
 		return descBairro;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
 	public void setDescBairro(String descBairro) {
 		this.descBairro = descBairro;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public List<Enderecos> getListaEnderecos() {
+		return listaEnderecos;
 	}
+
+	public void setListaEnderecos(List<Enderecos> listaEnderecos) {
+		this.listaEnderecos = listaEnderecos;
+	}
+
 
 }

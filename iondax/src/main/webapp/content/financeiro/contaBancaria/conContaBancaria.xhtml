@@ -16,27 +16,37 @@
 	<ui:define name="body_content">
 		<h:form id="formConsultarConta">
 			
-			<p:dataTable id="listaDeContas" value="#{financeiroBean.listaContas}" style="float:left;" var="conta">
-				<p:column headerText="Conta">
-					<p:outputLabel value="#{conta.nomeContaBancaria}"/>
-				</p:column>
-				<p:column headerText="Banco">
-					<p:outputLabel value="#{conta.banco}"/>
-				</p:column>
-				<p:column headerText="Agência">
-					<p:outputLabel value="#{conta.agencia}"/>
-				</p:column>
-				<p:column headerText="N° da conta">
-					<p:outputLabel value="#{conta.nroConta}"/>
-				</p:column>
-				<p:column headerText="Saldo">
-					<p:outputLabel value="#{conta.saldoAtual}"/>
-				</p:column>
-				<p:column headerText="Carteira">
-					<p:outputLabel value="#{conta.carteira}"/>
-				</p:column>
-			</p:dataTable>
-			
+			<h:panelGrid>
+				<h:panelGroup>
+					<p:dataTable id="listaDeContas" value="#{financeiroBean.listaContas}" rowKey="#{conta.rowkey}"  selection="#{financeiroBean.conta}"  style="float:left;width:99%" var="conta">
+						
+						<p:ajax event="rowSelectRadio" update="@form" listener="#{financeiroBean.ativaBotoesEditarExcluirTelaConcultaConta}"/>
+						<p:column selectionMode="single" style="width:3%;text-align:center"/>
+						<p:column headerText="Conta">
+							<p:outputLabel value="#{conta.nomeContaBancaria}"/>
+						</p:column>
+						<p:column headerText="Banco">
+							<p:outputLabel value="#{conta.banco}"/>
+						</p:column>
+						<p:column headerText="Agência">
+							<p:outputLabel value="#{conta.agencia}"/>
+						</p:column>
+						<p:column headerText="N° da conta">
+							<p:outputLabel value="#{conta.nroConta}"/>
+						</p:column>
+						<p:column headerText="Saldo">
+							<p:outputLabel value="R$ "/> <p:outputLabel style="text-align:right;float:right;" value="#{conta.saldoAtual}" converter="DecimalConverter"/>
+						</p:column>
+						<p:column headerText="Carteira">
+							<p:outputLabel value="#{conta.carteira}"/>
+						</p:column>
+					</p:dataTable>
+				</h:panelGroup>				
+				<h:panelGroup>
+					<p:commandButton id="btnEditar" action="#{financeiroBean.chamaEditarContaBancaria}" value="Editar" rendered="#{not empty financeiroBean.listaContas}" disabled="#{financeiroBean.ativaBotoesEditarExcluirTelaConsultaContas}"/>
+					<p:commandButton id="btnExcluir" action="#{financeiroBean.excluirContaBancaria}" value="Excluir" update=":formConsultarConta,:mensagem" ajax="false" rendered="#{not empty financeiroBean.listaContas}" disabled="#{financeiroBean.ativaBotoesEditarExcluirTelaConsultaContas}"/>
+				</h:panelGroup>				
+			</h:panelGrid>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -8,8 +8,11 @@
 <h:head>
 	<ui:insert name="importacaoAdicional" />
 	<meta http-equiv="Content-Type" content="text/html;CHARSET=ISO-8859-1" />
-	<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/template/estilosTemplate.css" />
+	<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/template/estilosTemplate.css"/>
 	<script src="#{facesContext.externalContext.requestContextPath}/js/scripts.js" ></script>
+	<script src="#{facesContext.externalContext.requestContextPath}/js/jquery.maskMoney.min.js" ></script>
+	
+	<!-- Tradução calendário -->
 	<script>
 		PrimeFaces.locales['pt'] = { 
 				closeText: 'Fechar', 
@@ -26,7 +29,7 @@
 				isRTL: false, 
 				showMonthAfterYear: false, 
 				yearSuffix: '', 
-				timeOnlyTitle: 'Só Horas', 
+				timeOnlyTitle: 'Horas', 
 				timeText: 'Tempo', 
 				hourText: 'Hora', 
 				minuteText: 'Minuto', 
@@ -38,19 +41,24 @@
 				day: 'Dia', 
 				allDayText : 'Todo Dia' 
 			}; 
+		
 	</script>
+	
+	
 	<title><h:outputText value="#{titulo}" /></title>
 	<link rel="icon" type="image/x-icon" href="#{facesContext.externalContext.requestContextPath}/img/ico.png" /> 
 </h:head>
 
 <h:body>
-	
-	<!-- Utilziado para carregar javascript da barra lateral -->
+<!-- Utilziado para carregar javascript da barra lateral -->
 	<p:calendar rendered="false"/>
+	
+	<p:growl id="mensagem" showDetail="true"/>
+	
 	
 	<div id="parteSuperior">
 		<h:panelGroup id="header">
-			<div id="logo"> <h:graphicImage url="/img/meuLogo4.jpg"/> </div>
+			<div id="logo"> <!--h:graphicImage url="/img/meuLogo4.jpg"/--> </div>
 			<div id="cabecalho">
 				<div id="nomeUsuario"><h:outputLabel rendered="#{usuarioBean.usuario.statusSistema}" value="Seja Bem-vindo #{usuarioBean.usuario.nome}"/> </div>
 				<div id="sair"><p:commandLink value="Sair" action="#{usuarioBean.deslogar}" immediate="true"/></div>
@@ -92,7 +100,7 @@
 			        </p:submenu>
 		    		<p:submenu styleClass="menuLateralItens" label="Fluxo de Caixa">  
 			            <p:menuitem value="Visualizar" icon="ui-icon-circle-zoomin" action="#{financeiroBean.visualizarFluxoCaixa}"/>  
-			            <p:menuitem value="Editar Categorias" icon="ui-icon-circle-plus" action="#{financeiroBean.editarCategoriasFluxoCaixa}"/>  
+			            <p:menuitem value="Editar Categorias" icon="ui-icon-circle-plus" action="#{financeiroBean.altCategoriasFluxoCaixa}"/>  
 			        </p:submenu>
 			        
 			        <p:submenu styleClass="menuLateralItens" label="Relatórios">  
@@ -119,12 +127,9 @@
 				            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/> 
 				        </p:submenu>
 			    	</p:submenu>
-		    	
-		             
 		    	</p:panelMenu> 
-		    	
-		    	
-		    	
+
+
 	
 		    	<p:panelMenu id="menuLateralLogistica" rendered="#{tabAtiva == 3}">  
 			        <p:submenu styleClass="menuLateralItens" label="Produtos" >  
@@ -189,10 +194,8 @@
 			        </p:submenu>
 		    	</p:panelMenu>  
 					    	
-					    	
-					    	
 		    	<p:panelMenu id="menuLateralSolicitacoes" rendered="#{tabAtiva == 7}">  
-			        <p:submenu styleClass="menuLateralItens" label="Internas">  
+			        <p:submenu styleClass="menuLateralItens" label="Suporte">  
 			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
 			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/>  
 			        </p:submenu>  
@@ -205,8 +208,7 @@
 			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/> 
 			        </p:submenu> 
 		    	</p:panelMenu> 
-		    	
-		    	
+
 		    	
 		    	<p:panelMenu id="menuLateralTreinamento" rendered="#{tabAtiva == 8}">  
 			        <p:submenu styleClass="menuLateralItens" label="Turmas">  

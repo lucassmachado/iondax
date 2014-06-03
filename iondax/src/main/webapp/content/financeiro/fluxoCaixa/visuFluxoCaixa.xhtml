@@ -32,28 +32,28 @@
 			
 			<h:panelGrid>
 				<h:panelGroup>
-					<p:dataTable value="#{financeiroBean.listaCategoriaFluxo}" var="c" style="margin-left:5px;width:90%;">
+					<p:dataTable value="#{financeiroBean.listaCategoriaTransacao}" var="c"  style="margin-left:5px;width:99%;">
 							
-						<p:column styleClass="colunaVazia"></p:column>
-						<p:column headerText="Jan"></p:column>
-						<p:column headerText="Fev"></p:column>
-						<p:column headerText="Mar"></p:column>
-						<p:column headerText="Abr"></p:column>
-						<p:column headerText="Mai"></p:column>
-						<p:column headerText="Jun"></p:column>
-						<p:column headerText="Jul"></p:column>
-						<p:column headerText="Ago"></p:column>
-						<p:column headerText="Set"></p:column>
-						<p:column headerText="Out"></p:column>
-						<p:column headerText="Nov"></p:column>
-						<p:column headerText="Dez"></p:column>
+						<p:column styleClass="colunaVazia" width="16%"></p:column>
+						<p:column headerText="Jan" width="7%"></p:column>
+						<p:column headerText="Fev" width="7%"></p:column>
+						<p:column headerText="Mar" width="7%"></p:column>
+						<p:column headerText="Abr" width="7%"></p:column>
+						<p:column headerText="Mai" width="7%"></p:column>
+						<p:column headerText="Jun" width="7%"></p:column>
+						<p:column headerText="Jul" width="7%"></p:column>
+						<p:column headerText="Ago" width="7%"></p:column>
+						<p:column headerText="Set" width="7%"></p:column>
+						<p:column headerText="Out" width="7%"></p:column>
+						<p:column headerText="Nov" width="7%"></p:column>
+						<p:column headerText="Dez" width="7%"></p:column>
 						
-						<p:subTable id="subtable" value="#{c.listaNomesCategorias}" var="cat">
+						<p:subTable id="subtable" value="#{c.categoriasTransacao}" var="categoria">
 							<f:facet name="header">
 								#{c.tipo}
 							</f:facet>
 							
-							<p:column>#{cat.nome}</p:column>
+							<p:column width="20%">#{categoria}</p:column>
 							<p:column>1</p:column>
 							<p:column>1</p:column>
 							<p:column>1</p:column>

@@ -21,10 +21,11 @@
 					<p:outputLabel value="Tipo" styleClass="textIondax"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectOneMenu>
-						<f:selectItem itemValue="0" itemLabel="Receita"/>
-						<f:selectItem itemValue="1" itemLabel="Despesa"/>
-						<f:selectItem itemValue="2" itemLabel="Transferência"/>
+					<p:selectOneMenu id="comboTipoCategoria" value="#{financeiroBean.numCombo}">
+						<f:selectItem itemValue="0" itemLabel="::SELECIONE::" />
+						<f:selectItem itemValue="1" itemLabel="Receita"/>
+						<f:selectItem itemValue="2" itemLabel="Despesa"/>
+						<f:selectItem itemValue="3" itemLabel="Transferência"/>
 					</p:selectOneMenu>
 				</h:panelGroup>
 				<h:panelGroup>

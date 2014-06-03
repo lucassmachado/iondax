@@ -1,16 +1,18 @@
-package br.com.iondax.entities.financeiro.contabancaria.receitas;
+package br.com.iondax.entities.financeiro.contabancaria.transacoes;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-public class Recorrencia implements Serializable {
+import br.com.iondax.util.BaseEntities;
 
-	/**
-	 * 
-	 */
+@Entity
+@Table(name="tb_recorrencia")
+public class Recorrencia extends BaseEntities<Long>{
+
 	private static final long serialVersionUID = -8332783745142003324L;
 
 	private String frequencia;

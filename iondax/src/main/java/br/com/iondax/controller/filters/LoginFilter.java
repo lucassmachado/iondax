@@ -36,7 +36,7 @@ public class LoginFilter implements Filter {
         	{
 	        
             //Redirecionamos o usuário imediatamente 
-            //para a página de login.xhtml
+            //para a página de login.jsf
 	        RequestDispatcher rd = ((HttpServletRequest) request).getRequestDispatcher("/index.jsf?faces-redirect=true");
 //          ((HttpServletResponse) response).sendRedirect(contextPath + "/index.jsf");
 	        rd.forward(request, response);

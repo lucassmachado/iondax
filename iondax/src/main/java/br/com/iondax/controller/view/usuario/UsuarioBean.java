@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.iondax.entities.usuario.Usuario;
-import br.com.iondax.repositories.IUsuarioRepositorio;
+import br.com.iondax.repositories.usuario.IUsuarioRepositorio;
 
 @Component
 @ManagedBean(name = "usuarioBean")
@@ -19,8 +19,8 @@ import br.com.iondax.repositories.IUsuarioRepositorio;
 public class UsuarioBean {
 
 	private Usuario usuario;
-	private String usuarioV;
-	private String senhaV;
+	private String usuarioV = "Rafael";
+	private String senhaV = "123";
 	
 	@Autowired
 	IUsuarioRepositorio usuarioRepository;
@@ -42,12 +42,12 @@ public class UsuarioBean {
 		usuario = new Usuario();
 		usuario.setUsername(usuarioV);
 		usuario.setSenha(senhaV);
-		if ( (usuario.getUsername().equals("Rafael") || usuario.getUsername().equals("Jamisson")) && usuario.getSenha().equals("123")) {
+		if ( (usuario.getUsername().equals("Rafael") || usuario.getUsername().equals("Zaira")) && usuario.getSenha().equals("123")) {
 			
 			if(getUsuarioV().equals("Rafael")){
 				usuario.setNome("Rafael Silva Oliveira");
-			}else if(getUsuarioV().equals("Jamisson")){
-				usuario.setNome("Jamisson");
+			}else if(getUsuarioV().equals("Zaira")){
+				usuario.setNome("Zaira de Oliveira Feitosa");
 			}
 			usuario.setStatusSistema(true);
 			
