@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry excluding="**/*.java" kind="src" output="target/test-classes" path="src/test/resources"/>
 	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
 	<classpathentry excluding="**/*.java" kind="src" path="src/main/resources"/>
 	<classpathentry kind="var" path="M2_REPO/javax/inject/javax.inject/1/javax.inject-1.jar" sourcepath="M2_REPO/javax/inject/javax.inject/1/javax.inject-1-sources.jar">
@@ -278,7 +279,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/org/primefaces/primefaces/3.5/primefaces-3.5.jar" sourcepath="M2_REPO/org/primefaces/primefaces/3.5/primefaces-3.5-sources.jar">
+	<classpathentry kind="var" path="M2_REPO/org/primefaces/primefaces/5.0/primefaces-5.0.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>

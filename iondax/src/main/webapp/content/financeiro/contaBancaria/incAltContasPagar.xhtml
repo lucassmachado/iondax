@@ -54,14 +54,14 @@
 					<p:outputLabel styleClass="textIondax" value="Data de vencimento"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:calendar locale="pt" value="#{financeiroBean.contaAPagar.dataVencimento}"/>
+					<p:calendar locale="pt" value="#{financeiroBean.contaAPagar.dataVencimento}" pattern="dd/MM/yyyy"/>
 				</h:panelGroup>
 				
 				<h:panelGroup>
 					<p:outputLabel styleClass="textIondax" value="Situação"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectBooleanCheckbox value="#{financeiroBean.contaAPagar.booleanSituacao}">
+					<p:selectBooleanCheckbox value="#{financeiroBean.contaAPagar.situacao}">
 					</p:selectBooleanCheckbox>
 					<p:outputLabel styleClass="textIondax" value="Pago"/>
 				</h:panelGroup>
@@ -80,13 +80,15 @@
 					<p:outputLabel styleClass="textIondax" value="Recorrência"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectBooleanCheckbox value="#{financeiroBean.contaAPagar.recorrencia.repetir}">
-						<p:ajax update=":formInclusaoContaAPagar:painelRepeticaoInclusaoReceita"/>
+					<p:selectBooleanCheckbox id="checkBoxRepetir" value="#{financeiroBean.contaAPagar.recorrencia.repetir}">
+						<p:ajax event="change" onstart="document.getElementById('atualizaPainelRepeticaoInclusaoReceita').click();"/>
 					</p:selectBooleanCheckbox>
 					<p:outputLabel styleClass="textIondax" value="Repetir"/>
 				</h:panelGroup>
 				
 			</h:panelGrid>
+			
+			<p:commandButton style="display:none;" id="atualizaPainelRepeticaoInclusaoReceita" update="painelRepeticaoInclusaoReceita" ajax="false"/>
 				
 			<h:panelGrid id="painelRepeticaoInclusaoReceita" columns="4" rendered="#{financeiroBean.contaAPagar.recorrencia.repetir}">
 					
@@ -94,9 +96,9 @@
 					<p:outputLabel styleClass="textIondax" value="Frequência de repetição"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectOneMenu id="comboFrequenciaRepeticao" value="#{financeiroBean.contaAPagar.recorrencia.numComboFrequencia}">
+					<p:selectOneMenu id="comboFrequenciaRepeticao" value="#{financeiroBean.numComboFrequencia}">
 						<f:selectItem itemValue="0" itemLabel="::SELECIONE::"/>
-						<f:selectItems value="#{financeiroBean.contaAPagar.recorrencia.comboFrequenciaRepeticao}"/>
+						<f:selectItems value="#{financeiroBean.comboFrequenciaRepeticao}"/>
 					</p:selectOneMenu>
 				</h:panelGroup>
 				
@@ -104,7 +106,7 @@
 					<p:outputLabel styleClass="textIondax" value="Número de repetições"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{financeiroBean.contaAPagar.recorrencia.numComboFrequencia}"/>
+					<p:inputText value="#{financeiroBean.contaAPagar.recorrencia.qtdOcorrencias}"/>
 				</h:panelGroup>
 				
 			</h:panelGrid>
@@ -122,7 +124,7 @@
 					<p:outputLabel styleClass="textIondax" value="Data de competência"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:calendar locale="pt" value="#{financeiroBean.contaAPagar.dataCompetencia}"/>
+					<p:calendar locale="pt" value="#{financeiroBean.contaAPagar.dataCompetencia}" pattern="dd/MM/yyyy"/>
 				</h:panelGroup>
 				
 				<h:panelGroup>

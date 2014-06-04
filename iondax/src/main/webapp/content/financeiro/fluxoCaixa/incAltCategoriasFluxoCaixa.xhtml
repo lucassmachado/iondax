@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="../../../template/template_gerenciador.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:param name="titulo" value="IONDAX - Design e Tecnologia"/>
+	
+	<ui:param name="tabAtiva" value="1"/>
+	
+	<ui:define name="importacaoAdicional">
+		<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/content/financeiro/financeiro.css" />
+	</ui:define>
+	
+	<ui:define name="body_content">
+		<h:form id="formIncCatFluxoCaixa">
+			
+			<h:panelGrid columns="4" >
+				<h:panelGroup>
+					<p:outputLabel value="Tipo" styleClass="textIondax"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu id="comboTipoCategoria" value="#{financeiroBean.numComboEditarCategoriaTransacao}">
+						<f:selectItem itemValue="0" itemLabel="::SELECIONE::" />
+						<f:selectItem itemValue="1" itemLabel="Receita"/>
+						<f:selectItem itemValue="2" itemLabel="Despesa"/>
+						<f:selectItem itemValue="3" itemLabel="Transferência"/>
+						<p:ajax event="change" listener="#{financeiroBean.carregaListaCategorias}" update=":formExcCatFluxoCaixa"/>
+					</p:selectOneMenu>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:outputLabel value="Nome" styleClass="textIondax"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText id="nome" value="#{financeiroBean.categoriaTransacao.nome}" required="true" requiredMessage="Por favor, digite o nome da categoria !" converterMessage="">
+						<f:validateLength minimum="2" />
+					</p:inputText>
+				</h:panelGroup>
+				
+			</h:panelGrid>
+			<h:panelGrid>
+				<h:panelGroup>
+					<p:commandButton value="Adicionar Categoria" actionListener="#{financeiroBean.incluirCategoriaTransacao}" update="@form" ajax="false"/>
+				</h:panelGroup>
+			</h:panelGrid>
+		</h:form>
+		
+		<h:form id="formExcCatFluxoCaixa">
+			<h:panelGrid>
+		
+								
+				<h:panelGroup>
+					<p:dataTable id="listaDeContas" style="float:left;width:99%;" rowKey="#{cat.rowkey}" selection="#{financeiroBean.categoriaTransacaoSelecionado}"
+					 var="cat" value="#{financeiroBean.listaCategoriaTransacao}" rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+					 
+					 <p:ajax event="rowSelectRadio" update=":formExcCatFluxoCaixa:btnExcluir" listener="#{financeiroBean.ativaBotaExcluirCategoria}"/>
+						<p:column selectionMode="single" style="width:3%;text-align:center"/>
+					 
+						<p:column headerText="Tipo Categoria">
+							<p:outputLabel value="#{cat.tipo}" />
+						</p:column>
+						
+						<p:column headerText="Nome Categoria">
+							<p:outputLabel value="#{cat.nome}" />
+						</p:column>
+					</p:dataTable>
+				</h:panelGroup>
+				
+				<p:commandButton id="btnExcluir" value="Excluir Categoria" actionListener="#{financeiroBean.excluirCategoriaTransacao}" 
+					update="@form" ajax="false" disabled="#{financeiroBean.ativaDesativaBotaExcluirCategoria}"/>
+			
+			</h:panelGrid>
+			
+		
+		</h:form>
+	</ui:define>
+</ui:composition>

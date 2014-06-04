@@ -2,8 +2,11 @@ package br.com.iondax.controller.view.financeiro;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -44,27 +47,33 @@ public class FinanceiroBean {
 	private ContaBancaria conta;
 	private Despesa contaAPagar;
 	private Receita contaAReceber;
-	private List<SelectItem> listaBancos = new ArrayList<SelectItem>();
+	private Lancamentos lancamentos;
+	private CategoriaTransacao categoriaTransacao;
+	private CategoriaTransacao categoriaTransacaoSelecionado;
 	
+	private List<SelectItem> listaBancos = new ArrayList<SelectItem>();
 	private List<SelectItem> comboContasCadastradas = new ArrayList<SelectItem>();
-
 	private List<SelectItem> listaCarteirasBoleto = new ArrayList<SelectItem>();
-	private List<CategoriaTransacao> listaCategoriaTransacao;
+	private List<SelectItem> comboCategoriaTransacao;
+	
 	private List<String> listaCategoriaTransacaoReceitas;
 	private List<String> listaCategoriaTransacaoDespesa;
 	private List<String> listaCategoriaTransacaoTransferencia;
-	private List<SelectItem> comboCategoriaTransacao;
 	private List<ContaBancaria> listaContas;
-	
-	private Lancamentos lancamentos;
+	private List<CategoriaTransacao> listaCategoriaTransacao;
 	private List<Lancamentos> listaLancamentos;
 	private List<Lancamentos> listaLancamentosSelecionados;
+	
 	
 	private Long mascaraNossoNumero = 99999999999999999L;
 
 	private int numBancoSelecionado = 0;
 
 	private int numCategoriaTransacaoSelecionado = 0;
+	
+	private int numComboEditarCategoriaTransacao = 0;
+	
+	private int numComboFrequencia = 0;
 	
 	@Autowired
 	private IContaRepositories IContaRepositories;
@@ -222,7 +231,6 @@ public class FinanceiroBean {
 		
 		List<CategoriaTransacao> listaCategoriaTransacaoTemp = ICategoriaTransacaoRepositories.findAll();
 		
-		
 		listaCategoriaTransacaoReceitas = new ArrayList<String>();
 		for(CategoriaTransacao categoria: listaCategoriaTransacaoTemp){
 			if(categoria.getTipo().equalsIgnoreCase("Receita")){
@@ -265,6 +273,84 @@ public class FinanceiroBean {
 	public List<CategoriaTransacao> carregaListaCategoriasTransferencia(){
 		return ICategoriaTransacaoRepositories.findByTipo("Transferência");
 	}
+
+	public List<CategoriaTransacao> carregaListaCategorias(){
+		listaCategoriaTransacao = new ArrayList<CategoriaTransacao>();
+
+		switch(numComboEditarCategoriaTransacao){
+			case 1:
+				listaCategoriaTransacao = carregaListaCategoriasReceita();
+				break;
+			case 2:
+				listaCategoriaTransacao = carregaListaCategoriasDespesa();
+				break;
+			case 3:
+				listaCategoriaTransacao = carregaListaCategoriasTransferencia();
+				break;
+			default:
+				listaCategoriaTransacao = ICategoriaTransacaoRepositories.findAll();
+				break;
+		}
+		setCategoriaTransacao(new CategoriaTransacao());
+		return listaCategoriaTransacao;
+	}
+	public void incluirCategoriaTransacao(){
+		if (numComboEditarCategoriaTransacao != 0) {
+			switch (numComboEditarCategoriaTransacao) {
+			case 1:
+				getCategoriaTransacao().setTipo("Receita");
+				ICategoriaTransacaoRepositories.save(categoriaTransacao);
+				listaCategoriaTransacao = carregaListaCategoriasReceita();
+				break;
+			case 2:
+				getCategoriaTransacao().setTipo("Despesa");
+				ICategoriaTransacaoRepositories.save(categoriaTransacao);
+				listaCategoriaTransacao = carregaListaCategoriasDespesa();
+				break;
+			case 3:
+				getCategoriaTransacao().setTipo("Transferência");
+				ICategoriaTransacaoRepositories.save(categoriaTransacao);
+				listaCategoriaTransacao = carregaListaCategoriasTransferencia();
+				break;
+			}
+			categoriaTransacao = new CategoriaTransacao();
+			Utilidades.mensagemNaTela("Categoria adicionada com sucesso",
+					"sucesso");
+			numComboEditarCategoriaTransacao = 0;
+		} else {
+			Utilidades
+					.mensagemNaTela(
+							"Erro ao tentar adicionar.\nPor favor, selecione um tipo de categoria!",
+							"erro");
+		}
+	}
+	public void excluirCategoriaTransacao(){
+		boolean temRegistro = false;
+		
+			for(Lancamentos lan : ILancamentosRepositories.findAll()){
+				if(lan.getSubTipo().equals(categoriaTransacaoSelecionado.getNome())){
+					temRegistro = true;
+					break;
+				}
+			}
+			if(temRegistro){
+				Utilidades.mensagemNaTela("Erro ao tentar excluir.\nExistem Lançamentos com essa categoria."
+						+ "\nDelete o Registro de Lançamentos e depois tente apagar a categoria", "erro");
+			}else{
+				Utilidades.mensagemNaTela("Categoria Excluida com sucesso", "sucesso");
+				ICategoriaTransacaoRepositories.delete(categoriaTransacaoSelecionado);
+				categoriaTransacaoSelecionado = new CategoriaTransacao();
+				listaCategoriaTransacao = ICategoriaTransacaoRepositories.findAll();
+				numComboEditarCategoriaTransacao = 0;
+			}
+		
+	}
+	
+	public void ativaBotaExcluirCategoria(){
+		setAtivaDesativaBotaExcluirCategoria(false);
+	}
+	
+	private boolean ativaDesativaBotaExcluirCategoria = true;
 	
 	
 
@@ -300,9 +386,11 @@ public class FinanceiroBean {
 	/*
 	 * Método que carrega página de edição de categorias de fluxo de caixa
 	 */
-	public String altCategoriasFluxoCaixa() {
-		setListaCategoriaTransacao(carregaListaCategoriaFluxoCaixa());
-		return "/content/financeiro/fluxoCaixa/altCategoriasFluxoCaixa.jsf?faces-redirect=true";
+	public String abrirPaginaIncAltCategoriasFluxoCaixa() {
+		categoriaTransacao = new CategoriaTransacao();
+		categoriaTransacaoSelecionado = new CategoriaTransacao();
+		setListaCategoriaTransacao(carregaListaCategorias());
+		return "/content/financeiro/fluxoCaixa/incAltCategoriasFluxoCaixa.jsf?faces-redirect=true";
 	}
 
 	public void pegarNomeDoArquivoContaReceber(FileUploadEvent event) {
@@ -339,7 +427,8 @@ public class FinanceiroBean {
 	}
 	
 	
-	private int comboTipoCategoria;
+	
+	
 	
 	
 	
@@ -362,9 +451,9 @@ public class FinanceiroBean {
 		IContaRepositories.save(conta);
 		
 		if(conta.getSaldoAtual().intValue() > 0){
-			lancamentos = new Lancamentos(conta,"Receita","Inclusão de conta","Inclusão da conta "+conta.getNomeContaBancaria(),new Date(), conta.getSaldoAtual());
+			lancamentos = new Lancamentos(conta,"Receita","Inclusão de conta","Inclusão da conta "+conta.getNomeContaBancaria(),new Date(), conta.getSaldoAtual(),true);
 		}else{
-			lancamentos = new Lancamentos(conta,"Despesa","Inclusão de conta","Inclusão da conta "+conta.getNomeContaBancaria(),new Date(), conta.getSaldoAtual());
+			lancamentos = new Lancamentos(conta,"Despesa","Inclusão de conta","Inclusão da conta "+conta.getNomeContaBancaria(),new Date(), conta.getSaldoAtual(),true);
 		}
 		
 		ILancamentosRepositories.save(lancamentos);
@@ -414,27 +503,70 @@ public class FinanceiroBean {
 			}
 		}
 		contaAPagar.getSubTipo().setTipo("Despesa");
-
+		
 		IContaRepositories.save(contaAPagar.getContaBancaria());
 		
+		if("".equals(contaAPagar.getFornecedor().getNomeFantasia())){
+			IFornecedorRepositories.save(contaAPagar.getFornecedor());
+		}
+//		else{
+//			contaAPagar.setFornecedor(null);
+//		}
+		
+		
+		//O segredo está no lançamento
+		
+		//Despesa tem repetição ?
 		if(contaAPagar.getRecorrencia().isRepetir()){
+			for(int i = 0 ;i<getComboFrequenciaRepeticao().size();i++){
+				if(Integer.valueOf(getComboFrequenciaRepeticao().get(i).getValue().toString()) == numComboFrequencia){
+					contaAPagar.getRecorrencia().setFrequencia(getComboFrequenciaRepeticao().get(i).getLabel());
+					break;
+				}
+			}
+			
+			//Salva repetição na base
 			IRecorrenciaRepositories.save(contaAPagar.getRecorrencia());
+			
+			Date d1 = null;
+			
+			//Faz repetição em despesa e lançamentos
+			for(int i=0;i<contaAPagar.getRecorrencia().getQtdOcorrencias();i++){
+				
+				//Verifica se a primeira Despesa
+				if(i==0){
+					lancamentos = new Lancamentos(contaAPagar.getContaBancaria(),"Despesa",contaAPagar.getSubTipo().getNome(), contaAPagar.getNomeDespesa(),contaAPagar.getDataDespesa(),contaAPagar.getValorDespesa(),contaAPagar.isSituacao());
+					contaAPagar.setSituacao(false);
+				}else{
+					//atualiza a data de vencimento pra cada lançamento e despesa
+					GregorianCalendar gc=new GregorianCalendar();
+					gc.add(Calendar.DATE, numComboFrequencia*i);
+					d1=gc.getTime();
+					contaAPagar.setDataVencimento(d1);
+					lancamentos = new Lancamentos(contaAPagar.getContaBancaria(),"Despesa",contaAPagar.getSubTipo().getNome(), contaAPagar.getNomeDespesa(),contaAPagar.getDataVencimento(),contaAPagar.getValorDespesa(),contaAPagar.isSituacao());
+				}
+				
+				ILancamentosRepositories.save(lancamentos);
+				//re-instancia 
+				contaAPagar = new Despesa(contaAPagar);
+				IContaRepositories.save(contaAPagar.getContaBancaria());
+				if("".equals(contaAPagar.getFornecedor().getNomeFantasia())){
+					IFornecedorRepositories.save(contaAPagar.getFornecedor());
+				}
+//				else{
+//					contaAPagar.setFornecedor(null);
+//				}
+				
+				IDespesaRepositories.save(contaAPagar);
+			
+			}
+			
 		}else{
 			contaAPagar.setRecorrencia(null);
 		}
-		if("".equals(contaAPagar.getFornecedor().getNomeFantasia())){
-			IFornecedorRepositories.save(contaAPagar.getFornecedor());
-		}else{
-			contaAPagar.setFornecedor(null);
-		}
-		
-		IDespesaRepositories.save(contaAPagar);
-
-		lancamentos = new Lancamentos(contaAPagar.getContaBancaria(),"Despesa",contaAPagar.getSubTipo().getNome(), contaAPagar.getNomeDespesa(),contaAPagar.getDataDespesa(),contaAPagar.getValorDespesa());
-		ILancamentosRepositories.save(lancamentos);
-		
 		return abrirPaginaExtrato();
 	}
+	
 	
 	
 	
@@ -639,11 +771,55 @@ public class FinanceiroBean {
 	public void setAtivaBotaoExcluirTelaExtrato(boolean ativaBotaoExcluirTelaExtrato) {
 		this.ativaBotaoExcluirTelaExtrato = ativaBotaoExcluirTelaExtrato;
 	}
-	public int getComboTipoCategoria() {
-		return comboTipoCategoria;
+	public int getNumComboEditarCategoriaTransacao() {
+		return numComboEditarCategoriaTransacao;
 	}
-	public void setComboTipoCategoria(int comboTipoCategoria) {
-		this.comboTipoCategoria = comboTipoCategoria;
+	public void setNumComboEditarCategoriaTransacao(int numComboEditarCategoriaTransacao) {
+		this.numComboEditarCategoriaTransacao = numComboEditarCategoriaTransacao;
+	}
+	public boolean isAtivaDesativaBotaExcluirCategoria() {
+		return ativaDesativaBotaExcluirCategoria;
+	}
+	public void setAtivaDesativaBotaExcluirCategoria(
+			boolean ativaDesativaBotaExcluirCategoria) {
+		this.ativaDesativaBotaExcluirCategoria = ativaDesativaBotaExcluirCategoria;
+	}
+	public CategoriaTransacao getCategoriaTransacao() {
+		return categoriaTransacao;
+	}
+	public void setCategoriaTransacao(CategoriaTransacao categoriaTransacao) {
+		this.categoriaTransacao = categoriaTransacao;
+	}
+	public CategoriaTransacao getCategoriaTransacaoSelecionado() {
+		return categoriaTransacaoSelecionado;
+	}
+	public void setCategoriaTransacaoSelecionado(
+			CategoriaTransacao categoriaTransacaoSelecionado) {
+		this.categoriaTransacaoSelecionado = categoriaTransacaoSelecionado;
+	}
+	public int getNumComboFrequencia() {
+		return numComboFrequencia;
+	}
+	public void setNumComboFrequencia(int numComboFrequencia) {
+		this.numComboFrequencia = numComboFrequencia;
+	}
+	public List<SelectItem> getComboFrequenciaRepeticao() {
+		List<SelectItem> list = new ArrayList<SelectItem>();
+		list.add(new SelectItem(1, "Diaria"));
+		list.add(new SelectItem(7, "Semanal"));
+		list.add(new SelectItem(30, "Mensal"));
+		list.add(new SelectItem(60, "Bimestral"));
+		list.add(new SelectItem(90, "Trimestral"));
+		list.add(new SelectItem(120, "Quadrimestral"));
+		list.add(new SelectItem(150, "A cada 5 meses"));
+		list.add(new SelectItem(180, "Semestral"));
+		list.add(new SelectItem(210, "A cada 7 meses"));
+		list.add(new SelectItem(240, "A cada 8 meses"));
+		list.add(new SelectItem(270, "A cada 9 meses"));
+		list.add(new SelectItem(300, "A cada 10 meses"));
+		list.add(new SelectItem(330, "A cada 11 meses"));
+		list.add(new SelectItem(365, "Anual"));
+		return list;
 	}
 
 

@@ -31,6 +31,7 @@ public class Lancamentos extends BaseEntities<Long>{
 	private String nomeTransacao;
 	private Date dataTransacao;
 	private BigDecimal valor;
+	private boolean situacao;
 
 	@Transient
 	private BigDecimal saldo;
@@ -47,10 +48,11 @@ public class Lancamentos extends BaseEntities<Long>{
 		this.nomeTransacao = l.getNomeTransacao();
 		this.dataTransacao = l.getDataTransacao();
 		this.valor = l.getValor();
+		this.situacao = l.isSituacao();
 	}
 	
 	public Lancamentos(ContaBancaria contaBancaria, String tipo, String subTipo, String nomeTransacao, 
-			Date dataTransacao, BigDecimal valor) {
+			Date dataTransacao, BigDecimal valor, boolean situacao) {
 		super();
 		this.contaBancaria = contaBancaria;
 		this.tipo = tipo;
@@ -58,6 +60,7 @@ public class Lancamentos extends BaseEntities<Long>{
 		this.nomeTransacao = nomeTransacao;
 		this.dataTransacao = dataTransacao;
 		this.valor = valor;
+		this.situacao = situacao;
 	}
 	
 	
@@ -124,6 +127,14 @@ public class Lancamentos extends BaseEntities<Long>{
 	
 	public void setId(Long id){
 		super.setId(id);
+	}
+
+	public boolean isSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(boolean situacao) {
+		this.situacao = situacao;
 	}
 	
 	

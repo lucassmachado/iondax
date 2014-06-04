@@ -10,6 +10,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.print.attribute.standard.Severity;
 
+import org.hibernate.cfg.Environment;
+
 @ManagedBean(name = "utils")
 @SessionScoped
 public class Utilidades {
@@ -116,15 +118,14 @@ public class Utilidades {
 	 */
 	public static void mensagemNaTela(String mensagem, String tipo){
 		FacesContext context = FacesContext.getCurrentInstance();
-        
 		if(tipo.equals("sucesso") ){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Sucesso",mensagem) );	
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,mensagem,null) );	
 		}
 		if(tipo.equals("erro") ){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Erro", mensagem));
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,mensagem,null));
 		}
 		if(tipo.equals("alerta") ){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Alerta", mensagem));
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,mensagem,null));
 		}
 	}
 	

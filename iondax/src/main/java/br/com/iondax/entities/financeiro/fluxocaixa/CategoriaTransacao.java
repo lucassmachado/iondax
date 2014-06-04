@@ -85,4 +85,8 @@ public class CategoriaTransacao extends BaseEntities<Long>{
 		this.categoriasTransacao = categoriasTransacao;
 	}
 	
+	public Long getRowkey(){
+		return super.getId();
+	}
+	
 }

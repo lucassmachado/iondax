@@ -16,7 +16,12 @@
 	<ui:define name="body_content">
 		<h:form id="formExtratoLancamentos">
 			
-			<p:dataTable id="tabelaLancamentos" style="width:99%; margin-bottom:5px;" rowKey="#{lan.id}" selection="#{financeiroBean.listaLancamentosSelecionados}" value="#{financeiroBean.listaLancamentos}" var="lan">
+			<p:dataTable id="tabelaLancamentos" emptyMessage="Nenhum Lançamento realizado." 
+			 style="width:99%; margin-bottom:5px;" rowKey="#{lan.id}" selection="#{financeiroBean.listaLancamentosSelecionados}" 
+			 value="#{financeiroBean.listaLancamentos}" var="lan" rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
 				
 				<p:ajax event="rowSelect" update=":formExtratoLancamentos:btnEditar,:formExtratoLancamentos:btnExcluir" 
 					listener="#{financeiroBean.ativaBotoesTelaExtrato}"/>
@@ -29,19 +34,25 @@
 				
 				<p:column selectionMode="multiple" style="width:4%;text-align:center"/>
 				
-				<p:column headerText="Data" width="10%">
+				<p:column headerText="Data" width="7%">
 					<p:outputLabel value="#{lan.dataTransacao}" converter="DataConverter"/>
 				</p:column>
-				<p:column headerText="Categoria" width="10%">
+				<p:column headerText="Categoria" width="7%">
 					<p:outputLabel value="#{lan.tipo}"/>
+				</p:column>
+				<p:column headerText="Subtipo" width="12%">
+					<p:outputLabel value="#{lan.subTipo}"/>
 				</p:column>
 				<p:column headerText="Nome">
 					<p:outputLabel value="#{lan.nomeTransacao}"/>
 				</p:column>
-				<p:column headerText="Valor" width="20%">
+				<p:column headerText="Valor" width="15%">
+					<p:outputLabel style="float:right" rendered="#{lan.situacao}"><span class="ui-menuitem-icon ui-icon ui-icon-check"/></p:outputLabel>
 					<p:outputLabel value="R$"/><p:outputLabel style="float:right;" value="#{lan.valor}" converter="DecimalConverter"/>
+					
+					
 				</p:column>
-				<p:column headerText="Saldo Disponível" width="20%">
+				<p:column headerText="Saldo Disponível" width="15%">
 					<p:outputLabel value="R$"/><p:outputLabel style="float:right;" value="#{lan.saldo}" converter="DecimalConverter"/>
 				</p:column>
 			</p:dataTable>

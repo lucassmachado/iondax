@@ -14,7 +14,6 @@ import org.hibernate.annotations.ForeignKey;
 import br.com.iondax.entities.financeiro.contabancaria.ContaBancaria;
 import br.com.iondax.entities.financeiro.contabancaria.transacoes.Recorrencia;
 import br.com.iondax.entities.financeiro.fluxocaixa.CategoriaTransacao;
-import br.com.iondax.entities.financeiro.relatorios.Lancamentos;
 import br.com.iondax.entities.fornecedor.Fornecedor;
 import br.com.iondax.util.BaseEntities;
 
@@ -25,7 +24,7 @@ public class Despesa extends BaseEntities<Long>{
 	private static final long serialVersionUID = -6601008180509865287L;
 	
 	private String nomeDespesa;
-	private boolean booleanSituacao;
+	private boolean situacao;
 	private String caminhoArquivoAnexo;
 	private String categoria;
 	private Date dataDespesa;
@@ -55,11 +54,6 @@ public class Despesa extends BaseEntities<Long>{
 	@JoinColumn(name = "recorrencia_id",nullable=true,insertable=true,updatable=true)
 	private Recorrencia recorrencia;
 	
-	@OneToOne
-	@ForeignKey(name="FK_Despesa_Lancamentos_ID")
-	@JoinColumn(name = "lancamentos_id",nullable=true,insertable=true,updatable=true)
-	private Lancamentos lancamentos;
-	
 	private BigDecimal valorDespesa;
 
 	public Despesa() {
@@ -68,32 +62,42 @@ public class Despesa extends BaseEntities<Long>{
 
 	public Despesa(Despesa d) {
 		super();
+		this.nomeDespesa = d.getNomeDespesa();
+		this.situacao = d.isSituacao();
+		this.caminhoArquivoAnexo = d.getCaminhoArquivoAnexo();
 		this.categoria = d.getCategoria();
-		this.valorDespesa = d.getValorDespesa();
-		this.dataVencimento = d.getDataVencimento();
-		this.booleanSituacao = d.isBooleanSituacao();
+		this.dataDespesa = d.getDataDespesa();
+		this.contaBancaria = d.getContaBancaria();
 		this.dataCompetencia = d.getDataCompetencia();
+		this.dataVencimento = d.getDataVencimento();
+		this.fornecedor = d.getFornecedor();
 		this.subTipo = d.getSubTipo();
 		this.observacoes = d.getObservacoes();
-		this.caminhoArquivoAnexo = d.getCaminhoArquivoAnexo();
+		this.recorrencia = d.getRecorrencia();
+		this.valorDespesa = d.getValorDespesa();
 	}
 
-	public Despesa(String categoria, BigDecimal valorDespesa,
-			ContaBancaria contaBancaria, Date dataVencimento, boolean situacao,
-			Recorrencia recorrencia, Fornecedor fornecedor,
-			Date dataCompetencia, String observacoes,CategoriaTransacao subTipo, String caminhoArquivoAnexo) {
+
+	public Despesa(String nomeDespesa, boolean situacao,
+			String caminhoArquivoAnexo, String categoria, Date dataDespesa,
+			ContaBancaria contaBancaria, Date dataCompetencia,
+			Date dataVencimento, Fornecedor fornecedor,
+			CategoriaTransacao subTipo, String observacoes,
+			Recorrencia recorrencia, BigDecimal valorDespesa) {
 		super();
+		this.nomeDespesa = nomeDespesa;
+		this.situacao = situacao;
+		this.caminhoArquivoAnexo = caminhoArquivoAnexo;
 		this.categoria = categoria;
-		this.valorDespesa = valorDespesa;
+		this.dataDespesa = dataDespesa;
 		this.contaBancaria = contaBancaria;
-		this.dataVencimento = dataVencimento;
-		this.booleanSituacao = situacao;
-		this.recorrencia = recorrencia;
-		this.fornecedor = fornecedor;
 		this.dataCompetencia = dataCompetencia;
+		this.dataVencimento = dataVencimento;
+		this.fornecedor = fornecedor;
 		this.subTipo = subTipo;
 		this.observacoes = observacoes;
-		this.caminhoArquivoAnexo = caminhoArquivoAnexo;
+		this.recorrencia = recorrencia;
+		this.valorDespesa = valorDespesa;
 	}
 
 	public String getCaminhoArquivoAnexo() {
@@ -132,12 +136,12 @@ public class Despesa extends BaseEntities<Long>{
 		return valorDespesa;
 	}
 
-	public boolean isBooleanSituacao() {
-		return booleanSituacao;
+	public boolean isSituacao() {
+		return situacao;
 	}
 
-	public void setBooleanSituacao(boolean booleanSituacao) {
-		this.booleanSituacao = booleanSituacao;
+	public void setSituacao(boolean booleanSituacao) {
+		this.situacao = booleanSituacao;
 	}
 
 	public void setCaminhoArquivoAnexo(String caminhoArquivoAnexo) {
@@ -198,14 +202,6 @@ public class Despesa extends BaseEntities<Long>{
 
 	public void setDataDespesa(Date dataDespesa) {
 		this.dataDespesa = dataDespesa;
-	}
-
-	public Lancamentos getLancamentos() {
-		return lancamentos;
-	}
-
-	public void setLancamentos(Lancamentos lancamentos) {
-		this.lancamentos = lancamentos;
 	}
 
 }
