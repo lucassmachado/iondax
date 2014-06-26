@@ -20,41 +20,26 @@ public class Usuario extends BaseEntities<Long>{
 
 	private static final long serialVersionUID = -2325703609610144911L;
 
-	@Transient
 	private Contato contato;
-	@Transient
 	private Long cpf;
-	@Transient
 	private Date dataNascimento;
 
 	// Endereço
 	@OneToOne
 	@ForeignKey(name="FK_Usuario_Endereco_id")
-	@JoinColumn(name = "usuario_endereco_id", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "usuario_endereco_id", referencedColumnName = "id", insertable = true, updatable = true,nullable=true)
 	private Enderecos endereco;
 	
 	
-	//Funcionario 
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
-	private Funcionario funcionario;
-	
-	@Transient
 	private String estadoCivil;
-	@Transient
 	private Integer idade;
-	@Transient
 	private String naturalCid;
-	@Transient
 	private String naturalUf;
-	@Transient
 	private String nome;
 
-	@Transient
 	private Integer rg;
 	private String senha;
-	@Transient
 	private String sexo;
-	@Transient
 	private boolean statusSistema;
 
 	private String username;
@@ -77,7 +62,6 @@ public class Usuario extends BaseEntities<Long>{
 		this.naturalCid = u.getNaturalCid();
 		this.naturalUf = u.getNaturalUf();
 		this.estadoCivil = u.getEstadoCivil();
-		this.funcionario = u.getFuncionario();
 		this.statusSistema = u.isStatusSistema();
 	}
 
@@ -99,10 +83,6 @@ public class Usuario extends BaseEntities<Long>{
 
 	public String getEstadoCivil() {
 		return estadoCivil;
-	}
-
-	public Funcionario getFuncionario() {
-		return funcionario;
 	}
 
 	public Integer getIdade() {
@@ -165,9 +145,6 @@ public class Usuario extends BaseEntities<Long>{
 		this.estadoCivil = estadoCivil;
 	}
 
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
 
 	public void setIdade(Integer idade) {
 		this.idade = idade;

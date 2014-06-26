@@ -79,12 +79,7 @@ public class RhBean {
 	public List<Usuario> carregaListaFuncionarios() {
 		listaFuncionarios = new ArrayList<Usuario>();
 		listaFuncionarios.add(new Usuario());
-		listaFuncionarios.get(0).setFuncionario(new Funcionario());
 		listaFuncionarios.get(0).setNome("Rafael");
-		listaFuncionarios.get(0).getFuncionario().setRe(new Long(1));
-		listaFuncionarios.get(0).getFuncionario().setFilial(new Filial("Filial Cotia"));
-		listaFuncionarios.get(0).getFuncionario().setSetor("Desenvolvimento/Programação");
-		listaFuncionarios.get(0).getFuncionario().setDataAdmissao(new Date());
 
 		return listaFuncionarios;
 	}

@@ -4,17 +4,15 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import br.com.iondax.entities.fornecedor.Fornecedor;
-import br.com.iondax.entities.usuario.Bairro;
-
 import org.hibernate.annotations.ForeignKey;
 
+import br.com.iondax.entities.fornecedor.Fornecedor;
+import br.com.iondax.entities.venda.Cliente;
 import br.com.iondax.util.BaseEntities;
 
 @Entity
@@ -27,6 +25,9 @@ public class Enderecos extends BaseEntities<Long> {
 	private String descEndereco;
 	private String numero;
 	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "endereco")
+	private Cliente cliente;
+
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "endereco")
 	private Usuario usuario;
 	

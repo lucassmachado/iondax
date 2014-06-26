@@ -14,6 +14,7 @@ import org.hibernate.annotations.ForeignKey;
 import br.com.iondax.entities.financeiro.contabancaria.ContaBancaria;
 import br.com.iondax.entities.financeiro.contabancaria.transacoes.Recorrencia;
 import br.com.iondax.entities.financeiro.fluxocaixa.CategoriaTransacao;
+import br.com.iondax.entities.financeiro.relatorios.Lancamentos;
 import br.com.iondax.entities.fornecedor.Fornecedor;
 import br.com.iondax.util.BaseEntities;
 
@@ -26,8 +27,12 @@ public class Despesa extends BaseEntities<Long>{
 	private String nomeDespesa;
 	private boolean situacao;
 	private String caminhoArquivoAnexo;
-	private String categoria;
 	private Date dataDespesa;
+	
+	@OneToOne
+	@ForeignKey(name="FK_Despesa_Lancamentos_ID")
+	@JoinColumn(name = "lancamentos_id",nullable=false,insertable=true,updatable=true)
+	private Lancamentos lancamentos;
 	
 	@ManyToOne
 	@ForeignKey(name="FK_Despesa_ContaBancaria_ID")
@@ -65,7 +70,6 @@ public class Despesa extends BaseEntities<Long>{
 		this.nomeDespesa = d.getNomeDespesa();
 		this.situacao = d.isSituacao();
 		this.caminhoArquivoAnexo = d.getCaminhoArquivoAnexo();
-		this.categoria = d.getCategoria();
 		this.dataDespesa = d.getDataDespesa();
 		this.contaBancaria = d.getContaBancaria();
 		this.dataCompetencia = d.getDataCompetencia();
@@ -88,7 +92,6 @@ public class Despesa extends BaseEntities<Long>{
 		this.nomeDespesa = nomeDespesa;
 		this.situacao = situacao;
 		this.caminhoArquivoAnexo = caminhoArquivoAnexo;
-		this.categoria = categoria;
 		this.dataDespesa = dataDespesa;
 		this.contaBancaria = contaBancaria;
 		this.dataCompetencia = dataCompetencia;
@@ -102,10 +105,6 @@ public class Despesa extends BaseEntities<Long>{
 
 	public String getCaminhoArquivoAnexo() {
 		return caminhoArquivoAnexo;
-	}
-
-	public String getCategoria() {
-		return categoria;
 	}
 
 	public ContaBancaria getContaBancaria() {
@@ -146,10 +145,6 @@ public class Despesa extends BaseEntities<Long>{
 
 	public void setCaminhoArquivoAnexo(String caminhoArquivoAnexo) {
 		this.caminhoArquivoAnexo = caminhoArquivoAnexo;
-	}
-
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
 	}
 
 	public void setContaBancaria(ContaBancaria contaBancaria) {
@@ -202,6 +197,14 @@ public class Despesa extends BaseEntities<Long>{
 
 	public void setDataDespesa(Date dataDespesa) {
 		this.dataDespesa = dataDespesa;
+	}
+
+	public Lancamentos getLancamentos() {
+		return lancamentos;
+	}
+
+	public void setLancamentos(Lancamentos lancamentos) {
+		this.lancamentos = lancamentos;
 	}
 
 }

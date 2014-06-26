@@ -16,12 +16,32 @@
 	<ui:define name="body_content">
 		<h:form id="formHistMovimentacao">
 			
-			<p:dataTable style="width:700px;">
-				<p:column headerText="Usuário"></p:column>
-				<p:column headerText="Ação"></p:column>
-				<p:column headerText="Descrição"></p:column>
-				<p:column headerText="Valor"></p:column>
-				<p:column headerText="Data/Hora"></p:column>
+			<p:dataTable style="margin-left:5px; width:98%;" paginator="true" value="#{financeiroBean.listaHistorico}" var="hist" rows="10"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+				
+				<p:column headerText="Usuário" width="15%">
+					<p:outputLabel value="#{hist.usuario.nome}"/>
+				</p:column>
+				
+				<p:column headerText="Ação" width="15%">
+					<p:outputLabel  value="#{hist.acao}"/>
+				</p:column>
+				
+				<p:column headerText="Descrição" width="40%">
+					<p:outputLabel value="#{hist.descricao}"/>
+				</p:column>
+				
+				<p:column headerText="Valor" width="18%">
+					<p:outputLabel value="R$"/><p:outputLabel style="float:right;" value="#{hist.valor}" converter="DecimalConverter"/>
+				</p:column>
+				
+				<p:column headerText="Data/Hora" width="12%">
+					<p:outputLabel value="#{hist.dataHora}" >
+						<f:convertDateTime pattern="dd/MM/yyyy - HH:mm"/>
+					</p:outputLabel>
+				</p:column>
+				
 			</p:dataTable>
 			
 		</h:form>

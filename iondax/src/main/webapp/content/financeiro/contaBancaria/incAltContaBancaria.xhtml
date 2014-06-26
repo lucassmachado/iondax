@@ -25,157 +25,144 @@
 		<h:form id="formInclusaoConta" name="formInclusaoConta" prependId="false">
 			<h:panelGrid>
 				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Nome Personalizado da Conta"/>
+					<p:outputLabel styleClass="textIondax" for="nomeConta" value="Nome Personalizado da Conta"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{financeiroBean.conta.nomeContaBancaria}"/>
+					<p:inputText id="nomeConta" value="#{financeiroBean.conta.nomeContaBancaria}" required="true" validatorMessage="Nome Personalizado da Conta é Obrigatório"/>
 				</h:panelGroup>
 			</h:panelGrid>
 			
+			<h:panelGrid columns="2">
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" for="radioTipoConta" value="Tipo de Conta" />
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneRadio id="radioTipoConta" value="#{financeiroBean.numRadioSelecionadoTipoConta}" required="true" validatorMessage="Tipo de Conta é Obrigatório">
+						<f:selectItems value="#{financeiroBean.radiosTipoContaBancaria}"/>
+						<p:ajax event="change" update="@form" oncomplete="setarMascara();"/>
+					</p:selectOneRadio>
+				</h:panelGroup>
+			</h:panelGrid>
+			
+
 			<h:panelGrid columns="3" id="gridInclusaoConta">
 				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Banco"/>
+					<p:outputLabel styleClass="textIondax" value="Banco" for="comboBancos"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Agência"/>
+					<p:outputLabel styleClass="textIondax" value="Agência" for="agencia"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Conta"/>
+					<p:outputLabel styleClass="textIondax" value="Conta" for="conta"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectOneMenu id="comboBancos" value="#{financeiroBean.numBancoSelecionado}">
-						<f:selectItem itemValue="0" itemLabel="::SELECIONE::"></f:selectItem>
-						<f:selectItems value="#{financeiroBean.listaBancos}"/>
-						<p:ajax event="change" listener="#{financeiroBean.trocaCarteira}" update=":formInclusaoConta:gridInclusaoContaCarteiras"/>
+					<p:selectOneMenu id="comboBancos" value="#{financeiroBean.numBancoSelecionado}" required="true" validatorMessage="Banco é Obrigatório">
+						<f:selectItem itemValue="s" itemLabel="::SELECIONE::" noSelectionOption="true"></f:selectItem>
+						<f:selectItems value="#{financeiroBean.listaBancos}"/>s
+						<p:ajax event="change" listener="#{financeiroBean.trocaCarteira}" update=":formInclusaoConta:gridInclusaoContaCarteiras,:formInclusaoConta:nroUltimoNossoNumeroGeradoPelaEmpresa"/>
 					</p:selectOneMenu>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{financeiroBean.conta.agencia}"/>
+					<p:inputMask mask="#{financeiroBean.mascaraAgencia}" id="agencia" value="#{financeiroBean.conta.agencia}" required="true" validatorMessage="Agência é Obrigatório"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{financeiroBean.conta.nroConta}"/>
+					<p:inputMask mask="#{financeiroBean.mascaraConta}" id="conta" value="#{financeiroBean.conta.nroConta}" required="true" validatorMessage="Conta é Obrigatório"/>
 				</h:panelGroup>
 			</h:panelGrid>
 			
-			<h:panelGrid id="gridInclusaoContaCarteiras">
+			<h:panelGrid id="contaEmpresarial" rendered="#{financeiroBean.verificaTipoConta}">
 			
-				<h:panelGrid columns="3" id="gridInclusaoContaCarteiraBancoBrasil" rendered="#{financeiroBean.numBancoSelecionado == 1}">
-					<h:panelGroup>
-						<p:outputLabel styleClass="textIondax" value="Carteira"/>
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:outputLabel styleClass="textIondax" value="Convênio"/>
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:outputLabel styleClass="textIondax" value="Variação de Carteira"/>
-					</h:panelGroup>
+				<h:panelGrid id="gridInclusaoContaCarteiras">
+				
+					<h:panelGrid columns="3" id="gridInclusaoContaCarteiraBancoBrasil" rendered="#{financeiroBean.numBancoSelecionado == 1}">
+						<h:panelGroup>
+							<p:outputLabel styleClass="textIondax" for="comboCarteiraBancoBrasil" value="Carteira" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:outputLabel styleClass="textIondax" for="convenioCarteiraBancoBrasil" value="Convênio"/>
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:outputLabel styleClass="textIondax" for="variacaoCarteiraBancoBrasil" value="Variação de Carteira"/>
+						</h:panelGroup>
+						
+						<h:panelGroup>
+							<p:selectOneMenu id="comboCarteiraBancoBrasil" value="#{financeiroBean.conta.carteira}" required="true" validatorMessage="Carteira é Obrigatório">
+								<f:selectItem itemValue="s" itemLabel="::SELECIONE::" noSelectionOption="true"></f:selectItem>	
+								<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+								<p:ajax event="change" listener="#{financeiroBean.trocaCarteiraBB}" update="agencia,conta,convenioCarteiraBancoBrasil,variacaoCarteiraBancoBrasil,nroUltimoNossoNumeroGeradoPelaEmpresa"/>
+							</p:selectOneMenu>
+						</h:panelGroup>
+						
+						<h:panelGroup>
+							<p:inputMask mask="#{financeiroBean.mascaraConvenio}" id="convenioCarteiraBancoBrasil" value="#{financeiroBean.conta.convenio}" required="true" validatorMessage="Convênio é Obrigatório"/>
+						</h:panelGroup>
+						
+						<h:panelGroup>
+							<p:inputMask mask="#{financeiroBean.mascaraVariacaoDeCarteira}" id="variacaoCarteiraBancoBrasil" value="#{financeiroBean.conta.variacaoCarteira}" required="true" validatorMessage="Variação de Carteira é Obrigatório"/>
+						</h:panelGroup>
+					</h:panelGrid>
 					
-					<h:panelGroup>
-						<p:selectOneMenu id="comboCarteiraBancoBrasil" value="#{financeiroBean.conta.carteira}">
-							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
-						</p:selectOneMenu>
-					</h:panelGroup>
+					<h:panelGrid columns="1" id="gridInclusaoContaCarteiraSantander" rendered="#{financeiroBean.numBancoSelecionado == 33}">
+						<h:panelGroup>
+							<p:outputLabel styleClass="textIondax" for="comboCarteiraSantander" value="Carteira"/>
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectOneMenu id="comboCarteiraSantander" value="#{financeiroBean.conta.carteira}" required="true" validatorMessage="Carteira é Obrigatório">
+								<f:selectItem itemValue="s" itemLabel="::SELECIONE::" noSelectionOption="true"></f:selectItem>v
+								<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+								<p:ajax event="change" listener="#{financeiroBean.trocaCarteiraSantander}" update="agencia,conta,nroUltimoNossoNumeroGeradoPelaEmpresa"/>
+							</p:selectOneMenu>
+						</h:panelGroup>
+					</h:panelGrid>
 					
-					<h:panelGroup>
-						<p:inputText id="convenioCarteiraBancoBrasil" value="#{financeiroBean.conta.convenio}"/>
-					</h:panelGroup>
+					<h:panelGrid columns="1" id="gridInclusaoContaCarteiraCaixaEconomica" rendered="#{financeiroBean.numBancoSelecionado == 104}">
+						<h:panelGroup>
+							<p:outputLabel styleClass="textIondax" for="comboCarteiraBancoCaixaEconomica" value="Carteira"/>
+						</h:panelGroup>
+	
+						<h:panelGroup>
+							<p:selectOneMenu id="comboCarteiraBancoCaixaEconomica" value="#{financeiroBean.conta.carteira}" required="true" validatorMessage="Carteira é Obrigatório">
+								<f:selectItem itemValue="s" itemLabel="::SELECIONE::" noSelectionOption="true"></f:selectItem>
+								<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
+								<p:ajax event="change" listener="#{financeiroBean.trocaCarteiraCXEconomica}" update="agencia,conta,nroUltimoNossoNumeroGeradoPelaEmpresa"/>
+							</p:selectOneMenu>
+						</h:panelGroup>
+					</h:panelGrid>
 					
-					<h:panelGroup>
-						<p:inputText id="variacaoCarteiraBancoBrasil" value="#{financeiroBean.conta.variacaoCarteira}"/>
-					</h:panelGroup>
 				</h:panelGrid>
 				
-				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraSantander" rendered="#{financeiroBean.numBancoSelecionado == 33}">
+				<h:panelGrid id="nroUltimoNossoNumeroGeradoPelaEmpresa">
 					<h:panelGroup>
-						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+						<p:outputLabel value="Último Nosso número gerado pela empresa" for="ultimoNossoNumeroGerado" styleClass="textIondax"/>
 					</h:panelGroup>
 					<h:panelGroup>
-						<p:selectOneMenu id="comboCarteiraSantander" value="#{financeiroBean.conta.carteira}">
-							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
-						</p:selectOneMenu>
+						<p:inputMask mask="#{financeiroBean.mascaraNossoNumero}" id="ultimoNossoNumeroGerado" value="#{financeiroBean.conta.nossoNumeroInicial}" required="true" validatorMessage="Último Nosso número gerado pela empresa é Obrigatório"/>
 					</h:panelGroup>
 				</h:panelGrid>
-				
-				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraCaixaEconomica" rendered="#{financeiroBean.numBancoSelecionado == 104}">
+			
+				<h:panelGrid id="dadosDaConta" columns="2">
 					<h:panelGroup>
-						<p:outputLabel styleClass="textIondax" value="Carteira"/>
-					</h:panelGroup>
-
-					<h:panelGroup>
-						<p:selectOneMenu id="comboCarteiraBancoCaixaEconomica" value="#{financeiroBean.conta.carteira}">
-							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
-						</p:selectOneMenu>
-					</h:panelGroup>
-				</h:panelGrid>
-				
-				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraNossaCaixa" rendered="#{financeiroBean.numBancoSelecionado == 151}">
-					<h:panelGroup>
-						<p:outputLabel styleClass="textIondax" value="Carteira"/>
+						<p:outputLabel value="Saldo atual da conta" for="saldoAtualConta" styleClass="textIondax"/>
 					</h:panelGroup>
 					<h:panelGroup>
-						<p:selectOneMenu id="comboCarteiraNossaCaixa" value="#{financeiroBean.conta.carteira}">
-							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
-						</p:selectOneMenu>
+						<p:outputLabel value="Última data de visualização do saldo" for="dataUltimaVisualizacaoSaldo" styleClass="textIondax"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputText id="saldoAtualConta" value="#{financeiroBean.conta.saldoAtual}" required="true" validatorMessage="Saldo atual da conta é Obrigatório">
+							<f:convertNumber pattern="#,##0.00"/>						
+						</p:inputText>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:calendar id="dataUltimaVisualizacaoSaldo" locale="pt" pattern="dd/MM/yyyy" value="#{financeiroBean.conta.ultimaVisualizacaoSaldo}" required="true" validatorMessage="Última data de visualização do saldo é Obrigatório"/>
 					</h:panelGroup>
 				</h:panelGrid>
-				
-				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraBradesco" rendered="#{financeiroBean.numBancoSelecionado == 237}">
-					<h:panelGroup>
-						<p:outputLabel styleClass="textIondax" value="Carteira"/>
-					</h:panelGroup>
-					
-					<h:panelGroup>
-						<p:selectOneMenu id="comboCarteiraBradesco" value="#{financeiroBean.conta.carteira}">
-							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
-						</p:selectOneMenu>
-					</h:panelGroup>
-				</h:panelGrid>
-				
-				<h:panelGrid columns="1" id="gridInclusaoContaCarteiraItau" rendered="#{financeiroBean.numBancoSelecionado == 341}">
-					<h:panelGroup>
-						<p:outputLabel styleClass="textIondax" value="Carteira"/>
-					</h:panelGroup>
-					
-					<h:panelGroup>
-						<p:selectOneMenu id="comboCarteiraBancoItau" value="#{financeiroBean.conta.carteira}">
-							<f:selectItems value="#{financeiroBean.listaCarteirasBoleto}"/>
-						</p:selectOneMenu>
-					</h:panelGroup>
-				</h:panelGrid>
-				
+			
 			</h:panelGrid>
 			
-			<h:panelGrid id="nroUltimoNossoNumeroGeradoPelaEmpresa">
-				<h:panelGroup>
-					<p:outputLabel value="Último Nosso número gerado pela empresa" styleClass="textIondax"/>
-				</h:panelGroup>
-				<h:panelGroup>
-					<p:inputMask mask="#{financeiroBean.mascaraNossoNumero}" value="#{financeiroBean.conta.nossoNumeroInicial}"/>
-				</h:panelGroup>
-			</h:panelGrid>
-			
-			<h:panelGrid id="dadosDaConta" columns="2">
-				<h:panelGroup>
-					<p:outputLabel value="Saldo atual da conta" styleClass="textIondax"/>
-				</h:panelGroup>
-				<h:panelGroup>
-					<p:outputLabel value="Última data de visualização do saldo" styleClass="textIondax"/>
-				</h:panelGroup>
-				<h:panelGroup>
-					<p:inputText id="saldoAtualConta" value="#{financeiroBean.conta.saldoAtual}" converter="DecimalConverter"/>
-				</h:panelGroup>
-				<h:panelGroup>
-					<p:calendar id="dataUltimaVisualizacaoSaldo" locale="pt" pattern="dd/MM/yyyy" value="#{financeiroBean.conta.ultimaVisualizacaoSaldo}"/>
-				</h:panelGroup>
-			</h:panelGrid>
-			
-			<p:commandButton id="btnIncluir" rendered="#{!financeiroBean.flagEdicaoConta}" disabled="false" value="Incluir Conta" action="#{financeiroBean.incluirConta}"/>
-			<p:commandButton id="btnEditar" rendered="#{(financeiroBean.flagEdicaoConta)}" value="Alterar Conta" action="#{financeiroBean.editarContaBancaria}"/>
-			
-			<h:form id="Exemplo-Bopepo-com-JSF" >
-				<p:commandButton value="Exemplo-Bopepo-Boleto" action="#{financeiroBean.download}" />
-			</h:form>
+			<p:commandButton id="btnIncluir" update="@form" ajax="false" rendered="#{!financeiroBean.flagEdicaoConta}" disabled="false" value="Incluir Conta" action="#{financeiroBean.incluirConta}" icon="ui-icon-check"/>
+			<p:commandButton id="btnEditar" rendered="#{(financeiroBean.flagEdicaoConta)}" value="Alterar Conta" action="#{financeiroBean.editarContaBancaria}" icon="ui-icon-check"/>
 			
 		</h:form>
+		
 	</ui:define>
 </ui:composition>

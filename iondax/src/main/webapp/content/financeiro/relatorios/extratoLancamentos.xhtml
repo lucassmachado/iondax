@@ -16,50 +16,58 @@
 	<ui:define name="body_content">
 		<h:form id="formExtratoLancamentos">
 			
-			<p:dataTable id="tabelaLancamentos" emptyMessage="Nenhum Lançamento realizado." 
+			<p:dataTable id="tabelaLancamentos" emptyMessage="Nenhum Lançamento realizado." widgetVar="tableLance"
 			 style="width:99%; margin-bottom:5px;" rowKey="#{lan.id}" selection="#{financeiroBean.listaLancamentosSelecionados}" 
-			 value="#{financeiroBean.listaLancamentos}" var="lan" rows="10"
+			 value="#{financeiroBean.lz}" var="lan" rows="10" lazy="true" 
                          paginator="true"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15">
 				
-				<p:ajax event="rowSelect" update=":formExtratoLancamentos:btnEditar,:formExtratoLancamentos:btnExcluir" 
+				<p:ajax event="rowSelect" update="@form" 
 					listener="#{financeiroBean.ativaBotoesTelaExtrato}"/>
-				<p:ajax event="toggleSelect" update=":formExtratoLancamentos:btnEditar,:formExtratoLancamentos:btnExcluir" 
+				<p:ajax event="toggleSelect" update="@form" 
 					listener="#{financeiroBean.ativaBotoesTelaExtrato}"/>
-				<p:ajax event="rowSelectCheckbox" update=":formExtratoLancamentos:btnEditar,:formExtratoLancamentos:btnExcluir" 
+				<p:ajax event="rowSelectCheckbox" update="@form" 
 					listener="#{financeiroBean.ativaBotoesTelaExtrato}"/>
-				<p:ajax event="rowUnselectCheckbox" update=":formExtratoLancamentos:btnEditar,:formExtratoLancamentos:btnExcluir" 
+				<p:ajax event="rowUnselectCheckbox" update="@form" 
 					listener="#{financeiroBean.ativaBotoesTelaExtrato}"/>
 				
-				<p:column selectionMode="multiple" style="width:4%;text-align:center"/>
+				<p:column selectionMode="multiple" style="width:4.5%;text-align:center"/>
 				
-				<p:column headerText="Data" width="7%">
-					<p:outputLabel value="#{lan.dataTransacao}" converter="DataConverter"/>
+				<p:column headerText="Data" width="12.5%" filterBy="#{lan.dataTransacaoString}" sortBy="#{lan.dataTransacao}" filterMatchMode="contains">
+					<p:outputLabel value="#{lan.dataTransacaoString}" />
 				</p:column>
-				<p:column headerText="Categoria" width="7%">
+				<p:column headerText="Conta Bancaria" width="12.5%" filterBy="#{lan.nomeContaBancaria}" sortBy="#{lan.nomeContaBancaria}" filterMatchMode="contains">
+					<p:outputLabel value="#{lan.nomeContaBancaria}"/>
+				</p:column>
+				<p:column headerText="Categoria" width="12.5%" filterBy="#{lan.tipo}" sortBy="#{lan.tipo}" filterMatchMode="contains">
 					<p:outputLabel value="#{lan.tipo}"/>
 				</p:column>
-				<p:column headerText="Subtipo" width="12%">
+				<p:column headerText="Subtipo" width="12.5%" filterBy="#{lan.subTipo}" sortBy="#{lan.subTipo}" filterMatchMode="contains">
 					<p:outputLabel value="#{lan.subTipo}"/>
 				</p:column>
-				<p:column headerText="Nome">
-					<p:outputLabel value="#{lan.nomeTransacao}"/>
+				<p:column headerText="Nome" width="17.5%" filterBy="#{lan.nomeTransacao}" sortBy="#{lan.nomeTransacao}" filterMatchMode="contains">
+					<p:outputLabel value="#{lan.nomeTransacao}" />
 				</p:column>
-				<p:column headerText="Valor" width="15%">
+				<p:column headerText="Valor" width="14%" filterBy="#{lan.valor}" sortBy="#{lan.valor}" filterMatchMode="contains">
 					<p:outputLabel style="float:right" rendered="#{lan.situacao}"><span class="ui-menuitem-icon ui-icon ui-icon-check"/></p:outputLabel>
 					<p:outputLabel value="R$"/><p:outputLabel style="float:right;" value="#{lan.valor}" converter="DecimalConverter"/>
-					
-					
 				</p:column>
-				<p:column headerText="Saldo Disponível" width="15%">
+				<p:column headerText="Saldo Disponível" width="14%" filterBy="#{lan.saldo}" sortBy="#{lan.saldo}" filterMatchMode="contains">
 					<p:outputLabel value="R$"/><p:outputLabel style="float:right;" value="#{lan.saldo}" converter="DecimalConverter"/>
 				</p:column>
 			</p:dataTable>
 			
-			<p:commandButton id="btnEditar" rendered="#{not empty financeiroBean.listaLancamentos}" value="Editar" disabled="#{financeiroBean.ativaBotaoEditarTelaExtrato}"/>
-			<p:commandButton id="btnExcluir" rendered="#{not empty financeiroBean.listaLancamentos}" value="Excluir" disabled="#{financeiroBean.ativaBotaoExcluirTelaExtrato}"/>
+			<p:commandButton id="btnEditar" action="#{financeiroBean.chamaEditarLancamento}" rendered="#{not empty financeiroBean.listaLancamentos}" value="Editar" disabled="#{financeiroBean.ativaBotaoEditarTelaExtrato}"/>
+			<p:commandButton id="btnExcluir" update="@all" actionListener="#{financeiroBean.excluirLancamentosSelecionados}" rendered="#{not empty financeiroBean.listaLancamentos}" value="Excluir" disabled="#{financeiroBean.ativaBotaoExcluirTelaExtrato}">
+				<p:confirm header="Confirmação" message="Você tem certeza que deseja excluir esses lancamentos ?" icon="ui-icon-alert" />
+			</p:commandButton>
+			 <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+		        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="@all" ajax="false"/>
+		        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" update="@all" ajax="false"/>
+		    </p:confirmDialog>
 			
+			<p:commandButton id="btnEnviarBoleto" action="#{financeiroBean.gerarBoleto}" rendered="#{financeiroBean.renderizaBotaoEnviarBoleto}" value="Gerar Boleto" />
 		</h:form>
 	</ui:define>
 </ui:composition>

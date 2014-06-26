@@ -14,11 +14,13 @@ public class DecimalUtils {
 			valorS = valorS.replace("-", "");
 		}
 		
-		int nroRepeticoes = (valorS.indexOf(",")/3) - 1;
-		//12.500,00
 		
-		for(int i=nroRepeticoes; i>0 ;i--){
-			valorS= valorS.substring(0,valorS.indexOf(",")-(i*3))+"."+valorS.substring(valorS.indexOf(",")-(i*3),valorS.length());
+		//tamanho da parte inteira:
+		int tamanho = valorS.lastIndexOf(",");
+		
+		while(tamanho >3){
+			valorS = valorS.substring(0,tamanho-3)+"."+valorS.substring(tamanho-3,valorS.length());
+			tamanho = tamanho-3;
 		}
 		
 		if(eNegativo){

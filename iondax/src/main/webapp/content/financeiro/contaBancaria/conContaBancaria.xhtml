@@ -18,7 +18,10 @@
 			
 			<h:panelGrid>
 				<h:panelGroup>
-					<p:dataTable id="listaDeContas" value="#{financeiroBean.listaContas}" rowKey="#{conta.rowkey}"  selection="#{financeiroBean.conta}"  style="float:left;width:99%" var="conta">
+					<p:dataTable id="listaDeContas" emptyMessage="Nenhuma conta cadastrada." value="#{financeiroBean.listaContas}" rowKey="#{conta.rowkey}"  
+						selection="#{financeiroBean.conta}"  style="float:left;width:99%" var="conta"
+						rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" paginator="true">
 						
 						<p:ajax event="rowSelectRadio" update="@form" listener="#{financeiroBean.ativaBotoesEditarExcluirTelaConcultaConta}"/>
 						<p:column selectionMode="single" style="width:3%;text-align:center"/>

@@ -8,9 +8,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.print.attribute.standard.Severity;
-
-import org.hibernate.cfg.Environment;
 
 @ManagedBean(name = "utils")
 @SessionScoped
@@ -22,32 +19,17 @@ public class Utilidades {
 
 		switch (bancoSelecionado) {
 		case 1:
-			lista.add(new SelectItem("16", "16"));
-			lista.add(new SelectItem("18", "18"));
+			lista.add(new SelectItem("16", "16 - Nosso número 5 digítos"));
+			lista.add(new SelectItem("18", "18 - Nosso número 11 digítos"));
 			break;
 		case 33:
-			lista.add(new SelectItem("101", "101"));
-			lista.add(new SelectItem("102", "102"));
-			lista.add(new SelectItem("201", "201"));
 			lista.add(new SelectItem("COB", "COB"));
 			lista.add(new SelectItem("CSR", "CSR"));
-			lista.add(new SelectItem("ECR", "ECR"));
 			break;
 		case 104:
-			lista.add(new SelectItem("01", "01"));
-			lista.add(new SelectItem("02", "02"));
-			lista.add(new SelectItem("14", "14"));
-			lista.add(new SelectItem("24", "24"));
-			lista.add(new SelectItem("CR", "CR"));
 			lista.add(new SelectItem("CS", "CS"));
 			lista.add(new SelectItem("SR", "SR"));
-			break;
-		case 151:
-			lista.add(new SelectItem("9", "9"));
-			break;
-		case 237:
-			break;
-		case 341:
+			lista.add(new SelectItem("SR14", "SR-14"));
 			break;
 		}
 
@@ -60,9 +42,6 @@ public class Utilidades {
 		lista.add(new SelectItem(1, "001 - Banco do Brasil"));
 		lista.add(new SelectItem(33, "033 - Santander"));
 		lista.add(new SelectItem(104, "104 - Caixa Econômica Federeal"));
-		lista.add(new SelectItem(151, "151 - Nossa Caixa"));
-		lista.add(new SelectItem(237, "237 - Bradesco"));
-		lista.add(new SelectItem(341, "341 - Itaú"));
 
 		return lista;
 	}

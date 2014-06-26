@@ -2,6 +2,8 @@ package br.com.iondax.controller.view.usuario;
 
 //import java.util.List;
 
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -11,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.iondax.entities.usuario.Usuario;
-import br.com.iondax.repositories.usuario.IUsuarioRepositorio;
+import br.com.iondax.repositories.usuario.IUsuarioRepositories;
 
 @Component
 @ManagedBean(name = "usuarioBean")
@@ -19,11 +21,19 @@ import br.com.iondax.repositories.usuario.IUsuarioRepositorio;
 public class UsuarioBean {
 
 	private Usuario usuario;
-	private String usuarioV = "Rafael";
-	private String senhaV = "123";
+	private String usuarioV;
+	private String senhaV;
+	
+	
+	private boolean vaiCadastrar = false;
+	private boolean buscaRealizada = false;
+	private String mensagem;
+	
+	
+	
 	
 	@Autowired
-	IUsuarioRepositorio usuarioRepository;
+	IUsuarioRepositories IUsuarioRepositories;
 
 	public UsuarioBean() {
 		super();
@@ -33,40 +43,59 @@ public class UsuarioBean {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
 		session.invalidate();
-		usuario = new Usuario();
+		this.usuario.setStatusSistema(false);
+		IUsuarioRepositories.saveAndFlush(this.usuario);
+		this.usuario = new Usuario();
 		return "/index.jsf?faces-redirect=true";
 	}
 	
 
 	public String logar() {
-		usuario = new Usuario();
-		usuario.setUsername(usuarioV);
-		usuario.setSenha(senhaV);
-		if ( (usuario.getUsername().equals("Rafael") || usuario.getUsername().equals("Zaira")) && usuario.getSenha().equals("123")) {
-			
-			if(getUsuarioV().equals("Rafael")){
-				usuario.setNome("Rafael Silva Oliveira");
-			}else if(getUsuarioV().equals("Zaira")){
-				usuario.setNome("Zaira de Oliveira Feitosa");
+		this.usuario = new Usuario();
+		this.usuario.setUsername(usuarioV);
+		this.usuario.setSenha(senhaV);
+		
+		List<Usuario> listaUsuarios = IUsuarioRepositories.findAll();
+		buscaRealizada = true;
+		
+		if(listaUsuarios.size()>0){
+			for(int i=0;i<listaUsuarios.size();i++){
+				if (listaUsuarios.get(i).getUsername().equals(this.usuario.getUsername()) && listaUsuarios.get(i).getSenha().equals(this.usuario.getSenha())) {
+					this.usuario = listaUsuarios.get(i);
+					this.usuario.setStatusSistema(true);
+					IUsuarioRepositories.saveAndFlush(this.usuario);
+					setaUsuarioNaSessao(this.usuario);
+				    break;
+				}
 			}
-			usuario.setStatusSistema(true);
-			
-			setaUsuarioNaSessao(usuario);
-		    
-			// Testando Spring
-			// List<Usuario> listaUsuarios = usuarioRepository.findAll();
-			//
-			// for(Usuario u:listaUsuarios){
-			// System.out.println("ID:"+u.getId()+"\nUsername: "+u.getUsername()+"\nSenha: "+
-			// u.getSenha()+"\n---------------------------\n\n");
-			// }
-		    
-		    return "/content/bemVindo.jsf?faces-redirect=true";
-		} else {
-			usuario.setStatusSistema(false);
-			return "index.jsf?faces-redirect=true";
+			if(this.usuario.getId() == null){
+				
+			setMensagem("Não encontramos o seu perfil, clique abaixo para se cadastrar.");
+			this.usuario.setStatusSistema(false);
+			return "/index.jsf?faces-redirect=true";
+			}
+			return "/content/bemVindo.jsf?faces-redirect=true";
+		}else {
+			setMensagem("Não existe usuários cadastrados, clique abaixo para se cadastrar.");
+			this.usuario.setStatusSistema(false);
+			return "/index.jsf?faces-redirect=true";
 		}
 		
+	}
+	
+	public void chamaCadastrar(){
+		this.usuario = new Usuario(this.usuario);
+		this.usuario.setUsername(usuarioV);
+		this.usuario.setSenha(senhaV);
+		vaiCadastrar = true;
+//		usuario = new Usuario();
+	}
+	public String cadastrarUsuario(){
+		this.usuario.setStatusSistema(false);
+		IUsuarioRepositories.save(this.usuario);
+		vaiCadastrar = false;
+		buscaRealizada = false;
+		return "/content/bemVindo.jsf?faces-redirect=true";
 	}
 	
 	public void setaUsuarioNaSessao(Usuario usuario){
@@ -83,11 +112,11 @@ public class UsuarioBean {
 	}
 	// Getters e Setters
 	public Usuario getUsuario() {
-		this.usuario = pegaUsuarioNaSessao();
-		
-		if(usuario == null){
-			return new Usuario();
-		}
+//		this.usuario = pegaUsuarioNaSessao();
+//		
+//		if(usuario == null){
+//			return new Usuario();
+//		}
 		return usuario;
 	}
 	
@@ -108,6 +137,30 @@ public class UsuarioBean {
 
 	public void setSenhaV(String senhaV) {
 		this.senhaV = senhaV;
+	}
+
+	public boolean isVaiCadastrar() {
+		return vaiCadastrar;
+	}
+
+	public void setVaiCadastrar(boolean vaiCadastrar) {
+		this.vaiCadastrar = vaiCadastrar;
+	}
+
+	public boolean isBuscaRealizada() {
+		return buscaRealizada;
+	}
+
+	public void setBuscaRealizada(boolean buscaRealizada) {
+		this.buscaRealizada = buscaRealizada;
+	}
+
+	public String getMensagem() {
+		return mensagem;
+	}
+
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
 	}
 
 }

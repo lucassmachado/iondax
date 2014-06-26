@@ -11,130 +11,140 @@
 	
 	<ui:define name="importacaoAdicional">
 		<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/content/financeiro/financeiro.css" />
+		<script type="text/javascript">
+            $(document).ready(function() {
+                setarMascara();
+            }); 
+            function setarMascara() {
+                $("#valorDespesa").maskMoney({showSymbol:false, symbol:"R$ ", precision: 2, decimal:",", thousands:"."});
+            }
+        </script>
 	</ui:define>
 	
 	<ui:define name="body_content">
-		<h:form id="formInclusaoContaAReceber" enctype="multipart/form-data">
-			
-			<h:panelGrid id="formularioInclusaoReceita" columns="4">
-				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Nome da receita"/>
+		<h:form id="formInclusaoContaAReceber" prependId="false" entype="multipart/form-data">
+			<h:panelGrid id="formularioInclusaoDespesa" columns="6">
+				<h:panelGroup style="float:left;width:172px">
+					<p:outputLabel for="nomeReceita" styleClass="textIondax" value="Nome da Receita"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{financeiroBean.contaAReceber.nomeReceita}"/>
+					<p:inputText id="nomeReceita" value="#{financeiroBean.contaAReceber.nomeReceita}" required="true"/>
 				</h:panelGroup>
-				
-				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Banco"/>
+				<h:panelGroup style="float:left;width:155px;">
+					<p:outputLabel for="comboContasCadastras" styleClass="textIondax" value="Conta"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectOneMenu id="comboBancos" value="#{financeiroBean.numBancoSelecionado}">
-						<f:selectItem itemValue="0" itemLabel="::SELECIONE::"></f:selectItem>
-						<f:selectItems value="#{financeiroBean.listaBancos}"/>
+					<p:selectOneMenu id="comboContasCadastras" value="#{financeiroBean.conta.id}" required="true" style="float:left;width:155px;">
+						<f:selectItem itemValue="" itemLabel="::SELECIONE::" noSelectionOption="true"></f:selectItem>
+						<f:selectItems value="#{financeiroBean.comboContasCadastradas}"/>
+					</p:selectOneMenu>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:outputLabel for="comboCategoriaDespesa" styleClass="textIondax" value="Categoria"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu id="comboCategoriaDespesa" value="#{financeiroBean.contaAReceber.subTipo.id}" required="true" style="float:left;width:155px;">
+						<f:selectItem itemValue="" itemLabel="::SELECIONE::" noSelectionOption="true"></f:selectItem>
+						<f:selectItems value="#{financeiroBean.comboCategoriaTransacao}"/>
 					</p:selectOneMenu>
 				</h:panelGroup>
 				
 				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Valor"/>
+					<p:outputLabel for="valorDespesa" styleClass="textIondax" value="Valor"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{financeiroBean.contaAReceber.valorReceita}"/>
+					<p:inputText id="valorDespesa" value="#{financeiroBean.contaAReceber.valorReceita}" required="true" >
+						<f:convertNumber pattern="#,##0.00" />
+					</p:inputText>
 				</h:panelGroup>
 				
 				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Data de vencimento"/>
+					<p:outputLabel for="dtVencimento" styleClass="textIondax" value="Data de vencimento"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:calendar locale="pt" value="#{financeiroBean.contaAReceber.dataVencimento}"/>
+					<p:calendar id="dtVencimento" locale="pt" value="#{financeiroBean.contaAReceber.dataVencimento}" pattern="dd/MM/yyyy" required="true"/>
 				</h:panelGroup>
 				
 				<h:panelGroup>
 					<p:outputLabel styleClass="textIondax" value="Situação"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectBooleanCheckbox value="#{financeiroBean.contaAReceber.booleanSituacao}">
-					</p:selectBooleanCheckbox>
-					<p:outputLabel styleClass="textIondax" value="Recebido"/>
-				</h:panelGroup>
-				
-				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Categoria"/>
-				</h:panelGroup>
-				<h:panelGroup>
-					<p:selectOneMenu id="comboCategoriaReceitas" value="#{financeiroBean.numCategoriaTransacaoSelecionado}">
-						<f:selectItem itemValue="0" itemLabel="::SELECIONE::"/>
-						<f:selectItems value="#{financeiroBean.comboCategoriaTransacao}"/>
-					</p:selectOneMenu>
+					<p:selectBooleanCheckbox value="#{financeiroBean.contaAReceber.situacao}"/>
+					<p:outputLabel styleClass="textIondax" value="Pago"/>
 				</h:panelGroup>
 				
 				<h:panelGroup>
 					<p:outputLabel styleClass="textIondax" value="Recorrência"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectBooleanCheckbox value="#{financeiroBean.contaAReceber.recorrencia.repetir}">
-						<p:ajax update="@form"/>
+					<p:selectBooleanCheckbox id="checkBoxRepetir" value="#{financeiroBean.contaAReceber.recorrencia.repetir}">
+						<p:ajax event="change" onstart="document.getElementById('atualizaPainelRepeticaoInclusaoReceita').click();"/>
 					</p:selectBooleanCheckbox>
 					<p:outputLabel styleClass="textIondax" value="Repetir"/>
 				</h:panelGroup>
 				
 			</h:panelGrid>
+			
+			<p:commandButton style="display:none;" id="atualizaPainelRepeticaoInclusaoReceita" update="painelRepeticaoInclusaoReceita" ajax="false"/>
 				
 			<h:panelGrid id="painelRepeticaoInclusaoReceita" columns="4" rendered="#{financeiroBean.contaAReceber.recorrencia.repetir}">
 					
-				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Frequência de repetição"/>
+				<h:panelGroup style="width:150px">
+					<p:outputLabel styleClass="textIondax" for="comboFrequenciaRepeticao" value="Frequência de repetição"/>
 				</h:panelGroup>
-				<h:panelGroup>
-					<p:selectOneMenu id="comboFrequenciaRepeticao" value="#{financeiroBean.contaAReceber.recorrencia.numComboFrequencia}">
-						<f:selectItem itemValue="0" itemLabel="::SELECIONE::"/>
-						<f:selectItems value="#{financeiroBean.contaAReceber.recorrencia.comboFrequenciaRepeticao}"/>
+				<h:panelGroup  style="float:left;width:156px;">
+					<p:selectOneMenu id="comboFrequenciaRepeticao" value="#{financeiroBean.numComboFrequencia}" style="float:left;width:152px;" required="true">
+						<f:selectItem itemValue="" itemLabel="::SELECIONE::" noSelectionOption="true"></f:selectItem>
+						<f:selectItems value="#{financeiroBean.comboFrequenciaRepeticao}"/>
 					</p:selectOneMenu>
 				</h:panelGroup>
 				
 				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Número de repetições"/>
+					<p:outputLabel styleClass="textIondax" for="qtdRepeticoes" value="Número de repetições"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{financeiroBean.contaAReceber.recorrencia.numComboFrequencia}"/>
+					<p:inputText id="qtdRepeticoes" value="#{financeiroBean.contaAReceber.recorrencia.qtdOcorrencias}" required="true"/>
 				</h:panelGroup>
 				
 			</h:panelGrid>
 				
 				
-			<h:panelGrid columns="4">
-				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Pagador"/>
+			<h:panelGrid columns="6">
+				<h:panelGroup style="float:left;width:172px;">
+					<p:outputLabel styleClass="textIondax" value="Pagador" for="pagador"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{financeiroBean.contaAReceber.cliente.nome}"/>
-				</h:panelGroup>
-				
-				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Data de competência"/>
-				</h:panelGroup>
-				<h:panelGroup>
-					<p:calendar locale="pt" value="#{financeiroBean.contaAReceber.dataCompetencia}"/>
+					<p:autoComplete id="pagador" value="#{financeiroBean.contaAReceber.cliente.nome}" completeMethod="#{financeiroBean.carregaClientesInclusaoReceita}"/>
 				</h:panelGroup>
 				
+				<h:panelGroup style="float:left;width:160px;">
+					<p:outputLabel for="dtCompetencia" styleClass="textIondax" value="Data de competência"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:calendar id="dtCompetencia" locale="pt" value="#{financeiroBean.contaAReceber.dataCompetencia}" pattern="dd/MM/yyyy" required="true"/>
+				</h:panelGroup>
+				
+			</h:panelGrid>	
+			
+			<h:panelGrid columns="2">
+				<h:panelGroup  style="float:left;width:172px;">
+					<p:outputLabel styleClass="textIondax" value="Anexos"/>
+				</h:panelGroup>
+				<h:panelGroup>
+						<p:fileUpload fileUploadListener="#{financeiroBean.pegarNomeDoArquivoContaPagar}" mode="advanced" dragDropSupport="false" label="Selecionar" uploadLabel="Enviar" cancelLabel="Cancelar"
+						multiple="true" sizeLimit="1000000" fileLimit="10" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+				</h:panelGroup>
 				<h:panelGroup>
 					<p:outputLabel styleClass="textIondax" value="Observações"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputTextarea cols="30" rows="3" value="#{financeiroBean.contaAReceber.observacoes}"/>
+					<p:inputTextarea cols="55" rows="5" value="#{financeiroBean.contaAReceber.observacoes}"/>
 				</h:panelGroup>
-				
-				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Anexos"/>
-				</h:panelGroup>
-				<h:panelGroup>
-					<p:fileUpload fileUploadListener="#{financeiroBean.pegarNomeDoArquivoContaReceber}" mode="advanced" dragDropSupport="false" label="Selecionar" uploadLabel="Enviar" cancelLabel="Cancelar"
-					multiple="true" sizeLimit="1000000" fileLimit="10" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-				</h:panelGroup>
-			</h:panelGrid>	
+			</h:panelGrid>
 			
-			<!-- Sem action -->
-			<p:commandButton id="btnAdicionarReceita" value="Adicionar Receita"/>
-			
+			<p:commandButton id="btnAdicionarReceita" rendered="#{!(financeiroBean.editarLancamento)}" value="Adicionar Receita" action="#{financeiroBean.incluirReceita}" ajax="false" icon="ui-icon-check"/>
+			<p:commandButton id="btnEditarReceita" rendered="#{financeiroBean.editarLancamento}" value="Editar Receita" action="#{financeiroBean.editarReceita}" ajax="false" icon="ui-icon-check"/>
+						
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -9,7 +9,36 @@
 	<ui:insert name="importacaoAdicional" />
 	<meta http-equiv="Content-Type" content="text/html;CHARSET=ISO-8859-1" />
 	<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/template/estilosTemplate.css" />
-	
+	<script>
+		PrimeFaces.locales['pt'] = { 
+				closeText: 'Fechar', 
+				prevText: 'Anterior', 
+				nextText: 'Próximo', 
+				currentText: 'Começo', 
+				monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'], 
+				monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Dez'], 
+				dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'], 
+				dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'], 
+				dayNamesMin: ['D','S','T','Q','Q','S','S'], 
+				weekHeader: 'Semana', 
+				firstDay: 1, 
+				isRTL: false, 
+				showMonthAfterYear: false, 
+				yearSuffix: '', 
+				timeOnlyTitle: 'Horas', 
+				timeText: 'Tempo', 
+				hourText: 'Hora', 
+				minuteText: 'Minuto', 
+				secondText: 'Segundo', 
+				currentText: 'Data Atual', 
+				ampm: false, 
+				month: 'Mês', 
+				week: 'Semana', 
+				day: 'Dia', 
+				allDayText : 'Todos os Dias' 
+			}; 
+		
+	</script>
 	<title><h:outputText value="#{titulo}" /></title>
 	<link rel="icon" type="image/x-icon" href="#{facesContext.externalContext.requestContextPath}/img/ico.png" /> 
 </h:head>

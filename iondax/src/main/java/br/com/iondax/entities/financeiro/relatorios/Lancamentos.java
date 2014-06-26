@@ -11,6 +11,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.ForeignKey;
 
+import br.com.iondax.controller.utils.DataUtils;
 import br.com.iondax.entities.financeiro.contabancaria.ContaBancaria;
 import br.com.iondax.util.BaseEntities;
 
@@ -23,18 +24,24 @@ public class Lancamentos extends BaseEntities<Long>{
 	@ManyToOne
 	@ForeignKey(name="FK_Lancamentos_ContaBancaria_Id")
 	@JoinColumn(name="contaBancaria",referencedColumnName = "id",nullable=false,insertable=true,updatable=true)
-	private ContaBancaria contaBancaria;
+	public ContaBancaria contaBancaria;
+	
+	@Transient
+	public String nomeContaBancaria;
 	
 	//Despesa, Receita ou Transferencia
-	private String tipo;
-	private String subTipo;
-	private String nomeTransacao;
-	private Date dataTransacao;
-	private BigDecimal valor;
-	private boolean situacao;
+	public String tipo;
+	public String subTipo;
+	public String nomeTransacao;
+	public Date dataTransacao;
+	public BigDecimal valor;
+	public boolean situacao;
+	
+	@Transient
+	public String dataTransacaoString;
 
 	@Transient
-	private BigDecimal saldo;
+	public BigDecimal saldo;
 	
 	public Lancamentos(){
 		super();
@@ -42,6 +49,7 @@ public class Lancamentos extends BaseEntities<Long>{
 	
 	public Lancamentos(Lancamentos l) {
 		super();
+		super.setId(l.getId());
 		this.contaBancaria = l.getContaBancaria();
 		this.tipo = l.getTipo();
 		this.subTipo = l.getSubTipo();
@@ -83,6 +91,12 @@ public class Lancamentos extends BaseEntities<Long>{
 
 	public Date getDataTransacao() {
 		return dataTransacao;
+	}
+	public void setDataTransacaoString(String dataTransacaoString){
+		this.dataTransacaoString = dataTransacaoString;
+	}
+	public String getDataTransacaoString(){
+		return DataUtils.dataToString(dataTransacao);
 	}
 
 	public void setDataTransacao(Date dataTransacao) {
@@ -135,6 +149,14 @@ public class Lancamentos extends BaseEntities<Long>{
 
 	public void setSituacao(boolean situacao) {
 		this.situacao = situacao;
+	}
+
+	public String getNomeContaBancaria() {
+		return this.nomeContaBancaria;
+	}
+
+	public void setNomeContaBancaria(String nomeContaBancaria) {
+		this.nomeContaBancaria = nomeContaBancaria;
 	}
 	
 	

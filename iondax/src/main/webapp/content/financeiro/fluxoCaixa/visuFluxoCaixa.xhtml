@@ -21,18 +21,17 @@
 					<p:outputLabel styleClass="textIondax" value="Selecione o Ano:" />
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectOneMenu>
-						<f:selectItem itemLabel="2011"/>
-						<f:selectItem itemLabel="2012"/>
-						<f:selectItem itemLabel="2013"/>
-						<f:selectItem itemLabel="2014"/>
+					<p:selectOneMenu value="#{financeiroBean.ano}">
+						<f:selectItem itemValue="0" itemLabel="::SELECIONE::"/>
+						<f:selectItems value="#{financeiroBean.listaAnos}"/>
+						<p:ajax event="change" listener="#{financeiroBean.atualizaTabelaFluxoCaixa}" update=":formVisuFluxoCaixa:gridFluxoCaixa" />
 					</p:selectOneMenu>
 				</h:panelGroup>
 			</h:panelGrid>
 			
 			<h:panelGrid>
 				<h:panelGroup>
-					<p:dataTable value="#{financeiroBean.listaCategoriaTransacao}" var="c"  style="margin-left:5px;width:99%;">
+					<p:dataTable id="gridFluxoCaixa" value="#{financeiroBean.listaCategoriaTransacao}" var="c"  style="margin-left:5px;width:99%;">
 							
 						<p:column styleClass="colunaVazia" width="16%"></p:column>
 						<p:column headerText="Jan" width="7%"></p:column>
@@ -53,20 +52,20 @@
 								#{c.tipo}
 							</f:facet>
 							
-							<p:column width="20%">#{categoria}</p:column>
-							<p:column>1</p:column>
-							<p:column>1</p:column>
-							<p:column>1</p:column>
-							<p:column>1</p:column>
-							<p:column>1</p:column>
-							<p:column>1</p:column>
-							<p:column>1</p:column>
-							<p:column>1</p:column>
-							<p:column>1</p:column>
-							<p:column>1</p:column>
-							<p:column>1</p:column>
-							<p:column>1</p:column>
-						
+							<p:column width="20%">#{categoria.nome}</p:column>
+							<p:column>#{categoria.valorMes1}</p:column>
+							<p:column>#{categoria.valorMes2}</p:column>
+							<p:column>#{categoria.valorMes3}</p:column>
+							<p:column>#{categoria.valorMes4}</p:column>
+							<p:column>#{categoria.valorMes5}</p:column>
+							<p:column>#{categoria.valorMes6}</p:column>
+							<p:column>#{categoria.valorMes7}</p:column>
+							<p:column>#{categoria.valorMes8}</p:column>
+							<p:column>#{categoria.valorMes9}</p:column>
+							<p:column>#{categoria.valorMes10}</p:column>
+							<p:column>#{categoria.valorMes11}</p:column>
+							<p:column>#{categoria.valorMes12}</p:column>
+							
 						</p:subTable>
 						
 					</p:dataTable>  

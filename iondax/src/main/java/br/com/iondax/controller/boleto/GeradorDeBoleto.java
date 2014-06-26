@@ -12,7 +12,6 @@ import org.jrimum.domkee.comum.pessoa.endereco.UnidadeFederativa;
 import org.jrimum.domkee.financeiro.banco.febraban.Agencia;
 import org.jrimum.domkee.financeiro.banco.febraban.Carteira;
 import org.jrimum.domkee.financeiro.banco.febraban.Cedente;
-import org.jrimum.domkee.financeiro.banco.febraban.ContaBancaria;
 import org.jrimum.domkee.financeiro.banco.febraban.Modalidade;
 import org.jrimum.domkee.financeiro.banco.febraban.NumeroDaConta;
 import org.jrimum.domkee.financeiro.banco.febraban.Sacado;
@@ -22,36 +21,36 @@ import org.jrimum.domkee.financeiro.banco.febraban.TipoDeTitulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo.Aceite;
 
+import br.com.iondax.entities.financeiro.contabancaria.transacoes.receita.Receita;
+
 public class GeradorDeBoleto {
 
 	/*
 	 * Método de exemplo
 	 */
-	public static BoletoViewer boletoCriado() {
+	public static BoletoViewer boletoCriado(Receita r) {
 
-		Cedente cedente = new Cedente(
-				"PROJETO IONDAX TCC - CNPJ gerado no geradordecpf.org",
-				"23.766.548/0001-42");
+		Cedente cedente = new Cedente("PROJETO IONDAX TCC ", "23.766.548/0001-42");
 
 		/*
 		 * INFORMANDO DADOS SOBRE O SACADO.
 		 */
-		Sacado sacado = new Sacado("Ricardo Santana Murça", "501.176.547-44");
+		Sacado sacado = new Sacado(r.getCliente().getNome(), "501.176.547-44");
 
 		// Informando o endereço do sacado.
 		Endereco enderecoSac = new Endereco();
-		enderecoSac.setUF(UnidadeFederativa.RN);
-		enderecoSac.setLocalidade("Natal");
-		enderecoSac.setCep(new CEP("59064-120"));
-		enderecoSac.setBairro("Grande Centro");
-		enderecoSac.setLogradouro("Rua poeta dos programas");
-		enderecoSac.setNumero("1");
+		enderecoSac.setUF(UnidadeFederativa.SP);
+		enderecoSac.setLocalidade("Cotia");
+		enderecoSac.setCep(new CEP("06702-824"));
+		enderecoSac.setBairro("Chácara Roselândia");
+		enderecoSac.setLogradouro("Rua Flores do Campo");
+		enderecoSac.setNumero("102");
 		sacado.addEndereco(enderecoSac);
 
 		/*
 		 * INFORMANDO DADOS SOBRE O SACADOR AVALISTA.
 		 */
-		SacadorAvalista sacadorAvalista = new SacadorAvalista("JRimum Enterprise", "00.000.000/0001-91");
+		SacadorAvalista sacadorAvalista = new SacadorAvalista("PROJETO IONDAX TCC", "23.766.548/0001-42");
 
 		// Informando o endereço do sacador avalista.
 		Endereco enderecoSacAval = new Endereco();
@@ -67,8 +66,22 @@ public class GeradorDeBoleto {
 		 * INFORMANDO OS DADOS SOBRE O TÍTULO.
 		 */
 
+		org.jrimum.domkee.financeiro.banco.febraban.ContaBancaria contaBancaria = null;
 		// Informando dados sobre a conta bancária do título.
-		ContaBancaria contaBancaria = new ContaBancaria(BancosSuportados.BANCO_DO_BRASIL.create());
+		if(r.getContaBancaria().getBanco().equals("Banco do Brasil")){
+			contaBancaria = new org.jrimum.domkee.financeiro.banco.febraban.ContaBancaria(BancosSuportados.BANCO_DO_BRASIL.create());
+		}else if(r.getContaBancaria().getBanco().equals("Bradesco")){
+			contaBancaria = new org.jrimum.domkee.financeiro.banco.febraban.ContaBancaria(BancosSuportados.BANCO_BRADESCO.create());
+		}else if(r.getContaBancaria().getBanco().equals("Santander")){
+			contaBancaria = new org.jrimum.domkee.financeiro.banco.febraban.ContaBancaria(BancosSuportados.BANCO_SANTANDER.create());
+		}else if(r.getContaBancaria().getBanco().equals("Caixa Econômica Federeal")){
+			contaBancaria = new org.jrimum.domkee.financeiro.banco.febraban.ContaBancaria(BancosSuportados.CAIXA_ECONOMICA_FEDERAL.create());
+		}else if(r.getContaBancaria().getBanco().equals("Nossa Caixa")){
+			contaBancaria = new org.jrimum.domkee.financeiro.banco.febraban.ContaBancaria(BancosSuportados.NOSSA_CAIXA.create());
+		}else if(r.getContaBancaria().getBanco().equals("Itaú")){
+			contaBancaria = new org.jrimum.domkee.financeiro.banco.febraban.ContaBancaria(BancosSuportados.BANCO_ITAU.create());
+		}
+		
 		contaBancaria.setNumeroDaConta(new NumeroDaConta(456, "0"));
 		contaBancaria.setCarteira(new Carteira(2, TipoDeCobranca.SEM_REGISTRO));
 		contaBancaria.setAgencia(new Agencia(1234, "1"));
@@ -89,11 +102,6 @@ public class GeradorDeBoleto {
 		titulo.setAcrecimo(BigDecimal.ZERO);
 		titulo.setValorCobrado(BigDecimal.ZERO);
 
-		// Para HSBC
-		// titulo.setParametrosBancarios(new
-		// ParametrosBancariosMap(TipoIdentificadorCNR.class.getName(),
-		// TipoIdentificadorCNR.COM_VENCIMENTO));
-
 		/*
 		 * INFORMANDO OS DADOS SOBRE O BOLETO.
 		 */
@@ -112,8 +120,6 @@ public class GeradorDeBoleto {
 		boleto.setInstrucao7("PARA PAGAMENTO 7 até xx/xx/xxxx COBRAR O VALOR QUE VOCÊ QUISER!");
 		boleto.setInstrucao8("APÓS o Vencimento, Pagável Somente na Rede X.");
 
-		// Para HSBC
-		// boleto.addTextosExtras("txtFcCarteira", "CNR");
 
 		/*
 		 * GERANDO O BOLETO BANCÁRIO.

@@ -52,10 +52,7 @@
 <h:body>
 <!-- Utilziado para carregar javascript da barra lateral -->
 	<p:calendar rendered="false"/>
-	
 	<p:growl id="mensagem" showSummary="true" />
-	
-	
 	<div id="parteSuperior">
 		<h:panelGroup id="header">
 			<div id="logo"> <h:graphicImage url="/img/meuLogo4.jpg"/> </div>
@@ -68,13 +65,13 @@
 				    <p:menuitem value="Home" url="/content/bemVindo.jsf" icon="ui-icon-home" style="width:7%;" />
 				    <p:menuitem value="Financeiro" url="/content/financeiro/financeiro.jsf" icon="ui-icon-calculator" />  
 				    <p:menuitem value="Fornecedores" url="/content/fornecedores/fornecedores.jsf" icon="ui-icon-calculator" />  
-				    <p:menuitem value="Logística" url="/content/logistica/logistica.jsf" icon="ui-icon-cart" />  
-				    <p:menuitem value="Marketing" url="/content/marketingDivulgacao/marketingDivulgacao.jsf" icon="ui-icon-contact" />  
-				    <p:menuitem value="Producao" url="/content/producao/producao.jsf" icon="ui-icon-gear" />  
-				    <p:menuitem value="RH" url="/content/rh/rh.jsf" icon="ui-icon-person" />  
-				    <p:menuitem value="Solicitações" url="/content/solicitacoes/solicitacoes.jsf" icon="ui-icon-wrench" />  
-				    <p:menuitem value="Treinamento" url="/content/treinamento/treinamento.jsf" icon="ui-icon-note" />  
-				    <p:menuitem value="Vendas" url="/content/vendas/vendas.jsf" icon="ui-icon-cart" />  
+				    <p:menuitem value="Logística" url="/content/logistica/logistica.jsf" icon="ui-icon-cart" rendered="false"/>  
+				    <p:menuitem value="Marketing" url="/content/marketingDivulgacao/marketingDivulgacao.jsf" icon="ui-icon-contact" rendered="false"/>  
+				    <p:menuitem value="Producao" url="/content/producao/producao.jsf" icon="ui-icon-gear" rendered="false" />  
+				    <p:menuitem value="RH" url="/content/rh/rh.jsf" icon="ui-icon-person" rendered="false"/>  
+				    <p:menuitem value="Solicitações" url="/content/solicitacoes/solicitacoes.jsf" icon="ui-icon-wrench" rendered="false"/>  
+				    <p:menuitem value="Treinamento" url="/content/treinamento/treinamento.jsf" icon="ui-icon-note" rendered="false" />  
+				    <p:menuitem value="Vendas" url="/content/vendas/vendas.jsf" icon="ui-icon-cart" rendered="false"/>  
 				</p:tabMenu>
 			</div>
 		</h:panelGroup>
@@ -95,8 +92,9 @@
 		    		<p:submenu styleClass="menuLateralItens" label="Contas Bancárias">  
 			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin" action="#{financeiroBean.abrirPaginaConsultaConta}"/>  
 			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus" action="#{financeiroBean.abrirPaginaIncContaBanc}"/>  
-			            <p:menuitem value="Contas a pagar" icon="ui-icon-circle-plus" action="#{financeiroBean.abrirPaginaIncContaAPagar}"/>  
-			            <p:menuitem value="Contas a receber" icon="ui-icon-circle-plus" action="#{financeiroBean.abrirPaginaIncContaAReceber}"/>  
+			            <p:menuitem value="Contas a pagar" icon="ui-icon-circle-plus" action="#{financeiroBean.abrirPaginaIncContaAPagar}" update="@all"/>  
+			            <p:menuitem value="Contas a receber" icon="ui-icon-circle-plus" action="#{financeiroBean.abrirPaginaIncContaAReceber}" update="@all"/>  
+			            <p:menuitem value="Transferencia" icon="ui-icon-circle-plus" action="#{financeiroBean.abrirPaginaIncTransferencia}" update="@all"/>  
 			        </p:submenu>
 		    		<p:submenu styleClass="menuLateralItens" label="Fluxo de Caixa">  
 			            <p:menuitem value="Visualizar" icon="ui-icon-circle-zoomin" action="#{financeiroBean.visualizarFluxoCaixa}"/>  
@@ -113,25 +111,19 @@
 	
 		    	<p:panelMenu id="menuLateralFornecedores" rendered="#{tabAtiva == 2}"> 
 		    		<p:submenu styleClass="menuLateralItens" label="Fornecedores">
-		    			<p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
+		    			<p:menuitem value="Consultar" icon="ui-icon-circle-zoomin" action="#{fornecedorBean.carregaTelaConsultaFornecedores}"/>  
 			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus" action="#{fornecedorBean.carregaTelaInclusaoFornecedores}"/>  
 		            </p:submenu> 
 		            
 		            <p:submenu styleClass="menuLateralItens" label="Produtos">  
-				       	<p:submenu styleClass="menuLateralItens" label="Produtos">  
-			            	<p:menuitem value="Consultar" icon="ui-icon-circle-zoomin" action="#{produtoBean.carregaTelaConsultaProdutos}"/>  
-				            <p:menuitem value="Incluir" icon="ui-icon-circle-plus" action="#{produtoBean.carregaTelaInclusaoProdutos}"/>  
-			       	 	</p:submenu>    
-				        <p:submenu styleClass="menuLateralItens" label="Serviços">  
-				            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
-				            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/> 
-				        </p:submenu>
+		            	<p:menuitem value="Consultar" icon="ui-icon-circle-zoomin" action="#{produtoBean.carregaTelaConsultaProdutos}"/>  
+			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus" action="#{produtoBean.carregaTelaInclusaoProdutos}"/>  
 			    	</p:submenu>
 		    	</p:panelMenu> 
 
 
 	
-		    	<p:panelMenu id="menuLateralLogistica" rendered="#{tabAtiva == 3}">  
+		    	<p:panelMenu id="menuLateralLogistica" rendered="false">  
 			        <p:submenu styleClass="menuLateralItens" label="Produtos" >  
 			            <p:menuitem value="Enviados" icon="ui-icon-arrowrefresh-1-w" />  
 			            <p:menuitem value="Aguard. Liberação" icon="ui-icon-arrowrefresh-1-w" />  
@@ -140,7 +132,7 @@
 			
 				
 				
-				<p:panelMenu id="menuLateralMktDivulgacao"  rendered="#{tabAtiva == 4}">  
+				<p:panelMenu id="menuLateralMktDivulgacao"  rendered="false">  
 		         	<p:submenu styleClass="menuLateralItens" label="Normal">  
 			            <p:menuitem value="Postais" icon="ui-icon-circle-plus"/>  
 			            <p:menuitem value="Outdoors" icon="ui-icon-circle-plus"/>  
@@ -159,7 +151,7 @@
 				
 				
 				
-				<p:panelMenu id="menuLateralProducao" rendered="#{tabAtiva == 5}">  
+				<p:panelMenu id="menuLateralProducao" rendered="false">  
 			        <p:submenu styleClass="menuLateralItens" label="Estoque">  
 			            <p:menuitem value="Hardware" icon="ui-icon-disk"/>  
 			            <p:menuitem value="Redes" icon="ui-icon-arrowrefresh-1-w"/>  
@@ -178,7 +170,7 @@
 		    	
 		    	
 		    	
-		    	<p:panelMenu id="menuLateralRh" rendered="#{tabAtiva == 6}">  
+		    	<p:panelMenu id="menuLateralRh" rendered="false">  
 			        <p:submenu styleClass="menuLateralItens" label="Funcionário">  
 			            <p:menuitem value="Consultar" icon="ui-icon-arrowrefresh-1-w" action="#{rhBean.consultarFuncionario}" />  
 			            <p:menuitem value="Cargos" icon="ui-icon-arrowrefresh-1-w" />  
@@ -194,7 +186,7 @@
 			        </p:submenu>
 		    	</p:panelMenu>  
 					    	
-		    	<p:panelMenu id="menuLateralSolicitacoes" rendered="#{tabAtiva == 7}">  
+		    	<p:panelMenu id="menuLateralSolicitacoes" rendered="false">  
 			        <p:submenu styleClass="menuLateralItens" label="Suporte">  
 			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
 			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/>  
@@ -210,7 +202,7 @@
 		    	</p:panelMenu> 
 
 		    	
-		    	<p:panelMenu id="menuLateralTreinamento" rendered="#{tabAtiva == 8}">  
+		    	<p:panelMenu id="menuLateralTreinamento" rendered="false">  
 			        <p:submenu styleClass="menuLateralItens" label="Turmas">  
 			            <p:menuitem value="Consultar" icon="ui-icon-circle-zoomin"/>  
 			            <p:menuitem value="Incluir" icon="ui-icon-circle-plus"/>  
@@ -226,7 +218,7 @@
 		    	</p:panelMenu>  
 		    	
 		    	
-		    	<p:panelMenu id="menuLateralVendas" rendered="#{tabAtiva == 9}">  
+		    	<p:panelMenu id="menuLateralVendas" rendered="false">  
 		         	<p:submenu styleClass="menuLateralItens" label="Produtos">  
 			            <p:menuitem value="Hardware" icon="ui-icon-circle-zoomin"/>  
 			            <p:menuitem value="Redes" icon="ui-icon-circle-plus"/>  

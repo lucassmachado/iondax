@@ -17,7 +17,7 @@
 		
 		<h:form id="formLogin" name="formLogin">
 			
-			<h:panelGrid id="gridLogin" cellpadding="0" cellspacing="0" styleClass="gridLoginStyle">
+			<h:panelGrid id="gridLogin" cellpadding="0" cellspacing="0" styleClass="gridLoginStyle" rendered="#{!usuarioBean.vaiCadastrar}">
 				<p:panelGrid columns="2">  
 				    <f:facet name="header">  
 				        <h:outputLabel value="Por favor, faça o login"/>  
@@ -33,7 +33,63 @@
 				        <p:commandButton id="botaoEntrar" style="float:right;" value="Entrar" action="#{usuarioBean.logar}" update="formIndex,nomeUsuario" ajax="false"/>  
 				    </f:facet> 
 		    
-				</p:panelGrid>  
+				</p:panelGrid>
+				<h:panelGrid rendered="#{usuarioBean.buscaRealizada}">
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="#{usuarioBean.mensagem}">
+							<p:commandButton value="Cadastrar" action="#{usuarioBean.chamaCadastrar}" update="@form"/>
+						</p:outputLabel>
+					</h:panelGroup>
+				</h:panelGrid>  
+			</h:panelGrid>
+			
+			
+			<h:panelGrid id="gridInscricao" cellpadding="0" cellspacing="0" styleClass="gridLoginStyle" rendered="#{usuarioBean.vaiCadastrar}" columns="2">
+				<h:panelGroup>
+					<p:outputLabel value="Username"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{usuarioBean.usuario.username}"/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel value="Senha"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:password value="#{usuarioBean.usuario.senha}"/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel value="Nome"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{usuarioBean.usuario.nome}"/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel value="Idade"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputMask mask="99" value="#{usuarioBean.usuario.idade}" />
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel value="Sexo"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneRadio value="#{usuarioBean.usuario.sexo}">
+						<f:selectItem itemLabel="Masculino" itemValue="Masculino"/>
+						<f:selectItem itemLabel="Feminino" itemValue="Feminino"/>
+					</p:selectOneRadio>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:outputLabel value="Data de nascimento"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:calendar value="#{usuarioBean.usuario.dataNascimento}" pattern="dd/MM/yyyy" locale="pt" />
+				</h:panelGroup>
+				<p:commandButton value="Cadastrar" action="#{usuarioBean.cadastrarUsuario}"/>
 			</h:panelGrid>
 		
 		</h:form>

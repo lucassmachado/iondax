@@ -25,9 +25,8 @@ public class Receita extends BaseEntities<Long> {
 	private static final long serialVersionUID = -3314539391213230639L;
 	
 	private String nomeReceita;
-	private boolean booleanSituacao;
+	private boolean situacao;
 	private String caminhoArquivoAnexo;
-	private String categoria;
 	private Date dataCompetencia;
 	private Date dataReceita;
 	private Date dataVencimento;
@@ -56,7 +55,7 @@ public class Receita extends BaseEntities<Long> {
 	
 	@OneToOne
 	@ForeignKey(name="FK_Receita_Lancamentos_ID")
-	@JoinColumn(name = "lancamentos_id",nullable=true,insertable=true,updatable=true)
+	@JoinColumn(name = "lancamentos_id",nullable=false,insertable=true,updatable=true)
 	private Lancamentos lancamentos;
 	
 	private BigDecimal valorReceita;
@@ -67,14 +66,12 @@ public class Receita extends BaseEntities<Long> {
 	
 	public Receita(String categoria){
 		super();
-		this.categoria = categoria;
 	}
 
 	public Receita(Receita r) {
 		this.nomeReceita = r.getNomeReceita();
-		this.booleanSituacao = r.isBooleanSituacao();
+		this.situacao = r.isSituacao();
 		this.caminhoArquivoAnexo = r.getCaminhoArquivoAnexo();
-		this.categoria = r.getCategoria();
 		this.cliente = r.getCliente();
 		this.contaBancaria = r.getContaBancaria();
 		this.dataCompetencia = r.getDataCompetencia();
@@ -87,15 +84,14 @@ public class Receita extends BaseEntities<Long> {
 	}
 
 
-	public Receita(String nomeReceita,boolean booleanSituacao, String caminhoArquivoAnexo,
-			String categoria, Cliente cliente, ContaBancaria contaBancaria,
+	public Receita(String nomeReceita,boolean situacao, String caminhoArquivoAnexo,
+			Cliente cliente, ContaBancaria contaBancaria,
 			Date dataCompetencia, Date dataReceita, Date dataVencimento, CategoriaTransacao subTipo,
 			String observacoes, Recorrencia recorrencia, BigDecimal valorReceita) {
 		super();
 		this.nomeReceita = nomeReceita;
-		this.booleanSituacao = booleanSituacao;
+		this.situacao = situacao;
 		this.caminhoArquivoAnexo = caminhoArquivoAnexo;
-		this.categoria = categoria;
 		this.cliente = cliente;
 		this.contaBancaria = contaBancaria;
 		this.dataCompetencia = dataCompetencia;
@@ -109,10 +105,6 @@ public class Receita extends BaseEntities<Long> {
 
 	public String getCaminhoArquivoAnexo() {
 		return caminhoArquivoAnexo;
-	}
-
-	public String getCategoria() {
-		return categoria;
 	}
 
 	public Cliente getCliente() {
@@ -143,20 +135,16 @@ public class Receita extends BaseEntities<Long> {
 		return valorReceita;
 	}
 
-	public boolean isBooleanSituacao() {
-		return booleanSituacao;
+	public boolean isSituacao() {
+		return situacao;
 	}
 
-	public void setBooleanSituacao(boolean booleanSituacao) {
-		this.booleanSituacao = booleanSituacao;
+	public void setSituacao(boolean situacao) {
+		this.situacao = situacao;
 	}
 
 	public void setCaminhoArquivoAnexo(String caminhoArquivoAnexo) {
 		this.caminhoArquivoAnexo = caminhoArquivoAnexo;
-	}
-
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
 	}
 
 	public void setCliente(Cliente cliente) {
@@ -209,6 +197,14 @@ public class Receita extends BaseEntities<Long> {
 
 	public void setNomeReceita(String nomeReceita) {
 		this.nomeReceita = nomeReceita;
+	}
+
+	public Lancamentos getLancamentos() {
+		return lancamentos;
+	}
+
+	public void setLancamentos(Lancamentos lancamentos) {
+		this.lancamentos = lancamentos;
 	}
 
 }

@@ -25,12 +25,7 @@ public class Transferencia extends BaseEntities<Long>{
 	
 	private Date dataTransferencia;
 	private String categoria;
-	
-	@ManyToOne
-	@ForeignKey(name="FK_Transferencia_ContaBancaria_ID")
-	@JoinColumn(name = "contaBancaria", referencedColumnName="id",nullable=false,insertable=true,updatable=true)
-	private ContaBancaria contaBancaria;
-	
+	private String nomeTransferencia;
 	
 	@OneToOne
 	@ForeignKey(name="FK_Transferencia_ContaBancariaOrigem_ID")
@@ -124,6 +119,22 @@ public class Transferencia extends BaseEntities<Long>{
 
 	public void setSubTipo(CategoriaTransacao subTipo) {
 		this.subTipo = subTipo;
+	}
+
+	public String getNomeTransferencia() {
+		return nomeTransferencia;
+	}
+
+	public void setNomeTransferencia(String nomeTransferencia) {
+		this.nomeTransferencia = nomeTransferencia;
+	}
+
+	public Lancamentos getLancamentos() {
+		return lancamentos;
+	}
+
+	public void setLancamentos(Lancamentos lancamentos) {
+		this.lancamentos = lancamentos;
 	}
 
 }

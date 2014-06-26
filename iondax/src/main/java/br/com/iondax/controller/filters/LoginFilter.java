@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import br.com.iondax.entities.usuario.Usuario;
 
 public class LoginFilter implements Filter {
-
+	
+	public static Usuario usuario;
+	
     public LoginFilter() {
     }
 
@@ -24,7 +26,7 @@ public class LoginFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
 		//Captura o ManagedBean chamado “usuario”
-        Usuario usuario = (Usuario) ((HttpServletRequest) request).getSession().getAttribute("usuario");
+		usuario = (Usuario) ((HttpServletRequest) request).getSession().getAttribute("usuario");
         //Verifica se nosso ManagedBean ainda não 
         //foi instanciado ou caso a
         //variável loggedIn seja false, assim saberemos que  
@@ -54,5 +56,14 @@ public class LoginFilter implements Filter {
 	
 	public void init(FilterConfig fConfig) throws ServletException {
 	}
+
+	public static Usuario getUsuario() {
+		return usuario;
+	}
+
+	public static void setUsuario(Usuario usuario) {
+		LoginFilter.usuario = usuario;
+	}
+
 
 }

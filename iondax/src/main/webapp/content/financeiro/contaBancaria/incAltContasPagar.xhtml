@@ -22,39 +22,49 @@
 	</ui:define>
 	
 	<ui:define name="body_content">
-		<h:form id="formInclusaoContaAPagar" prependId="false" >
-			<h:panelGrid id="formularioInclusaoDespesa" columns="4">
-				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Nome da despesa"/>
+		
+		<h:form id="formInclusaoContaAPagar" prependId="false" enctype="multipart/form-data">
+			
+			<h:panelGrid id="formularioInclusaoDespesa" columns="6">
+				<h:panelGroup style="float:left;width:172px">
+					<p:outputLabel styleClass="textIondax" for="nomeDespesa" value="Nome da despesa"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{financeiroBean.contaAPagar.nomeDespesa}"/>
+					<p:inputText id="nomeDespesa" value="#{financeiroBean.contaAPagar.nomeDespesa}" required="true"/>
 				</h:panelGroup>
-				
-				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Conta"/>
+				<h:panelGroup style="float:left;width:155px;">
+					<p:outputLabel for="comboContasCadastras" styleClass="textIondax" value="Conta"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectOneMenu id="comboContasCadastras" value="#{financeiroBean.conta.id}">
-						<f:selectItem itemValue="0" itemLabel="::SELECIONE::"></f:selectItem>
+					<p:selectOneMenu id="comboContasCadastras" value="#{financeiroBean.conta.id}" style="float:left;width:155px;" required="true" >
+						<f:selectItem itemValue="" itemLabel="::SELECIONE::" noSelectionOption="true"/>
 						<f:selectItems value="#{financeiroBean.comboContasCadastradas}"/>
+					</p:selectOneMenu>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:outputLabel for="comboCategoriaDespesa" styleClass="textIondax" value="Categoria" />
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu id="comboCategoriaDespesa" value="#{financeiroBean.contaAPagar.subTipo.id}" style="float:left;width:155px;" required="true">
+						<f:selectItem itemValue="" itemLabel="::SELECIONE::" noSelectionOption="true"/>
+						<f:selectItems value="#{financeiroBean.comboCategoriaTransacao}"/>
 					</p:selectOneMenu>
 				</h:panelGroup>
 				
 				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Valor"/>
+					<p:outputLabel for="valorDespesa" styleClass="textIondax" value="Valor"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText id="valorDespesa" value="#{financeiroBean.contaAPagar.valorDespesa}" >
+					<p:inputText id="valorDespesa" value="#{financeiroBean.contaAPagar.valorDespesa}" required="true">
 						<f:convertNumber pattern="#,##0.00" />
 					</p:inputText>
 				</h:panelGroup>
 				
 				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Data de vencimento"/>
+					<p:outputLabel for="dtVencimento" styleClass="textIondax" value="Data de vencimento"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:calendar locale="pt" value="#{financeiroBean.contaAPagar.dataVencimento}" pattern="dd/MM/yyyy"/>
+					<p:calendar id="dtVencimento" locale="pt" value="#{financeiroBean.contaAPagar.dataVencimento}" pattern="dd/MM/yyyy" required="true"/>
 				</h:panelGroup>
 				
 				<h:panelGroup>
@@ -67,83 +77,77 @@
 				</h:panelGroup>
 				
 				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Categoria"/>
-				</h:panelGroup>
-				<h:panelGroup>
-					<p:selectOneMenu id="comboCategoriaDespesa" value="#{financeiroBean.contaAPagar.subTipo.id}">
-						<f:selectItem itemValue="0" itemLabel="::SELECIONE::"/>
-						<f:selectItems value="#{financeiroBean.comboCategoriaTransacao}"/>
-					</p:selectOneMenu>
-				</h:panelGroup>
-				
-				<h:panelGroup>
 					<p:outputLabel styleClass="textIondax" value="Recorrência"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectBooleanCheckbox id="checkBoxRepetir" value="#{financeiroBean.contaAPagar.recorrencia.repetir}">
-						<p:ajax event="change" onstart="document.getElementById('atualizaPainelRepeticaoInclusaoReceita').click();"/>
+					<p:selectBooleanCheckbox id="checkBoxRepetir" value="#{financeiroBean.contaAPagar.recorrencia.repetir}" >
+						<p:ajax event="change" onstart="document.getElementById('atualizaPainelRepeticaoInclusaoDespesa').click();"/>
 					</p:selectBooleanCheckbox>
 					<p:outputLabel styleClass="textIondax" value="Repetir"/>
 				</h:panelGroup>
 				
 			</h:panelGrid>
 			
-			<p:commandButton style="display:none;" id="atualizaPainelRepeticaoInclusaoReceita" update="painelRepeticaoInclusaoReceita" ajax="false"/>
+			<p:commandButton style="display:none;" id="atualizaPainelRepeticaoInclusaoDespesa" update="painelRepeticaoInclusaoDespesa" ajax="false"/>
 				
-			<h:panelGrid id="painelRepeticaoInclusaoReceita" columns="4" rendered="#{financeiroBean.contaAPagar.recorrencia.repetir}">
+			<h:panelGrid id="painelRepeticaoInclusaoDespesa" columns="4" rendered="#{financeiroBean.contaAPagar.recorrencia.repetir}">
 					
-				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Frequência de repetição"/>
+				<h:panelGroup style="width:150px">
+					<p:outputLabel for="comboFrequenciaRepeticao" styleClass="textIondax" value="Frequência de repetição"/>
 				</h:panelGroup>
-				<h:panelGroup>
-					<p:selectOneMenu id="comboFrequenciaRepeticao" value="#{financeiroBean.numComboFrequencia}">
-						<f:selectItem itemValue="0" itemLabel="::SELECIONE::"/>
+				<h:panelGroup  style="float:left;width:156px;" required="true">
+					<p:selectOneMenu id="comboFrequenciaRepeticao" value="#{financeiroBean.numComboFrequencia}" style="float:left;width:152px;">
+						<f:selectItem itemValue="" itemLabel="::SELECIONE::" noSelectionOption="true"/>
 						<f:selectItems value="#{financeiroBean.comboFrequenciaRepeticao}"/>
 					</p:selectOneMenu>
 				</h:panelGroup>
 				
 				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Número de repetições"/>
+					<p:outputLabel for="quantidadeRecorrencia" styleClass="textIondax" value="Número de repetições"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{financeiroBean.contaAPagar.recorrencia.qtdOcorrencias}"/>
+					<p:inputText id="quantidadeRecorrencia" value="#{financeiroBean.contaAPagar.recorrencia.qtdOcorrencias}" required="true">
+					</p:inputText>
 				</h:panelGroup>
 				
 			</h:panelGrid>
 				
 				
-			<h:panelGrid columns="4">
-				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Recebedor"/>
+			<h:panelGrid columns="6">
+				<h:panelGroup style="float:left;width:172px;">
+					<p:outputLabel styleClass="textIondax" value="Recebedor" for="recebedor"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{financeiroBean.contaAPagar.fornecedor.nomeFantasia}" label="Quem vai receber ?"/>
-				</h:panelGroup>
-				
-				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Data de competência"/>
-				</h:panelGroup>
-				<h:panelGroup>
-					<p:calendar locale="pt" value="#{financeiroBean.contaAPagar.dataCompetencia}" pattern="dd/MM/yyyy"/>
+					<p:autoComplete id="recebedor" value="#{financeiroBean.contaAPagar.fornecedor.nomeFantasia}" completeMethod="#{financeiroBean.carregaFornecedoresInclusaoDespesa}"/>
 				</h:panelGroup>
 				
-				<h:panelGroup>
-					<p:outputLabel styleClass="textIondax" value="Observações"/>
+				<h:panelGroup style="float:left;width:160px;">
+					<p:outputLabel for="dtCmpetencia" styleClass="textIondax" value="Data de competência"/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputTextarea cols="30" rows="3" value="#{financeiroBean.contaAPagar.observacoes}"/>
+					<p:calendar id="dtCmpetencia" locale="pt" value="#{financeiroBean.contaAPagar.dataCompetencia}" pattern="dd/MM/yyyy" required="true"/>
 				</h:panelGroup>
 				
-				<h:panelGroup>
+			</h:panelGrid>	
+			
+			<h:panelGrid columns="2">
+				<h:panelGroup  style="float:left;width:172px;">
 					<p:outputLabel styleClass="textIondax" value="Anexos"/>
 				</h:panelGroup>
 				<h:panelGroup>
 						<p:fileUpload fileUploadListener="#{financeiroBean.pegarNomeDoArquivoContaPagar}" mode="advanced" dragDropSupport="false" label="Selecionar" uploadLabel="Enviar" cancelLabel="Cancelar"
 						multiple="true" sizeLimit="1000000" fileLimit="10" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 				</h:panelGroup>
-			</h:panelGrid>	
+				<h:panelGroup>
+					<p:outputLabel styleClass="textIondax" value="Observações"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputTextarea cols="55" rows="5" value="#{financeiroBean.contaAPagar.observacoes}"/>
+				</h:panelGroup>
+			</h:panelGrid>
 			
-			<p:commandButton id="btnAdicionarDespesa" value="Adicionar Despesa" action="#{financeiroBean.incluirDespesa}" ajax="false"/>
+			<p:commandButton id="btnAdicionarDespesa" rendered="#{!(financeiroBean.editarLancamento)}" value="Adicionar Despesa" action="#{financeiroBean.incluirDespesa}" ajax="false" process="@form" icon="ui-icon-check"/>
+			<p:commandButton id="btnEditarDespesa" rendered="#{financeiroBean.editarLancamento}" value="Editar Despesa" action="#{financeiroBean.editarDespesa}" ajax="false" process="@form" icon="ui-icon-check"/>
 						
 		</h:form>
 	</ui:define>

@@ -14,7 +14,6 @@ import javax.persistence.Transient;
 
 import br.com.iondax.entities.financeiro.contabancaria.transacoes.despesa.Despesa;
 import br.com.iondax.entities.financeiro.contabancaria.transacoes.receita.Receita;
-import br.com.iondax.entities.financeiro.contabancaria.transacoes.transferencia.Transferencia;
 import br.com.iondax.entities.financeiro.relatorios.Lancamentos;
 import br.com.iondax.util.BaseEntities;
 
@@ -32,15 +31,14 @@ public class ContaBancaria extends BaseEntities<Long> {
 	private String codigoDoCliente;
 	private String convenio;
 	private String modalidade;
-	private String nomeContaBancaria;
+	public String nomeContaBancaria;
 	private String nossoNumeroInicial;
+	private char tipo;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contaBancaria")
 	private List<Despesa> listaDespesas;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contaBancaria")
 	private List<Receita> listaReceitas;
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contaBancaria")
-	private List<Transferencia> listaTransferencia;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contaBancaria")
 	private List<Lancamentos> lancamentos;
 	
@@ -177,6 +175,14 @@ public class ContaBancaria extends BaseEntities<Long> {
 	
 	public void setId(Long id){
 		super.setId(id);
+	}
+
+	public char getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(char tipo) {
+		this.tipo = tipo;
 	}
 
 }
