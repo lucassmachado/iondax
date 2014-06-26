@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="../../../template/template_gerenciador.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:param name="titulo" value="IONDAX - Design e Tecnologia"/>
+	
+	<ui:param name="tabAtiva" value="1"/>
+	
+	<ui:define name="importacaoAdicional">
+		<link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/css/content/financeiro/financeiro.css" />
+		<script type="text/javascript">
+            $(document).ready(function() {
+                setarMascara();
+            }); 
+            function setarMascara() {
+                $("#valorTransferencia").maskMoney({showSymbol:false, symbol:"R$ ", precision: 2, decimal:",", thousands:"."});
+            }
+        </script>
+	</ui:define>
+	
+	<ui:define name="body_content">
+		<h:form id="formInclusaoTransferencia" prependId="false" entype="multipart/form-data">
+			<h:panelGrid id="inclusaoTransferencia">
+			
+				<h:panelGrid columns="4">
+					<h:panelGroup>
+						<p:outputLabel for="listaContasOrigem" styleClass="textIondax" value="Conta de Origem"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<!-- traz soh das empresas nesse combo -->
+						<p:selectOneMenu id="listaContasOrigem" value="#{financeiroBean.transferencia.contaOrigem.id}" style="width:99%;" required="true">
+							<f:selectItem itemValue="" itemLabel="::SELECIONE::" noSelectionOption="true"></f:selectItem>
+							<f:selectItems value="#{financeiroBean.listaContaTransferenciaOrigem}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:outputLabel for="listaContasDestinoDestino" styleClass="textIondax" value="Conta de Destino"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectOneMenu id="listaContasDestinoDestino" value="#{financeiroBean.transferencia.contaDestino.id}" style="width:99%;" required="true">
+							<f:selectItem itemValue="" itemLabel="::SELECIONE::" noSelectionOption="true"></f:selectItem>
+							<f:selectItems value="#{financeiroBean.listaContaTransferenciaDestino}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+					
+					
+					
+					<h:panelGroup>
+						<p:outputLabel for="comboCategoriaTransferencia" styleClass="textIondax" value="Categoria"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:selectOneMenu id="comboCategoriaTransferencia" value="#{financeiroBean.transferencia.subTipo.id}" style="float:left;width:155px;" required="true">
+							<f:selectItem itemValue="" itemLabel="::SELECIONE::" noSelectionOption="true"></f:selectItem>
+							<f:selectItems value="#{financeiroBean.comboCategoriaTransacao}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" for="nomeTransferencia" value="Nome da Transferencia"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:inputText id="nomeTransferencia" value="#{financeiroBean.transferencia.nomeTransferencia}" required="true"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" for="dtProgramada" value="Data programada transferência"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:calendar id="dtProgramada" mindate="#{financeiroBean.minDate}" locale="pt" value="#{financeiroBean.transferencia.dataTransferencia}" pattern="dd/MM/yyyy" required="true"/>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:outputLabel styleClass="textIondax" value="Valor da Transferência" for="valorTransferencia"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:inputText id="valorTransferencia" style="" value="#{financeiroBean.transferencia.valorTransferencia}" required="true">
+							<f:convertNumber pattern="#,##0.00" />
+						</p:inputText>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				<p:commandButton rendered="#{!(financeiroBean.editarLancamento)}" id="btnAdicionarTransferencia" value="Transferir" process="@form" action="#{financeiroBean.incluirTransferencia}" ajax="false"/>
+				<p:commandButton rendered="#{financeiroBean.editarLancamento}" id="btnEditarTransferencia" value="Editar Transferência" process="@form" actionListener="#{financeiroBean.editarTransferencia}" ajax="false"/>
+			</h:panelGrid>			
+		</h:form>
+	</ui:define>
+</ui:composition>
